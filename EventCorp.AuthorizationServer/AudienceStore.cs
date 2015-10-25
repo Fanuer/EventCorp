@@ -1,50 +1,97 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using EventCorp.AuthorizationServer.Entites;
+using EventCorp.AuthorizationServer.Interfaces.Repositories;
+using EventCorp.AuthorizationServer.Repository;
+using EventCorps.Helper;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 
 namespace EventCorp.AuthorizationServer
 {
-    public static class AudiencesStore
+    public class AudiencesStore
     {
-        public static ConcurrentDictionary<string, Audience> AudiencesList = new ConcurrentDictionary<string, Audience>();
+        #region Field
+        private static AudiencesStore _singleton;
+        private readonly ConcurrentDictionary<string, Audience> _audiencesList;
+        private readonly IAudienceRepository _rep;
+        private bool initialized = false;
+        #endregion
 
-        static AudiencesStore()
+        #region Ctor
+
+        public AudiencesStore()
         {
-            AudiencesList.TryAdd("099153c2625149bc8ecb3e85e03f0022",
-                                new Audience
-                                {
-                                    ClientId = "099153c2625149bc8ecb3e85e03f0022",
-                                    Base64Secret = "IxrAjDoa2FqElO7IhrSrUJELhUckePEPVpaePlS_Xaw",
-                                    Name = "ResourceServer.Api 1"
-                                });
+            _rep = new AudienceRepository(AuthContext.Create());
+            try
+            {
+                _audiencesList = new ConcurrentDictionary<string, Audience>();
+            }
+            catch (Exception e )
+            {
+                throw e;
+            }
+            
         }
+        #endregion
 
-        public static Audience AddAudience(string name)
+        #region Methods
+        public async Task<Audience> AddAudience(string name)
         {
+            if (!initialized)
+            {
+                await this.Initialize();
+            }
             //create clientId
             var clientId = Guid.NewGuid().ToString("N");
+            var secret = Utilities.GetHash(name);
 
-            var key = new byte[32];
-            // Create new symmetric key: will be shared between the Authorization server and the Resource server
-            RandomNumberGenerator.Create().GetBytes(key);
-            var base64Secret = TextEncodings.Base64Url.Encode(key);
+            var newAudience = new Audience { Id = clientId, Secret = secret, Name = name };
+            if (_audiencesList.TryAdd(clientId, newAudience))
+            {
+                var peng = await _rep.AddAsync(newAudience);
+            }
 
-            var newAudience = new Audience { ClientId = clientId, Base64Secret = base64Secret, Name = name };
-            AudiencesList.TryAdd(clientId, newAudience);
             return newAudience;
         }
 
-        public static Audience FindAudience(string clientId)
+        public Audience FindAudience(string clientId)
         {
             Audience audience = null;
-            AudiencesList.TryGetValue(clientId, out audience);
+            _audiencesList.TryGetValue(clientId, out audience);
             return audience;
         }
+
+        public async Task RemoveAudience(string clientId)
+        {
+            if (!initialized)
+            {
+                await this.Initialize();
+            }
+            Audience audience = null;
+            _audiencesList.TryRemove(clientId, out audience);
+            await _rep.RemoveAsync(clientId);
+        }
+
+        private async Task Initialize()
+        {
+            var clients = await _rep.GetAllAsync();
+            foreach (var client in clients)
+            {
+                _audiencesList.TryAdd(client.Id, client);
+            }
+            initialized = true;
+        }
+        #endregion
+
+        #region Properties
+        public static AudiencesStore Instance => _singleton ?? (_singleton = new AudiencesStore());
+        #endregion
+
+        
     }
 }

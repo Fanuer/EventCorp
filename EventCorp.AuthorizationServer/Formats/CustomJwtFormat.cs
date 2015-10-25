@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EventCorp.AuthorizationServer.Entites;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using Thinktecture.IdentityModel.Tokens;
@@ -36,9 +31,9 @@ namespace EventCorp.AuthorizationServer.Formats
             {
                 throw new InvalidOperationException("AuthenticationTicket.Properties does not include audience");
             }
-
-            var audience = AudiencesStore.FindAudience(audienceId);
-            var symmetricKeyAsBase64 = audience.Base64Secret;
+            
+            var audience = AudiencesStore.Instance.FindAudience(audienceId);
+            var symmetricKeyAsBase64 = audience.Secret;
             var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyAsBase64);
             var signingKey = new HmacSigningCredentials(keyByteArray);
 

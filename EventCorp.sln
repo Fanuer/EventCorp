@@ -14,7 +14,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{EAEC173D-A21D-4601-B36A-077790F6B455}"
 	ProjectSection(SolutionItems) = preProject
 		PublishScripts\Configurations\EventCorpAuthorizationServer-WAWS-dev.json = PublishScripts\Configurations\EventCorpAuthorizationServer-WAWS-dev.json
+		PublishScripts\Configurations\EventCorpRecommendation-WAWS-dev.json = PublishScripts\Configurations\EventCorpRecommendation-WAWS-dev.json
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCorp.Recommendation", "EventCorp.Recommendation\EventCorp.Recommendation.csproj", "{236BE57F-7EB5-478E-B214-0A4C43D9863F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCorps.Helper", "EventCorps.Helper\EventCorps.Helper.csproj", "{B60BB246-73C9-4938-A128-6364B75FE14E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +31,14 @@ Global
 		{3C9F0517-8544-476B-AF1D-49FC8E296DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C9F0517-8544-476B-AF1D-49FC8E296DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C9F0517-8544-476B-AF1D-49FC8E296DDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{236BE57F-7EB5-478E-B214-0A4C43D9863F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{236BE57F-7EB5-478E-B214-0A4C43D9863F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{236BE57F-7EB5-478E-B214-0A4C43D9863F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{236BE57F-7EB5-478E-B214-0A4C43D9863F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B60BB246-73C9-4938-A128-6364B75FE14E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B60BB246-73C9-4938-A128-6364B75FE14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B60BB246-73C9-4938-A128-6364B75FE14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B60BB246-73C9-4938-A128-6364B75FE14E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
