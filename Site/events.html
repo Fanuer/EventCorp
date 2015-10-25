@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="styles.css">
+		<title>EventCorp</title>
+	</head>
+
+	<body>
+		<header>
+			<nav class="navbar navbar-default navbar-fixed-top" id="main-nav">
+			  <div class="container-fluid">
+			    <img src="./icon.png" id="img-logo" height="42" width="42" style="float: left;	margin-top: 5px; margin-right: 5px;"/>
+			    <div class="navbar-header">
+			      <a class="navbar-brand" href="#">EventCorp</a>
+			    </div>
+					<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Events</a></li>
+			      	<li><a href="#">Über Uns</a></li>
+			      	<li><a href="#">Abmelden</a></li>
+			      </ul>
+			  </div><!-- /.container-fluid -->
+			</nav><!-- Navigation -->
+		</header>
+		<div id="eventsContainer" class="container">
+			<div class="row">
+				<div class="col-md-12">
+		            <div class="input-group col-sm-offset-3 col-sm-6 form-group" id="adv-search">
+		                <input type="text" class="form-control" placeholder="Suche Event">
+		                <div class="input-group-btn" id="eventsSearchButtonGroup">
+		                    <div class="btn-group" role="group">
+		                        <div class="dropdown dropdown-lg">
+		                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+		                            <div class="dropdown-menu dropdown-menu-right" role="menu" id="eventsSearchDropdown">
+		                                <form class="form-horizontal" role="form" id="innerSearchForm">
+		                                  <div class="form-group">
+		                                    <label for="filter">Filtern nach</label>
+		                                    <select class="form-control">
+		                                        <option value="0" selected="">Alle Events</option>
+		                                        <option value="1">Turnier</option>
+		                                        <option value="2">Wettkampf</option>
+		                                    </select>
+		                                  </div>
+		                                  <div class="form-group">
+		                                    <label for="contain">Veranstalter</label>
+		                                    <input class="form-control" type="text">
+		                                  </div>
+		                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		                                </form>
+		                            </div>
+		                        </div>
+		                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		                    </div>
+		                </div>
+		            </div>
+		          </div>
+	        </div>
+	        <div class="row">
+	        	<div id="allEvents" class="col-sm-offset-2 col-sm-8">
+					<h3>Alle Events</h3><hr>
+					<p>12.10.2015 Event 1</p>
+				</div>
+	        </div>
+		</div><!-- Events -->
+		<footer class="footer">
+	        <p class="text-muted">&copy; EventCorp 2015</p>
+	    </footer><!-- Footer -->
+	</body>
+</html>

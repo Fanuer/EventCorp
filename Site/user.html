@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="styles.css">
+		<title>EventCorp</title>
+	</head>
+
+	<body>
+		<header>
+			<nav class="navbar navbar-default navbar-fixed-top" id="main-nav">
+			  <div class="container-fluid">
+			    <img src="./icon.png" id="img-logo" height="42" width="42" style="float: left;	margin-top: 5px; margin-right: 5px;"/>
+			    <div class="navbar-header">
+			      <a class="navbar-brand" href="#">EventCorp</a>
+			    </div>
+					<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Events</a></li>
+			      	<li><a href="#">Über Uns</a></li>
+			      	<li><a href="#">Abmelden</a></li>
+			      </ul>
+			  </div><!-- /.container-fluid -->
+			</nav><!-- Navigation -->
+		</header>
+		<div id="userContainer" class="container">
+			<form id="userCredentialUpdate">
+				<div id="userPicture" class="col-sm-5 form-group">
+					<h3>Bild hochladen</h3>
+					  <input type="file" name="pic" accept="image/*">
+				</div>
+				<div id="userCredentials" class="col-sm-offset-2 col-sm-5 form-group">
+					<h3>Persönliche Daten</h3>
+					<div class="form-group">
+						<label for="inputUsername" class="sr-only">Benutzername</label>
+					    <input type="text" id="inputUsername" class="form-control" placeholder="Benutzername" required="" autofocus="">
+					</div>
+				    <div class="form-group">
+					    <label for="inputBirthday" class="sr-only">Geburtstag</label>
+					    <input type="date" id="inputBirthday" class="form-control" placeholder="Geburtstag" required="" autofocus="">
+				  	</div>
+				  	<div class="form-group">
+					  	<label for="inputUserSports">Meine Sportarten:</label>
+					  	<textarea class="form-control" rows="5" id="inputUserSports"></textarea>
+					</div>
+					<div class="form-group">
+					  	<label for="inputUserAdditionalInformation">Über mich:</label>
+					  	<textarea class="form-control" rows="5" id="inputUserAdditionalInformation"></textarea>
+					</div>
+				</div>
+				<div id="userCredentialSubmit" class="col-sm-offset-4 col-sm-4 form-group">
+					<button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-register">Speichern</button>
+				</div>
+			</form>
+		</div><!-- User -->
+		<footer class="footer">
+	        <p class="text-muted">&copy; EventCorp 2015</p>
+	    </footer><!-- Footer -->
+	</body>
+</html>
