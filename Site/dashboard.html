@@ -7,26 +7,15 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 		<link rel="stylesheet" href="styles.css">
 		<title>EventCorp</title>
 	</head>
 
-	<body>
+	<body ng-app="">
 		<div id="wrapper">
-			<header>
-				<nav class="navbar navbar-default navbar-fixed-top" id="main-nav">
-				  <div class="container-fluid">
-				    <img src="./icon.png" id="img-logo" height="42" width="42" style="float: left;	margin-top: 5px; margin-right: 5px;"/>
-				    <div class="navbar-header">
-				      <a class="navbar-brand" href="#">EventCorp</a>
-				    </div>
-						<ul class="nav navbar-nav navbar-right">
-				      	<li><a href="#">Über Uns</a></li>
-				      	<li><a href="#">Abmelden</a></li>
-				      </ul>
-				  </div><!-- /.container-fluid -->
-				</nav><!-- Navigation -->
-			</header>
+			<div ng-include="'header.html'">
+			</div>
 			<div id="dashboardContainer" class="container">
 				<div id="profilOverview" class="col-sm-5">
 					<h3>Mein Profil</h3>
@@ -41,9 +30,8 @@
 					</div>
 				</div>
 			</div><!-- Dashboard -->
-			<footer class="footer">
-		        <p class="text-muted">&copy; EventCorp 2015</p>
-		    </footer><!-- Footer -->
+		</div><!-- wrapper -->
+		<div ng-include="'footer.html'">
 		</div>
 	</body>
 </html>
