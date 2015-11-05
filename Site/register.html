@@ -11,86 +11,90 @@
 		<title>EventCorp</title>
 	</head>
 
-	<body>
-		<header>
-			<nav class="navbar navbar-default navbar-fixed-top" id="main-nav">
-			  <div class="container-fluid">
-			    <img src="./icon.png" id="img-logo" height="42" width="42" style="float: left;	margin-top: 5px; margin-right: 5px;"/>
-			    <div class="navbar-header">
-			      <a class="navbar-brand" href="#">EventCorp</a>
-			    </div>
-					<ul class="nav navbar-nav navbar-right">
-			      	<li><a href="#">Über Uns</a></li>
-			      </ul>
-			  </div><!-- /.container-fluid -->
-			</nav><!-- Navigation -->
-		</header>
-		<div id="login" class="container">
-			<form class="form-signin col-sm-offset-4 col-sm-4">
-				<h2 class="form-signin-heading">Registrierung</h2>
-				<div class="form-group">
-				    <label for="inputName">Name</label>
-				    <input type="text" id="inputName" class="form-control" placeholder="Name" required="" autofocus="">
-			  	</div class="form-group">
-			  	<div class="form-group">
-				    <label for="inputFirstName">Vorname</label>
-				    <input type="text" id="inputFirstName" class="form-control" placeholder="Vorname" required="" autofocus="">
-			  	</div>
-			  	<div class="form-group">
-				    <label for="inputEmail">Email-Adresse</label>
-				    <input type="email" id="inputEmail" class="form-control" placeholder="E-Mail" required="" autofocus="">
-			  	</div>
-			  	<div class="form-group">
-				    <label for="inputBirthday">Geburtstag</label>
-				    <input type="date" id="inputBirthday" class="form-control" placeholder="Geburtstag" required="" autofocus="">
-			  	</div>
-			  	<div class="form-group">
-				    <label for="inputUsername">Benutzername</label>
-				    <input type="text" id="inputUsername" class="form-control" placeholder="Benutzername" required="" autofocus="">
-			  	</div>
-			  	<!-- Auswahl der Region -->
-			  	<!--<div class="form-group">
-				    <label for="inputRegion" class="sr-only">Region</label>
-				    <select class="form-control" id="inputEvent">
-					  	<option>Ort 1</option>
-						<option>Ort 2</option>
-						<option>Ort n</option>
-						<option>Region 1</option>
-						<option>Region 2</option>
-						<option>Region n</option>
-					</select>
-			  	</div> -->
-			  	<!-- Veranstaltungstyp -->
-			  	<!-- <div class="form-group">
-				    <label for="inputEvent" class="sr-only">Veranstaltungsart</label>
-				    <select class="form-control" id="inputEvent">
-					  	<option>Sportart 1</option>
-						<option>Sportart 2</option>
-						<option>Sportart n</option>
-						<option>Sportgala</option>
-						<option>Turnier</option>
-					</select>
-			  	</div> -->
-		        <div class="form-group">
-					<label for="inputPassword">Passwort</label>
-		        	<input type="password" id="inputPassword" class="form-control" placeholder="Passwort" required="">
-		        </div>
-		        <div class="form-group">
-					<label for="inputPasswordRepeat">Passwort wiederholen</label>
-		        	<input type="password" id="inputPasswordRepeat" class="form-control" placeholder="Passwort wiederholen" required="">
-		        </div>
-	        	<div class="checkbox">
-		          	<label>
-		            	<input type="checkbox" value="accept-agb"> Akteptiere die <a href="#">AGB</a>
-		          	</label>
-		        </div>
-		        <button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-register">Registrieren</button>
-		      </form>
-		</div><!-- Login -->
+	<body>`
+		<div id="wrapper">
+			<header>
+				<nav class="navbar navbar-default navbar-fixed-top" id="main-nav">
+				  <div class="container-fluid">
+					<img src="./icon.png" id="img-logo" height="42" width="42" style="float: left;	margin-top: 5px; margin-right: 5px;"/>
+					<div class="navbar-header">
+					  <a class="navbar-brand" href="#">EventCorp</a>
+					</div>
+						<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Über Uns</a></li>
+					  </ul>
+				  </div><!-- /.container-fluid -->
+				</nav><!-- Navigation -->
+			</header>
+			<div id="login" class="container">
+				<form class="form-signin col-sm-offset-4 col-sm-4">
+					<h2 class="form-signin-heading">Registrierung</h2>
+					<div class="form-group">
+						<label for="inputName" class="sr-only">Name</label>
+						<!-- name contains 2-20 chars without spaces and symbols -->
+						<input type="text" id="inputName" class="form-control" pattern="^[a-zA-Z][a-zA-Z]{1,20}$" placeholder="Name" required="" autofocus="">
+					</div class="form-group">
+					<div class="form-group">
+						<label for="inputFirstName" class="sr-only">Vorname</label>
+						<!-- vorname contains 2-20 chars without spaces and symbols -->
+						<input type="text" id="inputFirstName" pattern="^[a-zA-Z][a-zA-Z]{1,20}$" class="form-control" placeholder="Vorname" required="" autofocus="">
+					</div>
+					<div class="form-group">
+						<label for="inputEmail" class="sr-only">Email-Adresse</label>
+						<input type="email" id="inputEmail" class="form-control" placeholder="E-Mail" required="" autofocus="">
+					</div>
+					<div class="form-group">
+						<label for="inputBirthday" class="sr-only">Geburtstag</label>
+						<input type="date" id="inputBirthday" class="form-control" placeholder="Geburtstag" required="" autofocus="">
+					</div>
+					<div class="form-group">
+						<label for="inputUsername" class="sr-only">Benutzername</label>
+						<!-- name contain 2-20 chars without spaces -->
+						<input type="text" id="inputUsername" class="form-control" pattern="^[a-zA-Z][a-zA-Z]{1,20}$" placeholder="Benutzername" required="" autofocus="">
+					</div>
+					<!-- Auswahl der Region -->
+					<div class="form-group">
+						<label for="inputRegion" class="sr-only">Region</label>
+						<select class="form-control" id="inputEvent">
+							<option>Ort 1</option>
+							<option>Ort 2</option>
+							<option>Ort n</option>
+							<option>Region 1</option>
+							<option>Region 2</option>
+							<option>Region n</option>
+						</select>
+					</div>
+					<!-- Veranstaltungstyp -->
+					<div class="form-group">
+						<label for="inputEvent" class="sr-only">Veranstaltungsart</label>
+						<select class="form-control" id="inputEvent">
+							<option>Sportart 1</option>
+							<option>Sportart 2</option>
+							<option>Sportart n</option>
+							<option>Sportgala</option>
+							<option>Turnier</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword" class="sr-only">Passwort</label>
+						<!--  password contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter  --> 
+						<input type="password" id="inputPassword" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Passwort" required="">
+					</div>
+					<div class="form-group">
+						<label for="inputPasswordRepeat" class="sr-only">Passwort wiederholen</label>
+						<input type="password" id="inputPasswordRepeat" class="form-control" placeholder="Passwort wiederholen" required="">
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" value="accept-agb"> Akteptiere die <a href="#">AGB</a>
+						</label>
+					</div>
+					<button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-register">Registrieren</button>
+				  </form>
+			</div><!-- Login -->
+		</div>
 		<footer class="footer">
-			<div class="container">
-	        	<p class="text-muted">&copy; EventCorp 2015</p>
-	    	</div>
-	    </footer><!-- Footer -->
+			<p class="text-muted">&copy; EventCorp 2015</p>
+		</footer><!-- Footer -->
 	</body>
 </html>
