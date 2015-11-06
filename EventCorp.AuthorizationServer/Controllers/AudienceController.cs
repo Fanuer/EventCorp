@@ -11,6 +11,7 @@ using EventCorp.AuthorizationServer.Models;
 namespace EventCorp.AuthorizationServer.Controllers
 {
     [RoutePrefix("api/audience")]
+    [Authorize]
     public class AudienceController : ApiController
     {
         /// <summary>

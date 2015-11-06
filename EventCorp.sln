@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCorp.AuthorizationServer", "EventCorp.AuthorizationServer\EventCorp.AuthorizationServer.csproj", "{3C9F0517-8544-476B-AF1D-49FC8E296DDC}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCorp.Recommendation", "EventCorp.Recommendation\EventCorp.Recommendation.csproj", "{236BE57F-7EB5-478E-B214-0A4C43D9863F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCorps.Helper", "EventCorps.Helper\EventCorps.Helper.csproj", "{B60BB246-73C9-4938-A128-6364B75FE14E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servers", "Servers", "{2D2EA980-BF68-493C-BC53-92D13DEA0D46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{3C9F0517-8544-476B-AF1D-49FC8E296DDC} = {2D2EA980-BF68-493C-BC53-92D13DEA0D46}
 		{EAEC173D-A21D-4601-B36A-077790F6B455} = {E047D3F7-5871-4436-B23F-200B13E0AB24}
+		{236BE57F-7EB5-478E-B214-0A4C43D9863F} = {2D2EA980-BF68-493C-BC53-92D13DEA0D46}
+		{B60BB246-73C9-4938-A128-6364B75FE14E} = {2D2EA980-BF68-493C-BC53-92D13DEA0D46}
 	EndGlobalSection
 EndGlobal

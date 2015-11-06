@@ -12,7 +12,7 @@ namespace EventCorp.AuthorizationServer.Repository
     public class ApplicationRepository:IApplicationRepository
     {
         #region Field
-        private AuthContext _ctx;
+        private readonly AuthContext _ctx;
         private readonly UserManager<IdentityUser> _userManager;
         #endregion
 
@@ -28,7 +28,8 @@ namespace EventCorp.AuthorizationServer.Repository
         #endregion
 
         #region Methods
-        public void Dispose()
+
+        void IDisposable.Dispose()
         {
             _ctx.Dispose();
             _userManager.Dispose();

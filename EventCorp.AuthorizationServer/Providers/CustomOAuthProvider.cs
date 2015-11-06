@@ -37,20 +37,12 @@ namespace EventCorp.AuthorizationServer.Providers
             {
                 context.SetError("invalid_clientId", "client_Id is not set");
             }
-            if (!context.HasError)
+            else if (!context.HasError)
             {
                 var audience = AudiencesStore.Instance.FindAudience(context.ClientId);
                 if (audience == null)
                 {
                     context.SetError("invalid_clientId", $"Client '{context.ClientId}' is not registered in the system.");
-                }
-                else if (audience.Secret != Utilities.GetHash(clientSecret))
-                {
-                    context.SetError("invalid_clientId", "Client secret is invalid.");
-                }
-                else if (!audience.Active)
-                {
-                    context.SetError("invalid_clientId", "Client is inactive.");
                 }
                 else
                 {
@@ -74,7 +66,7 @@ namespace EventCorp.AuthorizationServer.Providers
 
             //Search user by username and password
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-            User user = await userManager.FindAsync(context.UserName, context.Password);
+            var user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
@@ -96,9 +88,7 @@ namespace EventCorp.AuthorizationServer.Providers
 
             var props = new AuthenticationProperties(new Dictionary<string, string>
                 {
-                    {
-                         "audience", context.ClientId ?? string.Empty
-                    }
+                    {"audience", context.ClientId}
                 });
 
             var ticket = new AuthenticationTicket(identity, props);

@@ -30,6 +30,7 @@ namespace EventCorp.AuthorizationServer
             try
             {
                 _audiencesList = new ConcurrentDictionary<string, Audience>();
+                Task.Run(()=> Initialize()).Wait();
             }
             catch (Exception e )
             {
@@ -41,11 +42,7 @@ namespace EventCorp.AuthorizationServer
 
         #region Methods
         public async Task<Audience> AddAudience(string name)
-        {
-            if (!initialized)
-            {
-                await this.Initialize();
-            }
+        {   
             //create clientId
             var clientId = Guid.NewGuid().ToString("N");
             var secret = Utilities.GetHash(name);
@@ -68,10 +65,6 @@ namespace EventCorp.AuthorizationServer
 
         public async Task RemoveAudience(string clientId)
         {
-            if (!initialized)
-            {
-                await this.Initialize();
-            }
             Audience audience = null;
             _audiencesList.TryRemove(clientId, out audience);
             await _rep.RemoveAsync(clientId);

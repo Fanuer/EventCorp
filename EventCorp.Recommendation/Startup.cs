@@ -19,9 +19,9 @@ namespace EventCorp.Recommendation
 
         public void ConfigureOAuth(IAppBuilder app)
         {
-            var issuer = "http://jwtauthzsrv.azurewebsites.net";
-            var audience = "099153c2625149bc8ecb3e85e03f0022";
-            var secret = TextEncodings.Base64Url.Decode("IxrAjDoa2FqElO7IhrSrUJELhUckePEPVpaePlS_Xaw");
+            var issuer = "http://localhost:54867/";
+            var audience = "cc679ca3632f4be395ab3dee8e06053a";
+            var secret = TextEncodings.Base64Url.Decode("+cXV9wUrwlLmoEfFvXG8roLB7qOWRz2G+obb8bxl6bk=");
 
             // Api controllers with an [Authorize] attribute will be validated with JWT
             app.UseJwtBearerAuthentication(

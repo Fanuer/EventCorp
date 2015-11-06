@@ -26,7 +26,7 @@ namespace EventCorp.AuthorizationServer.Providers
             {
                 bool result = false;
                 var refreshTokenId = Guid.NewGuid().ToString("n");
-                var clientId = context.Ticket.Properties.Dictionary["as:client_id"];
+                var clientId = context.Ticket.Properties.Dictionary["audience"];
 
                 var refreshTokenLifetime = context.OwinContext.Get<string>("as:clientRefreshTokenLifeTime") ?? "30";
                 var token = new RefreshToken()
