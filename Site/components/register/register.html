@@ -1,0 +1,78 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/polymer/1.0/polymer.js"></script>
+
+<dom-module id="register-component">
+	<link rel="stylesheet" href="register.css"/>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="components/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+	<template>
+        <h2 class="form-signin-heading">Registrierung</h2>
+        <div class="form-group">
+            <label for="inputName" class="sr-only">Name</label>
+            <!-- name contains 2-20 chars without spaces and symbols -->
+            <input type="text" id="inputName" class="form-control" pattern="^[a-zA-Z][a-zA-Z]{1,20}$" placeholder="Name" required="" autofocus="">
+        </div>
+        <div class="form-group">
+            <label for="inputFirstName" class="sr-only">Vorname</label>
+            <!-- vorname contains 2-20 chars without spaces and symbols -->
+            <input type="text" id="inputFirstName" pattern="^[a-zA-Z][a-zA-Z]{1,20}$" class="form-control" placeholder="Vorname" required="" autofocus="">
+        </div>
+        <div class="form-group">
+            <label for="inputEmail" class="sr-only">Email-Adresse</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="E-Mail" required="" autofocus="">
+        </div>
+        <div class="form-group">
+            <label for="inputBirthday" class="sr-only">Geburtstag</label>
+            <input type="date" id="inputBirthday" class="form-control" placeholder="Geburtstag" required="" autofocus="">
+        </div>
+        <div class="form-group">
+            <label for="inputUsername" class="sr-only">Benutzername</label>
+            <!-- name contain 2-20 chars without spaces -->
+            <input type="text" id="inputUsername" class="form-control" pattern="^[a-zA-Z][a-zA-Z]{1,20}$" placeholder="Benutzername" required="" autofocus="">
+        </div>
+        <!-- Auswahl der Region -->
+        <div class="form-group">
+            <label for="inputRegion" class="sr-only">Region</label>
+            <select class="form-control" id="inputEvent">
+                <option>Ort 1</option>
+                <option>Ort 2</option>
+                <option>Ort n</option>
+                <option>Region 1</option>
+                <option>Region 2</option>
+                <option>Region n</option>
+            </select>
+        </div>
+        <!-- Veranstaltungstyp -->
+        <div class="form-group">
+            <label for="inputEvent" class="sr-only">Veranstaltungsart</label>
+            <select class="form-control" id="inputEvent">
+                <option>Sportart 1</option>
+                <option>Sportart 2</option>
+                <option>Sportart n</option>
+                <option>Sportgala</option>
+                <option>Turnier</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="sr-only">Passwort</label>
+            <!--  password contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter  -->
+            <input type="password" id="inputPassword" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Passwort" required="">
+        </div>
+        <div class="form-group">
+            <label for="inputPasswordRepeat" class="sr-only">Passwort wiederholen</label>
+            <input type="password" id="inputPasswordRepeat" class="form-control" placeholder="Passwort wiederholen" required="">
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="accept-agb"> Akteptiere die <a href="#">AGB</a>
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-register">Registrieren</button>
+	</template>
+	<script>
+		Polymer({
+			is:'register-component'
+		})
+	</script>
+</dom-module>
+<!--</polymer-element>-->
+
