@@ -22,3 +22,7 @@ eventCorp.config([
 ]);
 
 eventCorp.controller("dashboardController", dashboardController);
+eventCorp.controller("eventController", eventController);
+eventCorp.controller("loginController", loginController);
+eventCorp.controller("registerController", registerController);
+eventCorp.controller("userController", userController);
