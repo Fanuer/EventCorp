@@ -1,0 +1,35 @@
+<link rel="import" href="/components/polymer/polymer.html" />
+<dom-module id="profile-card">
+	<link rel="import" type="css" href="profile.css"/>
+	<template>
+		<h3>Persönliche Daten</h3>
+        <div class="form-group">
+            <label for="inputUsername">Benutzername</label>
+            <input type="text" id="inputUsername" class="form-control" placeholder="Benutzername" required="" autofocus="" value="{{username}}" />
+        </div>
+        <div class="form-group">
+            <label for="inputBirthday">Geburtstag</label>
+            <input type="date" id="inputBirthday" class="form-control" placeholder="Geburtstag" required="" value="{{birthdate}}" />
+        </div>
+        <div class="form-group">
+            <label for="inputUserSports">Meine Sportarten</label>
+            <textarea class="form-control" rows="5" id="inputUserSports" placeholder="Meine Sportarten" value="{{mySports}}"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="inputUserAdditionalInformation">Über mich</label>
+            <textarea class="form-control" rows="5" id="inputUserAdditionalInformation" value="{{about}}"></textarea>
+        </div>
+	</template>
+	<script>
+		Polymer({
+			is:'profile-card',
+			properties: {
+			    username: { notify: true },
+			    birthdate: { notify: true },
+			    mySports: { notify: true },
+			    about: { notify: true }
+			}
+		})
+	</script>
+</dom-module>
+<!--</polymer-element>-->

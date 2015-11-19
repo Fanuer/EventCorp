@@ -1,0 +1,22 @@
+<link rel="import" href="../polymer/polymer.html">
+<dom-module id="profile-card">
+  <!-- Note: Style modules were introduced in Polymer 1.1; they replace the experimental support for external stylesheets -->
+  <link rel="import" type="css" href="profile-card.css">
+  <template>
+	<article class="card shadow card-content">
+		<img src="{{img}}" class="user-image">
+		<h1>Visitenkarte</h1>
+		<content></content>
+		<em>{{twitter}}</em>
+	</article>
+</template>
+  <script>
+    Polymer({
+      is: 'profile-card',
+      properties: {
+        img: { notify: true },
+        twitter: { notify: true }
+      }
+    });
+  </script>
+</dom-module>

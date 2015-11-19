@@ -19,7 +19,7 @@ namespace EventCorp.Recommendation
 
         public void ConfigureOAuth(IAppBuilder app)
         {
-            var issuer = "http://localhost:54867/";
+            var issuer = "EventCorp.AuthServer";
             var audience = "cc679ca3632f4be395ab3dee8e06053a";
             var secret = TextEncodings.Base64Url.Decode("+cXV9wUrwlLmoEfFvXG8roLB7qOWRz2G+obb8bxl6bk=");
 

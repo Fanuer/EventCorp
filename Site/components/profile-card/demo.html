@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>Visitenkarte</title>
+	<script src="../components/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+	<link rel="import" href="profile-card.html"/>
+	<style>
+	/* Kein Konflikt mit der card-Regel in profile-card.css: */
+	.card {
+		background-color: red;
+	}
+
+	/* Kein Konflikt mit der h1-Regel in profile-card.css: */
+	h1 {
+		color: blue;
+	}
+
+	/* Shadow DOM von außen stylen: */
+	profile-card::shadow .title {
+		color: yellow;
+	}	
+	</style>
+</head>
+<body>
+	<h1>Visitenkarten</h1>
+	<profile-card img="profile.jpg" twitter="@gedfth">
+		<h3>Dr. Fatih Gedikli</h2>
+		<h3>FH Dortmund</h3>
+		<h5>Externer Lehrbeauftragter</h5>
+	</profile-card>
+
+	<br/>
+
+	<profile-card img="http://www.fh-dortmund.de/de/addresses/fb4/Stark_Michael.php.media/32682/Stark_Michael.jpg">
+		<h3>Prof. Dr. Michael Stark</h2>
+		<h3>FH Dortmund</h3>
+		<h4>Dekan</h4>
+	</profile-card>
+</body>
+</html>
