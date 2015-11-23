@@ -1,35 +1,7 @@
 ﻿<div id="eventsContainer" class="container">
 	<div class="row">
-		<div class="col-md-12">
-			<div class="input-group col-sm-offset-3 col-sm-6 form-group" id="adv-search">
-				<input type="text" class="form-control" placeholder="Suche Event">
-				<div class="input-group-btn" id="eventsSearchButtonGroup">
-					<div class="btn-group" role="group">
-						<div class="dropdown dropdown-lg">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-							<div class="dropdown-menu dropdown-menu-right" role="menu" id="eventsSearchDropdown">
-								<form class="form-horizontal" role="form" id="innerSearchForm">
-									<div class="form-group">
-									<label for="filter">Filtern nach</label>
-									<select class="form-control" id="filter">
-										<option value="0" selected="">Alle Events</option>
-										<option value="1">Turnier</option>
-										<option value="2">Wettkampf</option>
-									</select>
-									</div>
-									<div class="form-group">
-									<label for="contain">Veranstalter</label>
-									<input class="form-control" type="text" id="contain">
-									</div>
-									<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-								</form>
-							</div>
-						</div>
-						<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-					</div>
-				</div>
-			</div>
-			</div>
+	    <event-search eventFilter="[{'id':'1', 'value':'Test1'},{'id':'2', 'value':'Test2'}]" suchwort="Testname"></event-search>
+        blablabla
 	</div>
 	<div class="row">
 		<div id="allEvents" class="col-sm-offset-2 col-sm-8">
