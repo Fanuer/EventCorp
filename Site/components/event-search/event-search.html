@@ -1,56 +1,53 @@
-<link rel="import" href="/scripts/polymer/polymer.html">
 <dom-module id="event-search">
-  <!-- Note: Style modules were introduced in Polymer 1.1; they replace the experimental support for external stylesheets -->
-  <link rel="import" type="css" href="event-search.css">
-  <template>
-      <div class="col-md-12">
-          <div class="input-group col-sm-offset-3 col-sm-6 form-group" id="adv-search">
-              <input type="text" class="form-control" placeholder="Suche Event" value="{{suchwort}}">
-              <div class="input-group-btn" id="eventsSearchButtonGroup">
-                  <div class="btn-group" role="group">
-                      <div class="dropdown dropdown-lg">
-                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                          <div class="dropdown-menu dropdown-menu-right" role="menu" id="eventsSearchDropdown">
-                              <form class="form-horizontal" role="form" id="innerSearchForm">
-                                  <div class="form-group">
-                                      <label for="filter">Filtern nach</label>
-                                      <select class="form-control" id="filter" data-bind="eventFilter">
+    <!-- Note: Style modules were introduced in Polymer 1.1; they replace the experimental support for external stylesheets -->
+    <link rel="import" type="css" href="event-search.css">
+    <template>
+        <div class="col-md-12">
+            <div class="input-group col-sm-offset-3 col-sm-6 form-group" id="adv-search">
+                <input type="text" class="form-control" placeholder="Suche Event" value="{{suchwort}}">
+                <div class="input-group-btn" id="eventsSearchButtonGroup">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu" id="eventsSearchDropdown">
+                                <form class="form-horizontal" role="form" id="innerSearchForm">
+                                    <div class="form-group">
+                                        <label for="filter">Filtern nach</label>
+                                        <select class="form-control" id="filter" data-bind="{{items}}">
 
+                                            <!-- Hier ist der Fehler!!! -->
+                                            <template is="dom-repeat" items="{{items}}">
+                                                <option id="{{item.id}}">{{item.value}}</option>
+                                            </template>
 
-                                          <!-- Hier ist der Fehler!!! -->
-                                          <!--<template is="dom-repeat" items="{{eventFilter}}">
-                                              <option>{{eventFilter.value}}</option>
-                                          </template>-->
-
-
-                                      </select>
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="contain">Veranstalter</label>
-                                      <input class="form-control" type="text" id="contain">
-                                  </div>
-                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                              </form>
-                          </div>
-                      </div>
-                      <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                  </div>
-              </div>
-          </div>
-      </div>
-</template>
-  <script>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contain">Veranstalter</label>
+                                        <input class="form-control" type="text" id="contain">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                </form>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
       Polymer({
           is: 'event-search',
           properties: {
               suchwort: {
                   type:String
               },
-              eventFilter: {
+              items: {
                   type: Array,
                   value: []
               }
           }
       });
-  </script>
+    </script>
 </dom-module>
