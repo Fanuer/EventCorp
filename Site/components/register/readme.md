@@ -1,18 +1,28 @@
-# Profile-Card
+# Register-Component
 
-Diese WebComponente zeigt die Daten eines Benutzers an und macht Änderungen daran möglich.
+Diese WebComponente gibt das Formular zum Registrieren aus. Dabei werden folgende Registrierungsdaten abgefragt:
+  - Name
+  - Vorname
+  - Email-Adresse
+  - Geburtstag
+  - Benutzername
+  - Region
+  - Veranstaltungsart
+  - Passwort
+  - Passwort wiederholen
+  - AGB akzeptieren Checkbox
+  - Registrieren-Button
+  
+  Diese Formularelemente sind für Twitter Bootstrap vorbereitet.
 
 Eingabeparameter:
-  - username (Benutzername)
-  - birthdate (YYYY-MM-DD Format)
-  - mySports (Auflistung von Sportarten)
-  - about (Über mich)
+  -
 
 ### Version
 1.0.0
 
 ### Tech
 
-Profile-Card verwendet folgende Frameworks:
+Profile-Foto verwendet folgende Frameworks:
 
 * [Twitter Bootstrap]

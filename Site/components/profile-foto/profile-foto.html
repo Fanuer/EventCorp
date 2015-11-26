@@ -1,0 +1,17 @@
+﻿<link rel="import" href="/scripts/polymer/polymer.html" />
+
+<dom-module id="profile-foto">
+    <link rel="stylesheet" href="profile-foto.css" />
+    <template>
+        <div>
+            <h3>Bild hochladen</h3>
+            <img id="preview" width="200px" alt="Image preview...">
+            <input type="file" name="pic" accept="image/*" ng-change="imageUpload(this)">
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: 'profile-foto'
+        })
+    </script>
+</dom-module>

@@ -1,40 +1,11 @@
 ﻿<div id="eventsContainer" class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="input-group col-sm-offset-3 col-sm-6 form-group" id="adv-search">
-				<input type="text" class="form-control" placeholder="Suche Event">
-				<div class="input-group-btn" id="eventsSearchButtonGroup">
-					<div class="btn-group" role="group">
-						<div class="dropdown dropdown-lg">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-							<div class="dropdown-menu dropdown-menu-right" role="menu" id="eventsSearchDropdown">
-								<form class="form-horizontal" role="form" id="innerSearchForm">
-									<div class="form-group">
-									<label for="filter">Filtern nach</label>
-									<select class="form-control" id="filter">
-										<option value="0" selected="">Alle Events</option>
-										<option value="1">Turnier</option>
-										<option value="2">Wettkampf</option>
-									</select>
-									</div>
-									<div class="form-group">
-									<label for="contain">Veranstalter</label>
-									<input class="form-control" type="text" id="contain">
-									</div>
-									<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-								</form>
-							</div>
-						</div>
-						<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-					</div>
-				</div>
-			</div>
-			</div>
-	</div>
-	<div class="row">
-		<div id="allEvents" class="col-sm-offset-2 col-sm-8">
-			<h3>Alle Events</h3><hr>
-			<p>12.10.2015 Event 1</p>
-		</div>
-	</div>
+    <div class="row">
+        <event-search items='[{"id":"1", "value":"Alle Events"},{"id":"2", "value":"Wettkämpfe"},{"id":"2", "value":"Turniere"}]' suchwort="Testname"></event-search>
+    </div>
+    <div class="row">
+        <div id="allEvents" class="col-sm-offset-2 col-sm-8">
+            <h3>Alle Events</h3><hr>
+            <p>12.10.2015 Event 1</p>
+        </div>
+    </div>
 </div><!-- Events -->
