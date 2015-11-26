@@ -8,3 +8,9 @@ Eingabeparameter:
 
 ### Version
 1.0.0
+
+### Tech
+
+Profile-Foto verwendet folgende Frameworks:
+
+* [Twitter Bootstrap]

@@ -1,5 +1,6 @@
+<link rel="import" href="/scripts/polymer/polymer.html" />
+
 <dom-module id="event-search">
-    <!-- Note: Style modules were introduced in Polymer 1.1; they replace the experimental support for external stylesheets -->
     <link rel="import" type="css" href="event-search.css">
     <template>
         <div class="col-md-12">
@@ -14,12 +15,9 @@
                                     <div class="form-group">
                                         <label for="filter">Filtern nach</label>
                                         <select class="form-control" id="filter" data-bind="{{items}}">
-
-                                            <!-- Hier ist der Fehler!!! -->
                                             <template is="dom-repeat" items="{{items}}">
                                                 <option id="{{item.id}}">{{item.value}}</option>
                                             </template>
-
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -37,17 +35,17 @@
         </div>
     </template>
     <script>
-      Polymer({
-          is: 'event-search',
-          properties: {
-              suchwort: {
-                  type:String
-              },
-              items: {
-                  type: Array,
-                  value: []
-              }
-          }
-      });
+        Polymer({
+            is: 'event-search',
+            properties: {
+                suchwort: {
+                    type: String
+                },
+                items: {
+                    type: Array,
+                    value: []
+                }
+            }
+        });
     </script>
 </dom-module>
