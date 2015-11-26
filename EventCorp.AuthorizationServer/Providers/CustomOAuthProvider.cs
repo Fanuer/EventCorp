@@ -33,7 +33,7 @@ namespace EventCorp.AuthorizationServer.Providers
                 context.TryGetFormCredentials(out clientId, out clientSecret);
             }
 
-            if (context.ClientId == null)
+            if (context.ClientId == null && String.IsNullOrWhiteSpace(clientId))
             {
                 context.SetError("invalid_clientId", "client_Id is not set");
             }
@@ -51,7 +51,6 @@ namespace EventCorp.AuthorizationServer.Providers
                     context.Validated();
                 }
             }
-
             return Task.FromResult<object>(null);
         }
 
@@ -62,7 +61,9 @@ namespace EventCorp.AuthorizationServer.Providers
         /// <returns></returns>
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            //Allowing cross domain resources for external logins
+            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin") ?? "*";
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
             //Search user by username and password
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
@@ -90,7 +91,6 @@ namespace EventCorp.AuthorizationServer.Providers
                 {
                     {"audience", context.ClientId}
                 });
-
             var ticket = new AuthenticationTicket(identity, props);
             context.Validated(ticket);
         }

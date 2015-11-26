@@ -11,7 +11,6 @@ using EventCorp.AuthorizationServer.Models;
 namespace EventCorp.AuthorizationServer.Controllers
 {
     [RoutePrefix("api/audience")]
-    [Authorize]
     public class AudienceController : ApiController
     {
         /// <summary>
@@ -41,7 +40,7 @@ namespace EventCorp.AuthorizationServer.Controllers
             var identity = User.Identity as ClaimsIdentity;
 
             var clientID = identity.Claims.FirstOrDefault(x => x.Type.Equals("clientId"));
-            if (clientID == null || String.IsNullOrWhiteSpace(clientID.Value))
+            if (String.IsNullOrWhiteSpace(clientID?.Value))
             {
                 return this.BadRequest("No ClientID found");
             }

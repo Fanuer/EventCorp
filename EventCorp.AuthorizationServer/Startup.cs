@@ -4,11 +4,15 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using EventCorp.AuthorizationServer.Formats;
 using EventCorp.AuthorizationServer.Manager;
 using EventCorp.AuthorizationServer.Providers;
 using EventCorp.AuthorizationServer.Repository;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataHandler.Encoder;
+using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using Owin;
@@ -19,60 +23,28 @@ namespace EventCorp.AuthorizationServer
 {
     public class Startup
     {
-        public void Configuration(IAppBuilder app)
-        {
-            var config = new HttpConfiguration();
-            this.ConfigureWebApi(config);
-            this.ConfigureOAuthTokenGeneration(app);
-            this.InitialiseSwagger(config);
-
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            app.UseWebApi(config);
-        }
+        #region Methods
         /// <summary>
-        /// Configure the db context and user manager to use a single instance per request
+        /// Get's fired when the applications is started by the host
         /// </summary>
         /// <param name="app"></param>
-        private void ConfigureOAuthTokenGeneration(IAppBuilder app)
+        public void Configuration(IAppBuilder app)
         {
-            app.CreatePerOwinContext(AuthContext.Create);
-            app.CreatePerOwinContext(AuthContext.CreateRepository);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
+            HttpConfiguration httpConfig = new HttpConfiguration();
+            ConfigureOAuthTokenGeneration(app);
+            ConfigureOAuthTokenConsumption(app);
+            ConfigureWebApi(httpConfig);
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            InitialiseSwagger(httpConfig);
 
-            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
-            {
-#warning For Dev enviroment only (on production should be AllowInsecureHttp = false)
-                AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/oauth2/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
-                Provider = new CustomOAuthProvider(), // specify, how to validate the Resource Owner
-                AccessTokenFormat = new CustomJwtFormat(ConfigurationManager.AppSettings["as:Issuer"]), //Specifies the implementation, how to generate the access token
-                RefreshTokenProvider = new CustomRefreshTokenProvider()
-            };
-
-            // OAuth 2.0 Bearer Access Token Generation
-            app.UseOAuthAuthorizationServer(OAuthServerOptions);
-        }
-
-        /// <summary>
-        /// Defines Web Api Routing and Json-Response-Resolver 
-        /// </summary>
-        /// <param name="config"></param>
-        private void ConfigureWebApi(HttpConfiguration config)
-        {
-            config.MapHttpAttributeRoutes();
-            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
-
-            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
-            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            app.UseWebApi(httpConfig);
         }
 
         /// <summary>
         /// Initializes Swagger Documentation
         /// </summary>
         /// <param name="httpConfig"></param>
-        private void InitialiseSwagger(HttpConfiguration httpConfig)
+        private static void InitialiseSwagger(HttpConfiguration httpConfig)
         {
             try
             {
@@ -108,9 +80,71 @@ namespace EventCorp.AuthorizationServer
 
         private static string GetXmlPath()
         {
-            return Path.Combine(System.Web.HttpRuntime.AppDomainAppPath, "bin", "EventCorp.AuthorizationServer.XML");
-
+            return Path.Combine(System.Web.HttpRuntime.AppDomainAppPath,"bin", "EventCorp.AuthorizationServer.XML");
         }
 
+        /// <summary>
+        /// Configure the db context and user manager to use a single instance per request
+        /// </summary>
+        /// <param name="app"></param>
+        private void ConfigureOAuthTokenGeneration(IAppBuilder app)
+        {
+            app.CreatePerOwinContext(AuthContext.Create);
+            app.CreatePerOwinContext(AuthContext.CreateRepository);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
+
+            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
+            {
+#warning For Dev enviroment only (on production should be AllowInsecureHttp = false)
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/oauth2/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                Provider = new CustomOAuthProvider(), // specify, how to validate the Resource Owner
+                AccessTokenFormat = new CustomJwtFormat(ConfigurationManager.AppSettings["as:Issuer"]), //Specifies the implementation, how to generate the access token
+                RefreshTokenProvider = new CustomRefreshTokenProvider()
+            };
+
+            // OAuth 2.0 Bearer Access Token Generation
+            app.UseOAuthAuthorizationServer(OAuthServerOptions);
+        }
+
+        /// <summary>
+        /// Defines Web Api Routing and Json-Response-Resolver 
+        /// </summary>
+        /// <param name="config"></param>
+        private void ConfigureWebApi(HttpConfiguration config)
+        {
+            config.MapHttpAttributeRoutes();
+
+            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        }
+
+        /// <summary>
+        /// Configures how the web api should handle authorization.
+        /// The Api will now only trust issues by our Authorization Server and if Authorization Server = Resource Server
+        /// </summary>
+        /// <param name="app"></param>
+        private void ConfigureOAuthTokenConsumption(IAppBuilder app)
+        {
+            var issuer = ConfigurationManager.AppSettings["as:Issuer"];
+            string audienceId = ConfigurationManager.AppSettings["as:AudienceId"];
+            byte[] audienceSecret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["as:AudienceSecret"]);
+
+            // Api controllers with an [Authorize] attribute will be validated with JWT
+            app.UseJwtBearerAuthentication(
+                new JwtBearerAuthenticationOptions
+                {
+                    AuthenticationMode = AuthenticationMode.Active,
+                    AllowedAudiences = new[] { audienceId },
+                    IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
+                          {
+                        new SymmetricKeyIssuerSecurityTokenProvider(issuer, audienceSecret)
+                          }
+                });
+        }
+
+        #endregion
     }
 }

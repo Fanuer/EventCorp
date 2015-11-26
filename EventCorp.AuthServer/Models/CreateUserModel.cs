@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace EventCorp.AuthorizationServer.Models
+namespace EventCorp.AuthServer.Models
 {
     /// <summary>
     /// Data to register a User
@@ -12,7 +16,7 @@ namespace EventCorp.AuthorizationServer.Models
         /// User name
         /// </summary>
         [Required(ErrorMessageResourceName = "Error_Required", ErrorMessageResourceType = typeof(Resources))]
-        [Display(ResourceType = typeof(Resources),  Name = "Label_Username")]
+        [Display(ResourceType = typeof(Resources), Name = "Label_Username")]
         public string Username { get; set; }
 
         /// <summary>
@@ -64,4 +68,5 @@ namespace EventCorp.AuthorizationServer.Models
         [Required(ErrorMessageResourceName = "Error_Required", ErrorMessageResourceType = typeof(Resources))]
         public string Surname { get; set; }
     }
+
 }
