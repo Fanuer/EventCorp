@@ -51,15 +51,5 @@ namespace EventCorp.AuthorizationServer.Controllers
             }
             return BadRequest("Token Id does not exist");
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                this.AppRepository.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
     }
 }

@@ -3,8 +3,8 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using EventCorp.AuthorizationServer.Formats;
 using EventCorp.AuthorizationServer.Manager;
 using EventCorp.AuthorizationServer.Providers;
@@ -23,8 +23,17 @@ namespace EventCorp.AuthorizationServer
 {
     public class Startup
     {
-        #region Methods
-        /// <summary>
+      /*
+{  
+   "id":"0dd23c1d3ea848a2943fa8a250e0b2ad",
+   "secret":"Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU=",
+   "name":"Test",
+   "active":false,
+   "allowedOrigin":null
+}       */
+
+      #region Methods
+      /// <summary>
         /// Get's fired when the applications is started by the host
         /// </summary>
         /// <param name="app"></param>

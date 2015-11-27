@@ -7,8 +7,13 @@ namespace EventCorp.AuthorizationServer.Entites
     {
         #region Ctor
 
-        public Audience(string id="", string secret ="", string name="", string allowedOrigin = "*")
+        public Audience(string id="", string secret ="", string name="", string allowedOrigin = "*", bool active = true)
         {
+          this.Id = id;
+          this.Secret = secret;
+          this.Name = name;
+          this.AllowedOrigin = allowedOrigin;
+          this.Active = active;
         }
 
         public Audience():this("")

@@ -82,8 +82,16 @@ namespace EventCorp.AuthorizationServer
         #endregion
 
         #region Properties
-        public static AudiencesStore Instance => _singleton ?? (_singleton = new AudiencesStore());
-        #endregion
+
+      public static AudiencesStore Instance
+      {
+        get
+        {
+          return _singleton ?? (_singleton = new AudiencesStore());
+        }
+      }
+
+      #endregion
 
         
     }

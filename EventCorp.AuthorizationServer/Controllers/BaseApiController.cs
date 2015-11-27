@@ -61,6 +61,17 @@ namespace EventCorp.AuthorizationServer.Controllers
 
             return null;
         }
+
+        protected override void Dispose(bool disposing)
+        {
+          if (disposing)
+          {
+            this.AppRepository.Dispose();
+          }
+
+          base.Dispose(disposing);
+        }
+
         #endregion
 
         #region Properties

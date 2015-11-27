@@ -38,8 +38,8 @@ namespace EventCorp.AuthorizationServer.Repository
         #endregion
 
         #region Properties
-        public IAudienceRepository Audiences { get; }
-        public IRefreshTokenRepository RefreshTokens { get; }
+        public IAudienceRepository Audiences { get; private set; }
+        public IRefreshTokenRepository RefreshTokens { get; private set; }
 
         #endregion
     }

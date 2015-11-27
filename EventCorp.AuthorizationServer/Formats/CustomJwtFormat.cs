@@ -23,7 +23,7 @@ namespace EventCorp.AuthorizationServer.Formats
         {
             if (data == null)
             {
-                throw new ArgumentNullException(nameof(data));
+                throw new ArgumentNullException("data");
             }
 
             var audienceId = data.Properties.Dictionary.ContainsKey(AudiencePropertyKey) ? data.Properties.Dictionary[AudiencePropertyKey] : null;

@@ -42,7 +42,7 @@ namespace EventCorp.AuthorizationServer.Providers
                 var audience = AudiencesStore.Instance.FindAudience(context.ClientId);
                 if (audience == null)
                 {
-                    context.SetError("invalid_clientId", $"Client '{context.ClientId}' is not registered in the system.");
+                  context.SetError("invalid_clientId", String.Format("Client '{0}' is not registered in the system.", context.ClientId));
                 }
                 else
                 {
