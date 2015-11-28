@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using EventCorp.AuthorizationServer.Entites;
@@ -22,7 +24,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     public class AccountController : BaseApiController
     {
         /// <summary>
-        /// Method to prove the Serversa availability
+        /// Method to prove the Server's availability
         /// </summary>
         [ResponseType(typeof(void))]
         [Route("Ping")]
@@ -139,7 +141,7 @@ namespace EventCorp.AuthorizationServer.Controllers
         /// User can register to the Application
         /// </summary>
         /// <param name="createUserModel">new User</param>
-        [SwaggerResponse(HttpStatusCode.NoContent, Type = typeof(UserModel))]
+        [SwaggerResponse(HttpStatusCode.NoContent)]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         [AllowAnonymous]
         [Route("Register")]
@@ -191,7 +193,6 @@ namespace EventCorp.AuthorizationServer.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         [Route("ChangePassword")]
         [HttpPut]
-        [ResponseType(typeof(ChangePasswordModel))]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel model)
         {
             if (!ModelState.IsValid)
@@ -236,6 +237,50 @@ namespace EventCorp.AuthorizationServer.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// THIS METHOD IS FOR SWAGGER USE ONLY. 
+        /// Hack to login an user and to receive an access token. 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        [SwaggerResponse(HttpStatusCode.NoContent)]
+        [SwaggerResponse(HttpStatusCode.BadRequest)]
+        [Route("Login")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> Login(LoginModel login)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Invoke the "token" OWIN service to perform the login: /api/token
+            // Ugly hack: I use a server-side HTTP POST because I cannot directly invoke the service (it is deeply hidden in the OAuthAuthorizationServerHandler class)
+            var request = HttpContext.Current.Request;
+            var tokenServiceUrl = request.Url.GetLeftPart(UriPartial.Authority) + "/oauth2/token";
+            using (var client = new HttpClient())
+            {
+                var requestParams = new Dictionary<string, string>()
+                {
+                    {"grant_type", "password"},
+                    {"username", login.Username},
+                    {"password", login.Password},
+                    {"client_id", "0dd23c1d3ea848a2943fa8a250e0b2ad"}
+                };
+
+                var requestParamsFormUrlEncoded = new FormUrlEncodedContent(requestParams);
+                var tokenServiceResponse = await client.PostAsync(tokenServiceUrl, requestParamsFormUrlEncoded);
+                var responseString = await tokenServiceResponse.Content.ReadAsStringAsync();
+                var responseCode = tokenServiceResponse.StatusCode;
+                var responseMsg = new HttpResponseMessage(responseCode)
+                {
+                    Content = new StringContent(responseString, Encoding.UTF8, "application/json")
+                };
+                return ResponseMessage(responseMsg);
+            }
+        }
         #endregion
 
         #region Roles

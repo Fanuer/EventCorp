@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Web.Http;
 using EventCorp.AuthorizationServer.Formats;
 using EventCorp.AuthorizationServer.Manager;
 using EventCorp.AuthorizationServer.Providers;
 using EventCorp.AuthorizationServer.Repository;
+using EventCorps.Helper;
+using EventCorps.Helper.Filter;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
@@ -23,17 +27,17 @@ namespace EventCorp.AuthorizationServer
 {
     public class Startup
     {
-      /*
-{  
-   "id":"0dd23c1d3ea848a2943fa8a250e0b2ad",
-   "secret":"Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU=",
-   "name":"Test",
-   "active":false,
-   "allowedOrigin":null
-}       */
+        /*
+  {  
+     "id":"0dd23c1d3ea848a2943fa8a250e0b2ad",
+     "secret":"Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU=",
+     "name":"Test",
+     "active":false,
+     "allowedOrigin":null
+  }       */
 
-      #region Methods
-      /// <summary>
+        #region Methods
+        /// <summary>
         /// Get's fired when the applications is started by the host
         /// </summary>
         /// <param name="app"></param>
@@ -44,52 +48,8 @@ namespace EventCorp.AuthorizationServer
             ConfigureOAuthTokenConsumption(app);
             ConfigureWebApi(httpConfig);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            InitialiseSwagger(httpConfig);
-
+            Utilities.InitialiseSwagger(httpConfig, "EventCorp AuthServer API", Assembly.GetExecutingAssembly().GetName().Name);
             app.UseWebApi(httpConfig);
-        }
-
-        /// <summary>
-        /// Initializes Swagger Documentation
-        /// </summary>
-        /// <param name="httpConfig"></param>
-        private static void InitialiseSwagger(HttpConfiguration httpConfig)
-        {
-            try
-            {
-                httpConfig
-                .EnableSwagger(c =>
-                {
-                    c.SingleApiVersion("v1", "fIT Api");
-                    c.IncludeXmlComments(GetXmlPath());
-                    c.IgnoreObsoleteActions();
-                    c.DescribeAllEnumsAsStrings();
-                    c.OAuth2("oauth2")
-            .Description("OAuth2 Password Grant")
-            .Flow("password")
-            //.AuthorizationUrl("http://petstore.swagger.wordnik.com/api/oauth/dialog")
-            .TokenUrl("/Accounts/Login")
-            .Scopes(scopes =>
-                  {
-                      scopes.Add("user", "Read access to protected resources");
-                      scopes.Add("admin", "Write access to protected resources");
-                  });
-                })
-                .EnableSwaggerUi(c =>
-                {
-                    c.InjectJavaScript(typeof(Startup).Assembly, "fIT.WebApi/js/onComplete.js");
-                });
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error on creating Swagger: " + e.Message + Environment.NewLine + e.StackTrace);
-            }
-
-        }
-
-        private static string GetXmlPath()
-        {
-            return Path.Combine(System.Web.HttpRuntime.AppDomainAppPath,"bin", "EventCorp.AuthorizationServer.XML");
         }
 
         /// <summary>
@@ -130,6 +90,13 @@ namespace EventCorp.AuthorizationServer
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
 
+        private Dictionary<string, string> _audiences = new Dictionary<string, string>()
+        {
+            {"0dd23c1d3ea848a2943fa8a250e0b2ad",  "Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU="}, //Test
+            {"4d874d92589f4357ba19a2b91e0be5ff",  "PUP3EI8G137YIW1TnoCVrwhu0KnpYYQHNWJcM9UU+mI="}, //Rec
+            {"b9f6fba178aa4081a010f3b7a2c91ded",  "5U06jgp+GLxa32YnPjZSvfxL8QQjPmKtyELnygljJN4="}, //Auth
+        };
+
         /// <summary>
         /// Configures how the web api should handle authorization.
         /// The Api will now only trust issues by our Authorization Server and if Authorization Server = Resource Server
@@ -138,19 +105,14 @@ namespace EventCorp.AuthorizationServer
         private void ConfigureOAuthTokenConsumption(IAppBuilder app)
         {
             var issuer = ConfigurationManager.AppSettings["as:Issuer"];
-            string audienceId = ConfigurationManager.AppSettings["as:AudienceId"];
-            byte[] audienceSecret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["as:AudienceSecret"]);
 
             // Api controllers with an [Authorize] attribute will be validated with JWT
             app.UseJwtBearerAuthentication(
                 new JwtBearerAuthenticationOptions
                 {
                     AuthenticationMode = AuthenticationMode.Active,
-                    AllowedAudiences = new[] { audienceId },
-                    IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
-                          {
-                        new SymmetricKeyIssuerSecurityTokenProvider(issuer, audienceSecret)
-                          }
+                    AllowedAudiences = _audiences.Keys.ToArray(),
+                    IssuerSecurityTokenProviders = _audiences.Values.Select(x => new SymmetricKeyIssuerSecurityTokenProvider(issuer, TextEncodings.Base64Url.Decode(x))).ToArray()
                 });
         }
 

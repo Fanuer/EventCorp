@@ -2,27 +2,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <script src="scripts/jquery-1.11.3.min.js"></script>
     <link rel="stylesheet" href="scripts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <script src="scripts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-    <script src="scripts/angular-1.4.7/angular.min.js"></script>
-    <script src="scripts/angular-1.4.7/angular-route.min.js"></script>
-    <script src="scripts/webcomponentsjs-0.7.12/webcomponents.min.js"></script>
-    <link href="styles/styles.css" rel="stylesheet"/>
-    <!-- AngularJS -->
-    <script src="app/controller/dashboardController.js"></script>
-    <script src="app/controller/eventController.js"></script>
-    <script src="app/controller/loginController.js"></script>
-    <script src="app/controller/registerController.js"></script>
-    <script src="app/controller/userController.js"></script>
-    <script src="app/app.js"></script>
     <!-- Komponenten -->
-    <link rel="import" href="components/login/login-component.html"/>
-    <link rel="import" href="components/profile/profile-card.html"/>
-    <link rel="import" href="components/register/register-component.html"/>
-    <link rel="import" href="components/event-search/event-search.html"/>
-    <link rel="import" href="components/profile-foto/profile-foto.html"/>
-
+    <link rel="import" href="components/login/login-component.html" />
+    <link rel="import" href="components/profile/profile-card.html" />
+    <link rel="import" href="components/register/register-component.html" />
+    <link rel="import" href="components/event-search/event-search.html" />
+    <link rel="import" href="components/profile-foto/profile-foto.html" />
     <title>EventCorp</title>
 </head>
 
@@ -37,5 +23,22 @@
     <!-- Footer -->
     <div ng-include="'app/views/footer.html'">
     </div>
+    <script src="scripts/jquery-1.11.3.min.js"></script>
+    <script src="scripts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script src="scripts/angular-1.4.7/angular.min.js"></script>
+    <script src="scripts/angular-1.4.7/angular-route.min.js"></script>
+    <script src="scripts/webcomponentsjs-0.7.12/webcomponents.min.js"></script>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <!-- AngularJS -->
+    <script src="app/controller/dashboardController.js"></script>
+    <script src="app/controller/eventController.js"></script>
+    <script src="app/controller/loginController.js"></script>
+    <script src="app/controller/registerController.js"></script>
+    <script src="app/controller/userController.js"></script>
+
+    <script src="app/factories/authFactory.js"></script>
+    <script src="app/factories/authInterceptor.js"></script>
+
+    <script src="app/app.js"></script>
 </body>
 </html>

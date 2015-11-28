@@ -1,7 +1,15 @@
 ﻿var eventCorp = angular.module("eventCorp", ['ngRoute']);
 
+//const
+eventCorp.constant("localStorageAuthIndex", "eventCorp.SPA.auth");
+eventCorp.constant("baseUrl", "http://eventcorp.azurewebsites.net/api/");
+
+//config
+eventCorp.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptorFactory');
+});
 eventCorp.config([
-    "$routeProvider", function($routeProvider) {
+    "$routeProvider", function ($routeProvider) {
         $routeProvider.when("/", {
             controller: "dashboardController",
             templateUrl: "app/views/dashboard.html"
@@ -21,6 +29,17 @@ eventCorp.config([
     }
 ]);
 
+//init
+eventCorp.run(['authFactory', function (authFactory) {
+    // on start, look for available login data
+    authFactory.fillAuthData();
+}]);
+
+//factories
+fIT.factory("authFactory", authFactory);
+fIT.factory("authInterceptorFactory", authInterceptorFactory);
+
+//controller
 eventCorp.controller("dashboardController", dashboardController);
 eventCorp.controller("eventController", eventController);
 eventCorp.controller("loginController", loginController);
