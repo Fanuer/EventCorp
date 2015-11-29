@@ -1,8 +1,8 @@
-﻿var eventCorp = angular.module("eventCorp", ['ngRoute']);
+﻿var eventCorp = angular.module("eventCorp", ['ngRoute', "LocalStorageModule"]);
 
 //const
 eventCorp.constant("localStorageAuthIndex", "eventCorp.SPA.auth");
-eventCorp.constant("baseUrl", "http://eventcorp.azurewebsites.net/api/");
+eventCorp.constant("authbaseUrl", "http://ec-auth.azurewebsites.net/api/");
 
 //config
 eventCorp.config(function ($httpProvider) {
@@ -36,8 +36,8 @@ eventCorp.run(['authFactory', function (authFactory) {
 }]);
 
 //factories
-fIT.factory("authFactory", authFactory);
-fIT.factory("authInterceptorFactory", authInterceptorFactory);
+eventCorp.factory("authFactory", authFactory);
+eventCorp.factory("authInterceptorFactory", authInterceptorFactory);
 
 //controller
 eventCorp.controller("dashboardController", dashboardController);
@@ -45,3 +45,4 @@ eventCorp.controller("eventController", eventController);
 eventCorp.controller("loginController", loginController);
 eventCorp.controller("registerController", registerController);
 eventCorp.controller("userController", userController);
+eventCorp.controller("navController", navController);

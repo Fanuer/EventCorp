@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-function authFactory($http, $q, $log, localStorageService, baseUrl, localStorageAuthIndex) {
+function authFactory($http, $q, $log, localStorageService, authbaseUrl, localStorageAuthIndex) {
     var factory = {};
 
     function authModel(isAuth, userName, userId) {
@@ -18,7 +18,7 @@ function authFactory($http, $q, $log, localStorageService, baseUrl, localStorage
     }
     var _register = function (registrationModel) {
         _logout();
-        return $http.post(baseUrl + '/api/accounts/register', registrationModel)
+        return $http.post(authbaseUrl + 'accounts/register', registrationModel)
           .then(function (response) {
               return response;
           })
@@ -29,7 +29,7 @@ function authFactory($http, $q, $log, localStorageService, baseUrl, localStorage
     var _login = function (loginData) {
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
         var deferred = $q.defer();
-        $http.post(baseUrl + 'accounts/login', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+        $http.post(authbaseUrl + 'accounts/login', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
           .then(function (response) {
               try {
                   localStorageService.set(localStorageAuthIndex, {
@@ -67,7 +67,7 @@ function authFactory($http, $q, $log, localStorageService, baseUrl, localStorage
 
         if (authData) {
             var data = "grant_type=refresh_token&refresh_token=" + authData.refreshToken;
-            $http.post(baseUrl + 'accounts/login', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function () {
+            $http.post(authbaseUrl + 'accounts/login', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function () {
                 localStorageService.set(localStorageAuthIndex, {
                     token: response.data.access_token,
                     userName: authData.userName,
@@ -113,7 +113,7 @@ function authFactory($http, $q, $log, localStorageService, baseUrl, localStorage
     }
     var _checkOnlineStatus = function () {
         var deferred = $q.defer();
-        $http.get(baseUrl + 'accounts/ping')
+        $http.get(authbaseUrl + 'accounts/ping')
           .success(function () {
               deferred.resolve();
           })
@@ -127,5 +127,6 @@ function authFactory($http, $q, $log, localStorageService, baseUrl, localStorage
     factory.fillAuthData = _fillAuthData;
     factory.checkOnlineStatus = _checkOnlineStatus;
     factory.authentication = new authModel();
+    _fillAuthData();
     return factory;
 }

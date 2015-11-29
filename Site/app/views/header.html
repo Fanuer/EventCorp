@@ -1,14 +1,25 @@
 <header>
-	<nav class="navbar navbar-default navbar-fixed-top" id="main-nav">
-	  <div class="container-fluid">
-		<img src="images/icon.png" id="img-logo" height="42" width="42" style="float: left;	margin-top: 5px; margin-right: 5px;"/>
-		<div class="navbar-header">
-		  <a class="navbar-brand" href="#">EventCorp</a>
-		</div>
-			<ul class="nav navbar-nav navbar-right">
-			<li><a href="#/events">Events</a></li>
-			<li><a href="#/register">Registrieren</a></li>
-		  </ul>
-	  </div><!-- /.container-fluid -->
-	</nav><!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" id="main-nav" data-ng-controller="navController">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="{{!navbarExpanded}}">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand pull-left" href="#/">
+                    <img src="images/icon.png" id="img-logo" />
+                    EventCorp
+                </a>
+            </div>
+            <ul class="nav navbar-nav navbar-right navbar-collapse collapse">
+                <li data-ng-show="!authentication.isAuth"><a href="#/login">Log in</a></li>
+                <li data-ng-show="!authentication.isAuth"><a href="#/register">Registrieren</a></li>
+                <li data-ng-show="authentication.isAuth"><a href="#">Hallo {{authentication.userName}}</a></li>
+                <li data-ng-show="authentication.isAuth"><a href="#/events">Events</a></li>
+                <li data-ng-show="authentication.isAuth"><a href="#" data-ng-click="logOut()">Log out</a></li>
+            </ul>
+        </div><!-- /.container-fluid -->
+    </nav><!-- Navigation -->
 </header>

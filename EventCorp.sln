@@ -5,21 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCorp.AuthorizationServer", "EventCorp.AuthorizationServer\EventCorp.AuthorizationServer.csproj", "{3C9F0517-8544-476B-AF1D-49FC8E296DDC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{E047D3F7-5871-4436-B23F-200B13E0AB24}"
-	ProjectSection(SolutionItems) = preProject
-		PublishScripts\AzureVMPublishModule.psm1 = PublishScripts\AzureVMPublishModule.psm1
-		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
-		PublishScripts\Publish-WebApplicationVM.ps1 = PublishScripts\Publish-WebApplicationVM.ps1
-		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{EAEC173D-A21D-4601-B36A-077790F6B455}"
-	ProjectSection(SolutionItems) = preProject
-		PublishScripts\Configurations\EventCorpAuthorizationServer-WAWS-dev.json = PublishScripts\Configurations\EventCorpAuthorizationServer-WAWS-dev.json
-		PublishScripts\Configurations\EventCorpAuthServer-WAWS-dev.json = PublishScripts\Configurations\EventCorpAuthServer-WAWS-dev.json
-		PublishScripts\Configurations\EventCorpRecommendation-WAWS-dev.json = PublishScripts\Configurations\EventCorpRecommendation-WAWS-dev.json
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventCorps.Helper", "EventCorps.Helper\EventCorps.Helper.csproj", "{B60BB246-73C9-4938-A128-6364B75FE14E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servers", "Servers", "{2D2EA980-BF68-493C-BC53-92D13DEA0D46}"
@@ -77,7 +62,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3C9F0517-8544-476B-AF1D-49FC8E296DDC} = {2D2EA980-BF68-493C-BC53-92D13DEA0D46}
-		{EAEC173D-A21D-4601-B36A-077790F6B455} = {E047D3F7-5871-4436-B23F-200B13E0AB24}
 		{B60BB246-73C9-4938-A128-6364B75FE14E} = {2D2EA980-BF68-493C-BC53-92D13DEA0D46}
 		{2940CCCE-2DBA-4277-8B09-CE9C0977A115} = {D7609CBE-BDF7-4AC5-B4EA-BAB9D8D62CB1}
 		{68033997-607B-4E10-B54C-68CC17092DC8} = {2D2EA980-BF68-493C-BC53-92D13DEA0D46}

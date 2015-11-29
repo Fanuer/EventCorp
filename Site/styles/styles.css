@@ -1,95 +1,111 @@
 html, body {
-  padding: 25px 0 0 0;
-  margin:0;
-  /* padding-bottom: 40px; */
-  background-color: #FFFFFF;
-  /* Margin bottom by footer height */
-  /* margin-bottom: 60px; */
+    padding: 25px 0 0 0;
+    margin: 0;
+    /* padding-bottom: 40px; */
+    background-color: #FFFFFF;
+    /* Margin bottom by footer height */
+    /* margin-bottom: 60px; */
 }
 
-html, body, #wrapper { height: 100%;  width: 100%}
+html, body, #wrapper {
+    height: 100%;
+    width: 100%;
+}
 
-#wrapper { height: auto; min-height: 100%; padding-bottom: 100px;}
+#wrapper {
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 100px;
+}
 
 #main-nav, footer {
-  background-color: #2C3254;
+    background-color: #2C3254;
 }
 
-#main-nav a, footer p.text-muted{
-  color: #FFF;
-}
+    #main-nav a, footer p.text-muted {
+        color: #FFF;
+    }
 
 #btn-login {
-  background-color: #1873CC;
+    background-color: #1873CC;
 }
 
 /*Footer */
 footer {
- position: relative;
- bottom: 0;
- margin-top: -3rem;
-  /* Set the fixed height of the footer here */
-  height: 4rem;
-  padding-top: 0.5rem;
+    position: relative;
+    bottom: 0;
+    margin-top: -3rem;
+    /* Set the fixed height of the footer here */
+    height: 4rem;
+    padding-top: 0.5rem;
 }
 
 /* Dashboard */
 #dashboardContainer {
-  margin-top: 5rem;
-  max-width: 80rem;
+    margin-top: 5rem;
+    max-width: 80rem;
 }
 
 #profilOverview, #eventOverview, #myWeek {
-  min-height: 10rem;
-  max-height: 20rem;
-  border-style: solid;
-  border-width: 1px;
-  color: #2C3254;
+    min-height: 10rem;
+    max-height: 20rem;
+    border-style: solid;
+    border-width: 1px;
+    color: #2C3254;
 }
 
 #profilOverview, #eventOverview {
-  background-color: #72DCF7;
+    background-color: #72DCF7;
 }
 
 #myWeek {
-  margin-top: 3rem;
+    margin-top: 3rem;
 }
 
 /* User */
 #userContainer {
-  margin-top: 5rem;
-  max-width: 80rem;
+    margin-top: 5rem;
+    max-width: 80rem;
 }
 
 #userPicture {
-  border-style: solid;
-  border-width: 1px;
-  color: #2C3254;
-  min-height: 10rem;
+    border-style: solid;
+    border-width: 1px;
+    color: #2C3254;
+    min-height: 10rem;
 }
 
 #userCredentialSubmit {
-  margin-top: 3rem;
+    margin-top: 3rem;
 }
 
 /* Events */
 #eventsContainer {
-  margin-top: 3rem;
+    margin-top: 3rem;
 }
 
 #eventsSearchDropdown {
-  min-width: 50rem;
+    min-width: 50rem;
 }
 
 #innerSearchForm .form-group {
-  margin: 0 1rem 0 1rem;
+    margin: 0 1rem 0 1rem;
 }
 
 #eventsSearchDropdown button {
-  float: right;
-  margin: 5px 5px 0 0;
+    float: right;
+    margin: 5px 5px 0 0;
+}
+
+#img-logo {
+    float: left;
+    margin-right: 5px;
+    height: 35px;
+    width: 35px;
+    position: relative;
+    top: -7px;
 }
 
 #eventsSearchButtonGroup {
-  /*width: 10rem;*/
+    /*width: 10rem;*/
 }
