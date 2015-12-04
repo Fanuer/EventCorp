@@ -176,6 +176,7 @@
     <Compile Include="Controllers\AudienceController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\RefreshTokenController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Entites\Audience.cs" />
