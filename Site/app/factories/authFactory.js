@@ -127,6 +127,5 @@ function authFactory($http, $q, $log, localStorageService, authbaseUrl, localSto
     factory.fillAuthData = _fillAuthData;
     factory.checkOnlineStatus = _checkOnlineStatus;
     factory.authentication = new authModel();
-    _fillAuthData();
     return factory;
 }
