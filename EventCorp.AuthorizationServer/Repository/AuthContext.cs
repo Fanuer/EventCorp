@@ -41,6 +41,7 @@ namespace EventCorp.AuthorizationServer.Repository
         #region Properties
         public DbSet<Audience> Audiences { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<UploadFile> Files { get; set; }
         #endregion
 
     }

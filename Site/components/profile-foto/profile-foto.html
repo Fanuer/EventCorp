@@ -6,7 +6,7 @@
         <div>
             <h3>Bild hochladen</h3>
             <img id="preview" width="200px" alt="Image preview...">
-            <input type="file" name="pic" accept="image/*" ng-change="imageUpload(this)">
+            <input type="file" name="pic" accept="image/*" id="uploadUserPicture" ng-change="angular.element(this).scope().uploadedFile(this)">
         </div>
     </template>
     <script>

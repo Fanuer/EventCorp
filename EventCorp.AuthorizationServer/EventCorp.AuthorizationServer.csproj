@@ -178,7 +178,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\RefreshTokenController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Entites\Audience.cs" />
+    <Compile Include="Entites\UploadFile.cs" />
     <Compile Include="Entites\RefreshToken.cs" />
     <Compile Include="Entites\User.cs" />
     <Compile Include="Formats\CustomJwtFormat.cs" />
