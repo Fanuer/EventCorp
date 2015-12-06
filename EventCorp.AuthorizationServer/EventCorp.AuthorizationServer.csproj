@@ -184,8 +184,10 @@
     <Compile Include="Entites\UploadFile.cs" />
     <Compile Include="Entites\RefreshToken.cs" />
     <Compile Include="Entites\User.cs" />
+    <Compile Include="Entites\UserFile.cs" />
     <Compile Include="Formats\CustomJwtFormat.cs" />
     <Compile Include="Interfaces\Repositories\IAudienceRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IFileRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRefreshTokenRepository.cs" />
     <Compile Include="Interfaces\Repositories\IApplicationRepository.cs" />
     <Compile Include="Manager\ApplicationRoleManager.cs" />
@@ -204,6 +206,8 @@
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\RefreshTokenModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\CreateUploadFileViewModel.cs" />
+    <Compile Include="Models\UploadFileViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UsersInRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -212,6 +216,7 @@
     <Compile Include="Repository\ApplicationRepository.cs" />
     <Compile Include="Repository\AudienceRepository.cs" />
     <Compile Include="Repository\AuthContext.cs" />
+    <Compile Include="Repository\FileRepository.cs" />
     <Compile Include="Repository\RefreshTokenRepository.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

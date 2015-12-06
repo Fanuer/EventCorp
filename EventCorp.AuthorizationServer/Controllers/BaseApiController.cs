@@ -78,7 +78,7 @@ namespace EventCorp.AuthorizationServer.Controllers
         /// <summary>
         /// Singleton Modelfactory
         /// </summary>
-        protected ModelFactory TheModelFactory
+        protected ModelFactory AppModelFactory
         {
             get { return _modelFactory ?? (_modelFactory = new ModelFactory(this.Request)); }
         }

@@ -32,7 +32,7 @@ namespace EventCorp.AuthorizationServer.Controllers
                             .RefreshTokens
                             .GetAllAsync();
 
-            return all.Select(x => this.TheModelFactory.CreateViewModel(x)).AsQueryable();
+            return all.Select(x => this.AppModelFactory.CreateViewModel(x)).AsQueryable();
         }
 
         /// <summary>

@@ -37,7 +37,7 @@ namespace EventCorp.AuthorizationServer.Controllers
 
             if (role != null)
             {
-                return Ok(TheModelFactory.CreateViewModel(role));
+                return Ok(AppModelFactory.CreateViewModel(role));
             }
             return NotFound();
         }
@@ -58,7 +58,7 @@ namespace EventCorp.AuthorizationServer.Controllers
 
             if (role != null)
             {
-                return Ok(TheModelFactory.CreateViewModel(role));
+                return Ok(AppModelFactory.CreateViewModel(role));
             }
             return NotFound();
         }
@@ -72,7 +72,7 @@ namespace EventCorp.AuthorizationServer.Controllers
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<RoleModel>))]
         public IQueryable<RoleModel> GetAllRoles()
         {
-            return this.AppRoleManager.Roles.ToList().Select(role => TheModelFactory.CreateViewModel(role)).AsQueryable();
+            return this.AppRoleManager.Roles.ToList().Select(role => AppModelFactory.CreateViewModel(role)).AsQueryable();
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace EventCorp.AuthorizationServer.Controllers
 
             Uri locationHeader = new Uri(Url.Link("GetRoleById", new { id = role.Id }));
 
-            return Created(locationHeader, TheModelFactory.CreateViewModel(role));
+            return Created(locationHeader, AppModelFactory.CreateViewModel(role));
 
         }
 

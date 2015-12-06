@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http.Routing;
 using EventCorp.AuthorizationServer.Entites;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -81,5 +83,36 @@ namespace EventCorp.AuthorizationServer.Models
             return result;
         }
         #endregion
+
+
+        public UserFile CreateModel(CreateUploadFileViewModel viewModel, UserFile datamodel = null)
+        {
+            var fileContent = new byte[viewModel.TempFileInfo.Length];
+            using (var reader = viewModel.TempFileInfo.OpenRead())
+            {
+                reader.Read(fileContent, 0, fileContent.Length);
+            }
+            var result = datamodel ?? new UserFile();
+            result.Name = viewModel.FileName;
+            result.ContentType = viewModel.ContentType;
+            result.Content = fileContent;
+            return result;
+        }
+
+        public UploadFileViewModel CreateViewModel(UserFile datamodel)
+        {
+            if (datamodel == null)
+            {
+                throw new ArgumentNullException("datamodel");
+            }
+            return new UploadFileViewModel()
+            {
+                Id = datamodel.Id,
+                Name = datamodel.Name,
+                ContentType = datamodel.ContentType,
+                ContentSize = datamodel.Content.Length,
+                Url = _UrlHelper.Link("GetFileById", new {id = datamodel.Id})
+            };
+        }
     }
 }
