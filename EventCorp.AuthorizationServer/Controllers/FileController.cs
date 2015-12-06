@@ -16,9 +16,9 @@ using Swashbuckle.Swagger.Annotations;
 namespace EventCorp.AuthorizationServer.Controllers
 {
     /// <summary>
-    /// Controler to manage User roles
+    /// Controller to manage files
     /// </summary>
-    [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
+    //[SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
     [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occured")]
     //[Authorize(Roles = "Admin")]
     [RoutePrefix("api/file")]
@@ -37,32 +37,49 @@ namespace EventCorp.AuthorizationServer.Controllers
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         public async Task<IHttpActionResult> UploadFile()
         {
-            if (!Request.Content.IsMimeMultipartContent())
+            UploadFileViewModel resultmodel = null;
+            try
             {
-                return StatusCode(HttpStatusCode.UnsupportedMediaType);
+
+                if (!Request.Content.IsMimeMultipartContent())
+                {
+                    return StatusCode(HttpStatusCode.UnsupportedMediaType);
+                }
+
+                var provider = GetMultipartProvider();
+                // write data in temp file
+                var result = await Request.Content.ReadAsMultipartAsync(provider);
+
+                var file = result.FileData.FirstOrDefault();
+                if (file == null)
+                {
+                    return BadRequest("No File was sent");
+                }
+
+                var fileData = result.FileData.First();
+                var contentType = fileData.Headers.ContentType.MediaType;
+                var originalFileName = GetDeserializedFileName(result.FileData.First());
+
+                var viewmodel = new CreateUploadFileViewModel
+                {
+                    ContentType = contentType,
+                    TempFileInfo = new FileInfo(result.FileData.First().LocalFileName),
+                    FileName = originalFileName
+                };
+
+                var model = AppModelFactory.CreateModel(viewmodel);
+                await this.AppRepository.Files.AddAsync(model);
+                resultmodel = AppModelFactory.CreateViewModel(model);
+
+                // file content is saved in DB and can be deleted from hard drive
+                viewmodel.TempFileInfo.Delete();
+                DeleteOldTempFiles();
             }
-            
-            var provider = GetMultipartProvider();
-            // write data in temp file
-            var result = await Request.Content.ReadAsMultipartAsync(provider);
-
-            var fileData = result.FileData.First();
-            var contentType = fileData.Headers.ContentType.MediaType;
-            var originalFileName = GetDeserializedFileName(result.FileData.First());
-            
-            var viewmodel = new CreateUploadFileViewModel
+            catch (Exception e)
             {
-                ContentType = contentType,
-                TempFileInfo = new FileInfo(result.FileData.First().LocalFileName),
-                FileName = originalFileName
-            };
 
-            var model = AppModelFactory.CreateModel(viewmodel);
-            await this.AppRepository.Files.AddAsync(model);
-            var resultmodel = AppModelFactory.CreateViewModel(model);
-
-            // file content is saved in DB and can be deleted from hard drive
-            viewmodel.TempFileInfo.Delete();
+                return InternalServerError(e);
+            }
             return CreatedAtRoute("GetFileById", new { id = resultmodel.Id }, resultmodel);
         }
 
@@ -73,18 +90,23 @@ namespace EventCorp.AuthorizationServer.Controllers
         /// <returns></returns>
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(byte[]))]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        [Route("{id:guid}", Name = "GetFileById")]
+        [Route("{fileId:guid}", Name = "GetFileById")]
         [HttpGet]
-        public async Task<IHttpActionResult> DownloadFile([FromUri] Guid fileId)
+        public async Task<IHttpActionResult> DownloadFile(string fileId)
         {
-            var file = await AppRepository.Files.FindAsync(fileId);
+            var file = await AppRepository.Files.FindAsync(new Guid(fileId));
             if (file == null)
             {
                 return NotFound();
             }
+            
             var streamContent = new StreamContent(new MemoryStream(file.Content));
             var result = Ok(streamContent);
             result.Content.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
+            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = file.Name
+            };
             return result;
         }
 
@@ -95,7 +117,7 @@ namespace EventCorp.AuthorizationServer.Controllers
         /// <param name="state">true: file is persistent, false: temaporary file</param>
         /// <returns></returns>
         [HttpPut]
-        [Route("{id:guid}")]
+        [Route("{fileId:guid}")]
         [SwaggerResponse(HttpStatusCode.NoContent)]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
@@ -154,12 +176,23 @@ namespace EventCorp.AuthorizationServer.Controllers
         /// <returns></returns>
         private MultipartFormDataStreamProvider GetMultipartProvider()
         {
-            // IMPORTANT: replace "(tilde)" with the real tilde character
-            // (our editor doesn't allow it, so I just wrote "(tilde)" instead)
             var uploadFolder = "~/App_Data/Tmp/FileUploads"; // you could put this to web.config
             var root = HttpContext.Current.Server.MapPath(uploadFolder);
             Directory.CreateDirectory(root);
             return new MultipartFormDataStreamProvider(root);
         }
+
+        private void DeleteOldTempFiles()
+        {
+            var uploadFolder = "~/App_Data/Tmp/FileUploads"; 
+            var root = HttpContext.Current.Server.MapPath(uploadFolder);
+            var dirInfo = new DirectoryInfo(root);
+            var files = dirInfo.GetFiles("*.*").Where(x => x.CreationTime < DateTime.Now.AddMinutes(-60));
+            foreach (var file in files)
+            {
+                file.Delete();
+            }
+        }
+
     }
 }

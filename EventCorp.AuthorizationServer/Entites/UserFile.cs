@@ -18,6 +18,11 @@ namespace EventCorp.AuthorizationServer.Entites
             IsTemp = isTemp;
         }
 
+        public UserFile():this("")
+        {
+            
+        }
+
         #region Properties
         [Key]
         public Guid Id { get; set; }
@@ -32,6 +37,8 @@ namespace EventCorp.AuthorizationServer.Entites
         /// If this is set to true, the server will delete this entry within 24 hours
         /// </summary>
         public bool IsTemp { get; set; }
+
+        public DateTime CreatedUTC { get; set; }
         #endregion
     }
 }

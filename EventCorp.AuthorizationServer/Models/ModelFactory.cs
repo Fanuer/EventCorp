@@ -92,10 +92,11 @@ namespace EventCorp.AuthorizationServer.Models
             {
                 reader.Read(fileContent, 0, fileContent.Length);
             }
-            var result = datamodel ?? new UserFile();
+            var result = datamodel ?? new UserFile() {Id = Guid.NewGuid()};
             result.Name = viewModel.FileName;
             result.ContentType = viewModel.ContentType;
             result.Content = fileContent;
+            result.CreatedUTC = viewModel.TempFileInfo.CreationTimeUtc;
             return result;
         }
 

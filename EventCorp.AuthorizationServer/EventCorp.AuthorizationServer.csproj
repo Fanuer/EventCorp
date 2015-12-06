@@ -181,7 +181,6 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Entites\Audience.cs" />
-    <Compile Include="Entites\UploadFile.cs" />
     <Compile Include="Entites\RefreshToken.cs" />
     <Compile Include="Entites\User.cs" />
     <Compile Include="Entites\UserFile.cs" />
@@ -195,6 +194,18 @@
     <Compile Include="Migrations\201510251521195_InitialCreate.cs" />
     <Compile Include="Migrations\201510251521195_InitialCreate.Designer.cs">
       <DependentUpon>201510251521195_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512062109447_addFile.cs" />
+    <Compile Include="Migrations\201512062109447_addFile.Designer.cs">
+      <DependentUpon>201512062109447_addFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512062129578_addCreationDateToFile.cs" />
+    <Compile Include="Migrations\201512062129578_addCreationDateToFile.Designer.cs">
+      <DependentUpon>201512062129578_addCreationDateToFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512062140511_alterCreationDateToFile.cs" />
+    <Compile Include="Migrations\201512062140511_alterCreationDateToFile.Designer.cs">
+      <DependentUpon>201512062140511_alterCreationDateToFile.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AudienceModel.cs" />
@@ -234,6 +245,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510251521195_InitialCreate.resx">
       <DependentUpon>201510251521195_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512062109447_addFile.resx">
+      <DependentUpon>201512062109447_addFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512062129578_addCreationDateToFile.resx">
+      <DependentUpon>201512062129578_addCreationDateToFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512062140511_alterCreationDateToFile.resx">
+      <DependentUpon>201512062140511_alterCreationDateToFile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

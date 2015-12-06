@@ -2,10 +2,10 @@
     function _uploadFile(file) {
         var fd = new FormData();
         fd.append("file", file);
-        return $http.post(authbaseUrl + 'upload/multipart', fd, {
+        return $http.post(authbaseUrl + 'file', fd, {
             withCredentials: false,
             headers: {
-                'Content-Type': undefined
+                'Content-Type': file.type
             },
             transformRequest: angular.identity
         });
