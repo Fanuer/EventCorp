@@ -6,5 +6,6 @@ namespace EventCorp.AuthorizationServer.Interfaces.Repositories
     {
         IAudienceRepository Audiences{ get; }
         IRefreshTokenRepository RefreshTokens { get; }
+        IFileRepository Files { get; }
     }
 }

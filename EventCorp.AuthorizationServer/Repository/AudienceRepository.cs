@@ -39,7 +39,6 @@ namespace EventCorp.AuthorizationServer.Repository
             if (context != null)
             {
                 result = await context.Audiences.ToListAsync();
-                return result.AsQueryable();
             }
             return result.AsQueryable();
 

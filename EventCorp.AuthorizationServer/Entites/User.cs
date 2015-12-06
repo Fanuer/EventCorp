@@ -42,8 +42,17 @@ namespace EventCorp.AuthorizationServer.Entites
 
         #region Properties
 
+        /// <summary>
+        /// Surname
+        /// </summary>
         public string Surname { get; set; }
+        /// <summary>
+        /// Forname
+        /// </summary>
         public string Forename { get; set; }
+        /// <summary>
+        /// Date of Birth
+        /// </summary>
         public DateTime DateOfBirth { get; set; }
         #endregion
     }

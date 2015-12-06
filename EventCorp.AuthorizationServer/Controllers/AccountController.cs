@@ -47,7 +47,7 @@ namespace EventCorp.AuthorizationServer.Controllers
         [Authorize(Roles = "Admin")]
         public IQueryable<UserModel> GetUsers()
         {
-            return this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.CreateViewModel(u)).AsQueryable();
+            return this.AppUserManager.Users.ToList().Select(u => this.AppModelFactory.CreateViewModel(u)).AsQueryable();
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace EventCorp.AuthorizationServer.Controllers
 
             if (user != null)
             {
-                return Ok(this.TheModelFactory.CreateViewModel(user));
+                return Ok(this.AppModelFactory.CreateViewModel(user));
             }
 
             return NotFound();
@@ -88,7 +88,7 @@ namespace EventCorp.AuthorizationServer.Controllers
             var user = await this.AppUserManager.FindByNameAsync(username);
             if (user != null)
             {
-                return Ok(this.TheModelFactory.CreateViewModel(user));
+                return Ok(this.AppModelFactory.CreateViewModel(user));
             }
             return NotFound();
         }
@@ -107,7 +107,7 @@ namespace EventCorp.AuthorizationServer.Controllers
 
             if (user != null)
             {
-                return Ok(this.TheModelFactory.CreateViewModel(user));
+                return Ok(this.AppModelFactory.CreateViewModel(user));
             }
             return NotFound();
         }
@@ -132,7 +132,7 @@ namespace EventCorp.AuthorizationServer.Controllers
 
             var currentUserId = User.Identity.GetUserId();
             var user = await this.AppUserManager.FindByIdAsync(currentUserId);
-            user = this.TheModelFactory.CreateModel(model, user);
+            user = this.AppModelFactory.CreateModel(model, user);
             var result = await this.AppUserManager.UpdateAsync(user);
             return !result.Succeeded ? GetErrorResult(result) : StatusCode(HttpStatusCode.NoContent);
         }
@@ -181,7 +181,7 @@ namespace EventCorp.AuthorizationServer.Controllers
 
             Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
 
-            return Created(locationHeader, TheModelFactory.CreateViewModel(user));
+            return Created(locationHeader, AppModelFactory.CreateViewModel(user));
         }
 
         /// <summary>

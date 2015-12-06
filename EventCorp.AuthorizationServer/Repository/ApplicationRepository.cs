@@ -24,6 +24,7 @@ namespace EventCorp.AuthorizationServer.Repository
             _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
             RefreshTokens = new RefreshTokenRepository(_ctx);
             Audiences = new AudienceRepository(_ctx);
+            Files = new FileRepository(_ctx);
         }
         #endregion
 
@@ -40,6 +41,7 @@ namespace EventCorp.AuthorizationServer.Repository
         #region Properties
         public IAudienceRepository Audiences { get; private set; }
         public IRefreshTokenRepository RefreshTokens { get; private set; }
+        public IFileRepository Files { get; private set; }
 
         #endregion
     }
