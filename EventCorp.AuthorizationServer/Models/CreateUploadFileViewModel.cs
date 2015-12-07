@@ -12,5 +12,7 @@ namespace EventCorp.AuthorizationServer.Models
         public string FileName { get; set; }
         public string ContentType { get; set; }
         public FileInfo TempFileInfo { get; set; }
+      public bool Global { get; set; }
+      public Guid Owner { get; set; }
     }
 }

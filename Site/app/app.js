@@ -37,6 +37,7 @@ eventCorp.run(['authFactory', function (authFactory) {
 
 //factories
 eventCorp.factory("authFactory", authFactory);
+eventCorp.factory("fileFactory", fileFactory);
 eventCorp.factory("authInterceptorFactory", authInterceptorFactory);
 
 //controller

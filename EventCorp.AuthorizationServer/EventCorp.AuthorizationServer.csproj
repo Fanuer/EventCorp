@@ -218,6 +218,7 @@
     <Compile Include="Models\RefreshTokenModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\CreateUploadFileViewModel.cs" />
+    <Compile Include="Models\UploadedFileFormModel.cs" />
     <Compile Include="Models\UploadFileViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UsersInRoleModel.cs" />
