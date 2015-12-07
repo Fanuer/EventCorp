@@ -16,6 +16,10 @@ html, body, #wrapper {
     height: auto;
     min-height: 100%;
     padding-bottom: 100px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5rem;
 }
 
 #main-nav, footer {
@@ -25,10 +29,6 @@ html, body, #wrapper {
     #main-nav a, footer p.text-muted {
         color: #FFF;
     }
-
-#btn-login {
-    background-color: #1873CC;
-}
 
 /*Footer */
 footer {
@@ -40,11 +40,6 @@ footer {
     padding-top: 0.5rem;
 }
 
-/* Dashboard */
-#dashboardContainer {
-    margin-top: 5rem;
-    max-width: 80rem;
-}
 
 #profilOverview, #eventOverview, #myWeek {
     min-height: 10rem;
@@ -62,18 +57,6 @@ footer {
     margin-top: 3rem;
 }
 
-/* User */
-#userContainer {
-    margin-top: 5rem;
-    max-width: 80rem;
-}
-
-#userPicture {
-    border-style: solid;
-    border-width: 1px;
-    color: #2C3254;
-    min-height: 10rem;
-}
 
 #userCredentialSubmit {
     margin-top: 3rem;
@@ -85,6 +68,10 @@ footer {
 }
 
 #eventsSearchDropdown {
+    -moz-min-width: 50rem;
+    -ms-min-width: 50rem;
+    -o-min-width: 50rem;
+    -webkit-min-width: 50rem;
     min-width: 50rem;
 }
 

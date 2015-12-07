@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EventCorp.AuthorizationServer {
+namespace EventCorps.Helper {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace EventCorp.AuthorizationServer {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EventCorp.AuthorizationServer.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EventCorps.Helper.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,60 @@ namespace EventCorp.AuthorizationServer {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cultural ähnelt.
+        /// </summary>
+        public static string Enum_EventType_Cultural {
+            get {
+                return ResourceManager.GetString("Enum_EventType_Cultural", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Education ähnelt.
+        /// </summary>
+        public static string Enum_EventType_Education {
+            get {
+                return ResourceManager.GetString("Enum_EventType_Education", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Sports ähnelt.
+        /// </summary>
+        public static string Enum_EventType_Sports {
+            get {
+                return ResourceManager.GetString("Enum_EventType_Sports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Female ähnelt.
+        /// </summary>
+        public static string Enum_Gender_Female {
+            get {
+                return ResourceManager.GetString("Enum_Gender_Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Male ähnelt.
+        /// </summary>
+        public static string Enum_Gender_Male {
+            get {
+                return ResourceManager.GetString("Enum_Gender_Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Other ähnelt.
+        /// </summary>
+        public static string Enum_Other {
+            get {
+                return ResourceManager.GetString("Enum_Other", resourceCulture);
             }
         }
         
@@ -142,7 +196,7 @@ namespace EventCorp.AuthorizationServer {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Gender ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die GenderType ähnelt.
         /// </summary>
         public static string Label_Gender {
             get {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EventCorp.AuthorizationServer.Models
+namespace EventCorps.Helper.Models
 {
   public class CreateRoleModel
   {

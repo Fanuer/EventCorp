@@ -2,8 +2,8 @@
 
 //const
 eventCorp.constant("localStorageAuthIndex", "eventCorp.SPA.auth");
-eventCorp.constant("authbaseUrl", "http://localhost:54867/api/");
-//eventCorp.constant("authbaseUrl", "http://ec-auth.azurewebsites.net/api/");
+//eventCorp.constant("authbaseUrl", "http://localhost:54867/api/");
+eventCorp.constant("authbaseUrl", "http://ec-auth.azurewebsites.net/api/");
 
 //config
 eventCorp.config(function ($httpProvider) {
@@ -38,6 +38,7 @@ eventCorp.run(['authFactory', function (authFactory) {
 
 //factories
 eventCorp.factory("authFactory", authFactory);
+eventCorp.factory("userFactory", userFactory);
 eventCorp.factory("fileFactory", fileFactory);
 eventCorp.factory("authInterceptorFactory", authInterceptorFactory);
 
@@ -48,3 +49,20 @@ eventCorp.controller("loginController", loginController);
 eventCorp.controller("registerController", registerController);
 eventCorp.controller("userController", userController);
 eventCorp.controller("navController", navController);
+
+//directives
+eventCorp.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function () {
+                scope.$apply(function () {
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);

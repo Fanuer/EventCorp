@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using EventCorp.AuthorizationServer.Models;
+using EventCorps.Helper.Models;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using Swashbuckle.Swagger.Annotations;

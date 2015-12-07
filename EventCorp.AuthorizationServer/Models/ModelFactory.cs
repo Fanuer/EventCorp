@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http.Routing;
 using EventCorp.AuthorizationServer.Entites;
+using EventCorps.Helper.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EventCorp.AuthorizationServer.Models

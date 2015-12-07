@@ -36,6 +36,15 @@ namespace EventCorp.AuthorizationServer.Repository
             return new ApplicationRepository();
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>()
+            .HasOptional(u => u.UserFile)
+            .WithRequired(uf => uf.User);
+        }
+
         #endregion
 
         #region Properties

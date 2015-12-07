@@ -1,26 +1,19 @@
-﻿<div id="login" class="container col-sm-offset-2 col-sm-8 form-signin">
-    <form class="form-login form-horizontal" role="form">
+﻿<div id="login" class="container form-signin">
+    <div data-ng-hide="message == ''" data-ng-class="($scope.messageClass = '') ? 'alert alert-danger' : 'alert alert-' + messageClass">
+        {{message}}
+    </div>
+    <h2 class="form-signin-heading">Bitte anmelden</h2>
+
+    <form class="form-login" role="form">
         <!--<login-component></login-component>-->
-        <div data-ng-hide="message == ''" data-ng-class="($scope.messageClass = '') ? 'alert alert-danger' : 'alert alert-' + messageClass">
-            {{message}}
-        </div>
-        <h2 class="form-signin-heading">Bitte anmelden</h2>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Anmeldenamen</label>
-            <div class="col-sm-9">
-                <input type="text" id="username" class="form-control" placeholder="Username" data-ng-model="loginData.userName" required autofocus>
-            </div>
+            <label for="username">Anmeldenamen</label>
+            <input type="text" id="username" class="form-control" placeholder="Username" data-ng-model="loginData.userName" required autofocus>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Passwort</label>
-            <div class="col-sm-9">
-                <input type="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
-            </div>
+            <label for="password">Passwort</label>
+            <input type="password" id="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
         </div>
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-                <button class="btn btn-lg btn-primary btn-block" type="submit" data-ng-click="login()" id="btn-login">Login</button>
-            </div>
-        </div>
+        <button class="btn btn-default pull-right" type="submit" data-ng-click="login()" id="btn-login">Login</button>
     </form>
 </div><!-- Login -->

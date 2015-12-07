@@ -3,11 +3,14 @@
 <dom-module id="profile-foto">
     <link rel="stylesheet" href="profile-foto.css" />
     <template>
-        <div>
-            <h3>Bild hochladen</h3>
-            <img id="preview" width="200px" alt="Image preview...">
-            <input type="file" name="pic" accept="image/*" id="uploadUserPicture" ng-change="angular.element(this).scope().uploadedFile(this)">
-        </div>
+        <label for="uploadAvatar">Avatar hochladen</label>
+        <input type="file" name="pic" id="uploadAvatar" accept="image/*" file-model="avatar">
+        <img id="loader" src="/images/ajax-loader.gif" alt="upload file" data-ng-show="'{{showLoader}}' == 'true'"/>
+        <img id="preview" width="200" alt="Image preview..." data-ng-src="{{imageUrl}}" data-ng-show="imageUrl != ''">
+        
+
+        <span ng-show="avatar">GEHT</span>
+
     </template>
     <script>
         Polymer({

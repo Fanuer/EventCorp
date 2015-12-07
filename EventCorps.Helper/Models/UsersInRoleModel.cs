@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace EventCorp.AuthorizationServer.Models
+namespace EventCorps.Helper.Models
 {
   /// <summary>
   /// Definies a Role and the added and removed users

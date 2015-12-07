@@ -1,13 +1,26 @@
-﻿<div id="userContainer" class="container">
-	<form id="userCredentialUpdate">
-		<div id="userPicture" class="col-sm-5 form-group">
-            <profile-foto></profile-foto>
-		</div>
-		<div id="userCredentials" class="col-sm-offset-2 col-sm-5 form-group">
-			<profile-card username="Test" birthdate="2000-01-01" mySports="" about="Da bin ich!"></profile-card>
-		</div>
-		<div id="userCredentialSubmit" class="col-sm-offset-4 col-sm-4 form-group">
-			<button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-register">Speichern</button>
-		</div>
-	</form>
+﻿<div id="userContainer">
+    <h1>Pers&ouml;nliche Daten</h1>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#userCredentialUpdate" aria-controls="userCredentialUpdate" role="tab" data-toggle="tab">Nutzerdaten</a></li>
+        <li role="presentation"><a href="#changePassword" aria-controls="changePassword" role="tab" data-toggle="tab">Password &auml;ndern</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="userCredentialUpdate">
+            <div id="userCredentials" class="form-group">
+                <profile-card username="Test" birthdate="2000-01-01" mySports="" about="Da bin ich!"></profile-card>
+            </div>
+            <div id="userPicture" class="form-group">
+                <profile-foto></profile-foto>
+            </div>
+            <div id="userCredentialSubmit" class="form-group">
+                <button class="btn btn-default btn-primary pull-right" type="button" id="btn-register" data-ng-click="updateUser()">Speichern</button>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="changePassword">
+
+        </div>
+    </div>
 </div><!-- User -->

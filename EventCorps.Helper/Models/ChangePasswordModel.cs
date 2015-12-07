@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EventCorp.AuthorizationServer.Models
+namespace EventCorps.Helper.Models
 {
     /// <summary>
     /// Model to change a password

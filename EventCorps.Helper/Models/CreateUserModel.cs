@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace EventCorp.AuthorizationServer.Models
+namespace EventCorps.Helper.Models
 {
     /// <summary>
     /// Data to register a User

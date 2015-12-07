@@ -1,4 +1,4 @@
-﻿namespace EventCorp.AuthorizationServer.Models
+﻿namespace EventCorps.Helper.Models
 {
   /// <summary>
   /// Defines Role Data

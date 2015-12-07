@@ -9,6 +9,7 @@ using System.Web.Http;
 using EventCorp.AuthorizationServer.Entites;
 using EventCorp.AuthorizationServer.Models;
 using EventCorps.Helper;
+using EventCorps.Helper.Models;
 
 namespace EventCorp.AuthorizationServer.Controllers
 {

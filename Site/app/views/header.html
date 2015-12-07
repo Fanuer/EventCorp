@@ -16,7 +16,7 @@
             <ul class="nav navbar-nav navbar-right navbar-collapse collapse">
                 <li data-ng-show="!authentication.isAuth"><a href="#/login">Log in</a></li>
                 <li data-ng-show="!authentication.isAuth"><a href="#/register">Registrieren</a></li>
-                <li data-ng-show="authentication.isAuth"><a href="#">Hallo {{authentication.userName}}</a></li>
+                <li data-ng-show="authentication.isAuth"><a href="#/user">Hallo {{authentication.userName}}</a></li>
                 <li data-ng-show="authentication.isAuth"><a href="#/events">Events</a></li>
                 <li data-ng-show="authentication.isAuth"><a href="#" data-ng-click="logOut()">Log out</a></li>
             </ul>

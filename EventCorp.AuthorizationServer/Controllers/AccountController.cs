@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using EventCorp.AuthorizationServer.Entites;
 using EventCorp.AuthorizationServer.Models;
+using EventCorps.Helper.Models;
 using Microsoft.AspNet.Identity;
 using Swashbuckle.Swagger.Annotations;
 

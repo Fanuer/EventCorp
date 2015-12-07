@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using EventCorps.Helper.Enums;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -45,15 +47,30 @@ namespace EventCorp.AuthorizationServer.Entites
         /// <summary>
         /// Surname
         /// </summary>
+        [Required]
         public string Surname { get; set; }
         /// <summary>
         /// Forname
         /// </summary>
+        [Required]
         public string Forename { get; set; }
         /// <summary>
         /// Date of Birth
         /// </summary>
+        [Required]
         public DateTime DateOfBirth { get; set; }
+        /// <summary>
+        /// place of residence
+        /// </summary>
+        [Required]
+        public string City { get; set; }
+
+        [Required]
+        public GenderType GenderType { get; set; }
+        [Required]
+        public EventType FavoriteEventType { get; set; }
+
+        public UserFile UserFile { get; set; }
         #endregion
     }
 }

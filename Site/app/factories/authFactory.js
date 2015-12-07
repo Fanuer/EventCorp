@@ -27,9 +27,9 @@ function authFactory($http, $q, $log, localStorageService, authbaseUrl, localSto
           });
     }
     var _login = function (loginData) {
-        var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
+        var data = "grant_type=password&client_id=0dd23c1d3ea848a2943fa8a250e0b2ad&username=" + loginData.userName + "&password=" + loginData.password;
         var deferred = $q.defer();
-        $http.post(authbaseUrl + 'accounts/login', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+        $http.post('http://ec-auth.azurewebsites.net/oauth2/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
           .then(function (response) {
               try {
                   localStorageService.set(localStorageAuthIndex, {
@@ -55,7 +55,6 @@ function authFactory($http, $q, $log, localStorageService, authbaseUrl, localSto
               } else {
                   deferred.reject(response);
               }
-
           });
 
         return deferred.promise;

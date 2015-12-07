@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EventCorp.AuthorizationServer.Models
+namespace EventCorps.Helper.Models
 {
   public class RefreshTokenModel
   {

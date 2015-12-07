@@ -150,7 +150,7 @@
     <comment>Fitness-Level des Nutzers</comment>
   </data>
   <data name="Label_Gender" xml:space="preserve">
-    <value>Gender</value>
+    <value>GenderType</value>
     <comment>Geschlecht</comment>
   </data>
   <data name="Label_Id" xml:space="preserve">
@@ -202,5 +202,26 @@
   </data>
   <data name="Label_Forename" xml:space="preserve">
     <value>Forename</value>
+  </data>
+  <data name="Enum_Gender_Female" xml:space="preserve">
+    <value>Female</value>
+    <comment>weiblich</comment>
+  </data>
+  <data name="Enum_Gender_Male" xml:space="preserve">
+    <value>Male</value>
+    <comment>männlich</comment>
+  </data>
+  <data name="Enum_Other" xml:space="preserve">
+    <value>Other</value>
+    <comment>Andere</comment>
+  </data>
+  <data name="Enum_EventType_Cultural" xml:space="preserve">
+    <value>Cultural</value>
+  </data>
+  <data name="Enum_EventType_Education" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="Enum_EventType_Sports" xml:space="preserve">
+    <value>Sports</value>
   </data>
 </root>
