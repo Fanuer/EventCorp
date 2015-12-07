@@ -207,6 +207,10 @@
     <Compile Include="Migrations\201512062140511_alterCreationDateToFile.Designer.cs">
       <DependentUpon>201512062140511_alterCreationDateToFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512071027488_ExtendedFileData.cs" />
+    <Compile Include="Migrations\201512071027488_ExtendedFileData.Designer.cs">
+      <DependentUpon>201512071027488_ExtendedFileData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AudienceModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
@@ -255,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512062140511_alterCreationDateToFile.resx">
       <DependentUpon>201512062140511_alterCreationDateToFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512071027488_ExtendedFileData.resx">
+      <DependentUpon>201512071027488_ExtendedFileData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

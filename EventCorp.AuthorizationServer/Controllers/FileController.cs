@@ -82,7 +82,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     {
       var file = await AppRepository.Files.FindAsync(fileId);
 
-      if (file == null || (!file.Global && !CheckOwner(file.UserId)))
+      if (file == null || (!file.Global && !CheckOwner(file.Owner)))
       {
         return NotFound();
       }
@@ -96,13 +96,14 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// <param name="fileId">id of a file</param>
     /// <returns></returns>
     [Route("{fileId:guid}/content")]
+    [AllowAnonymous]
     [HttpGet]
     [SwaggerResponse(HttpStatusCode.OK, Type = typeof(byte[]))]
     [SwaggerResponse(HttpStatusCode.NotFound)]
     public async Task<IHttpActionResult> DownloadFile([FromUri] Guid fileId)
     {
       var file = await AppRepository.Files.FindAsync(fileId);
-      if (file == null || (!file.Global && !CheckOwner(file.UserId)))
+      if (file == null)
       {
         return NotFound();
       }
@@ -144,7 +145,7 @@ namespace EventCorp.AuthorizationServer.Controllers
         return NotFound();
       }
 
-      if (!file.Global && !CheckOwner(file.UserId))
+      if (!file.Global && !CheckOwner(file.Owner))
       {
         ModelState.AddModelError("", "The status of a private file can be changed only by its owner");
       }
@@ -161,8 +162,8 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// <summary>
     /// Updates an existing file. Only own files can be updated
     /// </summary>
-    /// <param name="id">Id of the file to update</param>
-    /// <param name="exercise">new file data</param>
+    /// <param name="fileId">Id of the file to update</param>
+    /// <param name="model">new file data</param>
     [Route("{fileId:guid}")]
     [HttpPut]
     [SwaggerResponse(HttpStatusCode.NoContent)]
@@ -215,7 +216,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     public async Task<IHttpActionResult> DeleteFile([FromUri] Guid fileId)
     {
       var file = await this.AppRepository.Files.FindAsync(fileId);
-      if (file== null || !CheckOwner(file.UserId))
+      if (file== null || !CheckOwner(file.Owner))
       {
         return NotFound();
       }

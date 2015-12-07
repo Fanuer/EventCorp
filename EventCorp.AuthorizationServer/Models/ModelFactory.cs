@@ -98,7 +98,7 @@ namespace EventCorp.AuthorizationServer.Models
       result.Content = fileContent;
       result.CreatedUTC = viewModel.TempFileInfo.CreationTimeUtc;
       result.Global = viewModel.Global;
-      result.UserId = viewModel.Owner;
+      result.UserId = viewModel.Owner.ToString();
       return result;
     }
 
@@ -127,11 +127,10 @@ namespace EventCorp.AuthorizationServer.Models
         ContentType = datamodel.ContentType,
         ContentSize = datamodel.Content.Length,
         Global = datamodel.Global,
-        Owner = datamodel.UserId,
+        Owner = datamodel.Owner,
         IsPermanent = !datamodel.IsTemp,
         Url = _UrlHelper.Link("GetFileById", new { id = datamodel.Id })
       };
     }
-
   }
 }

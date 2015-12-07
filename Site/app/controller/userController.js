@@ -1,9 +1,4 @@
-﻿function userController($scope, imageFactory) {
+﻿function userController($scope, fileFactory) {
+  $scope.showImageUrl = null;
 
-    // set user picture, if user uploads a new one
-    $scope.uploadedFile = function (element) {
-        $scope.$apply(function ($scope) {
-            $scope.files = element.files;
-        });
-    }
 }

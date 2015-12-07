@@ -11,6 +11,8 @@ namespace EventCorp.AuthorizationServer.Entites
 {
   public class UserFile : IEntity<Guid>
   {
+    private Guid _userId;
+
     #region Ctor
     public UserFile(string name = "", string contentType = "application/octet-stream", byte[] content = null, bool isTemp = true, DateTime? created = null, bool global = false)
     {
@@ -47,11 +49,26 @@ namespace EventCorp.AuthorizationServer.Entites
     /// </summary>
     public DateTime CreatedUTC { get; set; }
 
+    public Guid Owner => _userId;
+
     /// <summary>
     /// File Owner
     /// </summary>
     [ForeignKey("User")]
-    public Guid UserId { get; set; }
+    public string UserId
+    {
+      get { return this._userId.ToString(); }
+      set
+      {
+        var temp = Guid.Empty;
+        if (Guid.TryParse(value, out temp))
+        {
+          this._userId = temp;
+        }
+      }
+    }
+
+    public User User { get; set; }
 
     /// <summary>
     /// Shall this file be used by other Users
