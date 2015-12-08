@@ -5,8 +5,8 @@
     <template>
         <label for="uploadAvatar">Avatar hochladen</label>
         <input type="file" name="pic" id="uploadAvatar" accept="image/*" file-model="avatar">
-        <img id="loader" src="/images/ajax-loader.gif" alt="upload file" data-ng-show="'{{showLoader}}' == 'true'"/>
-        <img id="preview" width="200" alt="Image preview..." data-ng-src="{{imageUrl}}" data-ng-show="imageUrl != ''">
+        <img id="loader" src="/images/ajax-loader.gif" alt="upload file" data-ng-show="$scope.showLoader"/>
+        <img id="preview" width="200" alt="Image preview..." data-ng-src="{{imageUrl}}" data-ng-show="imageUrl != ''" class="img-circle">
         
 
         <span ng-show="avatar">GEHT</span>

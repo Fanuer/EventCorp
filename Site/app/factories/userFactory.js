@@ -14,10 +14,14 @@
     function _updateOwnData(userData) {
         return $http.put(authbaseUrl + 'Accounts/CurrentUser', userData);
     }
+    var _changePassword = function(changePasswordModel) {
+      return $http.put(authbaseUrl + "accounts/changepassword", changePasswordModel);
+    }
 
     var factory = {
         getUserData: _getUserData,
-        updateCurrentUser: _updateOwnData
+        updateCurrentUser: _updateOwnData,
+        changePassword: _changePassword
     };
     return factory;
 }

@@ -80,6 +80,7 @@
     <Compile Include="Enums\GenderType.cs" />
     <Compile Include="Filter\AddParametersFilter.cs" />
     <Compile Include="Models\AudienceModel.cs" />
+    <Compile Include="Models\BaseUserModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CreateRoleModel.cs" />
     <Compile Include="Models\CreateUploadFileViewModel.cs" />

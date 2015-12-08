@@ -115,6 +115,15 @@ namespace EventCorps.Helper {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The entered passwords are not equal ähnelt.
+        /// </summary>
+        public static string Error_PasswordsNotEqual {
+            get {
+                return ResourceManager.GetString("Error_PasswordsNotEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die The field &apos;{0}&apos; is required. ähnelt.
         /// </summary>
         public static string Error_Required {
@@ -174,6 +183,15 @@ namespace EventCorps.Helper {
         public static string Label_Email {
             get {
                 return ResourceManager.GetString("Label_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Favorite Event ähnelt.
+        /// </summary>
+        public static string Label_FavoriteEvent {
+            get {
+                return ResourceManager.GetString("Label_FavoriteEvent", resourceCulture);
             }
         }
         

@@ -12,7 +12,7 @@
         return $http.post(authbaseUrl + 'file', fd, {
             withCredentials: false,
             headers: {
-                'Content-Type': file.type
+              'Content-Type': undefined
             },
             transformRequest: angular.identity
         });

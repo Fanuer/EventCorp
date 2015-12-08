@@ -1,26 +1,91 @@
 ﻿<div id="userContainer">
+    <div data-ng-hide="message == ''" data-ng-class="($scope.messageClass = '') ? 'alert alert-danger' : 'alert alert-' + messageClass">
+        {{message}}
+    </div>
     <h1>Pers&ouml;nliche Daten</h1>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#userCredentialUpdate" aria-controls="userCredentialUpdate" role="tab" data-toggle="tab">Nutzerdaten</a></li>
-        <li role="presentation"><a href="#changePassword" aria-controls="changePassword" role="tab" data-toggle="tab">Password &auml;ndern</a></li>
+        <li role="presentation" class="active"><a href="#userCredentialUpdate" aria-controls="userCredentialUpdate" role="tab" data-toggle="tab" data-showtab>Nutzerdaten</a></li>
+        <li role="presentation"><a href="#changePassword" aria-controls="changePassword" role="tab" data-toggle="tab" data-showtab>Password &auml;ndern</a></li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="userCredentialUpdate">
-            <div id="userCredentials" class="form-group">
-                <profile-card username="Test" birthdate="2000-01-01" mySports="" about="Da bin ich!"></profile-card>
-            </div>
-            <div id="userPicture" class="form-group">
-                <profile-foto></profile-foto>
-            </div>
-            <div id="userCredentialSubmit" class="form-group">
-                <button class="btn btn-default btn-primary pull-right" type="button" id="btn-register" data-ng-click="updateUser()">Speichern</button>
-            </div>
+            <form>
+                <div class="row">
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="inputUsername">Benutzername</label>
+                        <input type="text" id="inputUsername" class="form-control" placeholder="Benutzername" required="" autofocus="" data-ng-model="userData.username"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6  col-xs-12">
+                        <label for="inputForename">Vorname</label>
+                        <input type="text" id="inputForename" class="form-control" placeholder="Vorname" required="" data-ng-model="userData.forename"/>
+                    </div>
+                    <div class="form-group col-sm-6  col-xs-12">
+                        <label for="inputSurname">Nachname</label>
+                        <input type="text" id="inputSurname" class="form-control" placeholder="Nachname" required="" data-ng-model="userData.surname"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="inputBirthday">Geburtstag</label>
+                        <input type="date" id="inputBirthday" class="form-control" placeholder="Geburtstag" required="" data-ng-model="userData.dateOfBirth"/>
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" id="inputEmail" class="form-control" placeholder="Email" required="" data-ng-model="userData.email"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="inputGender">Geschlecht</label>
+                        <input type="input" id="inputGender" disabled="disabled" class="form-control" placeholder="Geschlecht" required="" data-ng-model="userData.gender"/>
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="inputUserSports">Meine Sportarten</label>
+                        <input class="form-control" rows="5" id="inputUserSports" placeholder="Favorisierte Eventart" data-ng-model="userData.favoriteEventType"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="userPicture" class="form-group col-sm-6 col-xs-12">
+                        <label for="uploadAvatar">Avatar hochladen</label>
+                        <img id="loader" src="/images/ajax-loader.gif" alt="upload file" data-ng-show="$scope.showLoader"/>
+                        <div>
+                            <input type="file" name="pic" id="uploadAvatar" accept="image/*" file-model="avatar">
+                            <img id="avatar" width="200" alt="Image preview..." data-ng-src="{{imageUrl}}" data-show-Avatar-Upload data-fileUploadId="uploadAvatar" class="img-circle">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="userCredentialSubmit" class="form-group col-xs-12">
+                        <button class="btn btn-default btn-primary pull-right" type="button" id="btn-updateUser" data-ng-click="updateUser()">Speichern</button>
+                    </div>    
+                </div>
+            </form>
         </div>
         <div role="tabpanel" class="tab-pane" id="changePassword">
-
+            <form>
+                <div class="row">
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="oldPassword">Altes Passwort</label>
+                        <input type="password" class="form-control" id="oldPassword" placeholder="Bisheriges Passwort" data-ng-model="changePasswordModel.oldPassword">
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="oldPassword">Neues Passwort</label>
+                        <input type="password" class="form-control" id="newPassword" placeholder="Neues Passwort" data-ng-model="changePasswordModel.newPassword">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-offset-6 col-sm-6 col-xs-12">
+                        <label for="confirmPassword">Neues Passwort wiederholen</label>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Passwort wiederholen" data-ng-model="changePasswordModel.confirmPassword">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-default btn-primary pull-right" data-ng-click="changePassword()">Speichern</button>
+            </form>
         </div>
     </div>
 </div><!-- User -->

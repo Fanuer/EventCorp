@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http.Routing;
 using EventCorp.AuthorizationServer.Entites;
+using EventCorps.Helper.Enums;
 using EventCorps.Helper.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -34,11 +35,15 @@ namespace EventCorp.AuthorizationServer.Models
       {
         Url = _UrlHelper.Link("GetUserById", new { id = datamodel.Id }),
         Id = datamodel.Id,
-        UserName = datamodel.UserName,
+        Username = datamodel.UserName,
         Email = datamodel.Email,
         DateOfBirth = datamodel.DateOfBirth,
         Surname = datamodel.Surname,
-        Forename = datamodel.Forename
+        Forename = datamodel.Forename,
+        AvatarId = datamodel.AvatarId,
+        City = datamodel.City,
+        FavoriteEventType = datamodel.FavoriteEventType,
+        GenderType = datamodel.GenderType
       };
     }
 
@@ -77,14 +82,16 @@ namespace EventCorp.AuthorizationServer.Models
     {
       var result = datamodel ?? new User();
       result.DateOfBirth = model.DateOfBirth;
-      result.UserName = model.UserName;
+      result.UserName = model.Username;
       result.Email = model.Email;
       result.Forename = model.Forename;
       result.Surname = model.Surname;
+      result.AvatarId = model.AvatarId;
+      result.City = model.City;
+      result.FavoriteEventType = model.FavoriteEventType;
+      result.GenderType = model.GenderType;
       return result;
     }
-    #endregion
-
 
     public UserFile CreateModel(CreateUploadFileViewModel viewModel, UserFile datamodel = null)
     {
@@ -114,7 +121,6 @@ namespace EventCorp.AuthorizationServer.Models
       return result;
     }
 
-
     public UploadFileViewModel CreateViewModel(UserFile datamodel)
     {
       if (datamodel == null)
@@ -130,8 +136,11 @@ namespace EventCorp.AuthorizationServer.Models
         Global = datamodel.Global,
         Owner = datamodel.Owner,
         IsPermanent = !datamodel.IsTemp,
-        Url = _UrlHelper.Link("GetFileById", new { id = datamodel.Id })
+        Created = datamodel.CreatedUTC,
+        Url = _UrlHelper.Link("GetFileById", new { fileId = datamodel.Id })
       };
     }
+
+    #endregion
   }
 }

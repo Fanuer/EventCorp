@@ -7,6 +7,10 @@ html, body {
     /* margin-bottom: 60px; */
 }
 
+body {
+  background-color: #f7f7f7;
+}
+
 html, body, #wrapper {
     height: 100%;
     width: 100%;
@@ -20,6 +24,9 @@ html, body, #wrapper {
     margin-left: auto;
     margin-right: auto;
     padding-top: 5rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+  background-color: white;
 }
 
 #main-nav, footer {
@@ -93,6 +100,15 @@ footer {
     top: -7px;
 }
 
-#eventsSearchButtonGroup {
-    /*width: 10rem;*/
+.tab-pane {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+#uploadAvatar {
+  display: none;
+}
+
+#avatar {
+  max-width: 7rem;
 }

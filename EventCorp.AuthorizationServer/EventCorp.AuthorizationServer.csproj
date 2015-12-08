@@ -210,6 +210,14 @@
     <Compile Include="Migrations\201512071027488_ExtendedFileData.Designer.cs">
       <DependentUpon>201512071027488_ExtendedFileData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512081256579_AddedOneToManyToUsers.cs" />
+    <Compile Include="Migrations\201512081256579_AddedOneToManyToUsers.Designer.cs">
+      <DependentUpon>201512081256579_AddedOneToManyToUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512081341354_ChangeUser.cs" />
+    <Compile Include="Migrations\201512081341354_ChangeUser.Designer.cs">
+      <DependentUpon>201512081341354_ChangeUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -243,6 +251,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512071027488_ExtendedFileData.resx">
       <DependentUpon>201512071027488_ExtendedFileData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512081256579_AddedOneToManyToUsers.resx">
+      <DependentUpon>201512081256579_AddedOneToManyToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512081341354_ChangeUser.resx">
+      <DependentUpon>201512081341354_ChangeUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

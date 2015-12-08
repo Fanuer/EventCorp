@@ -67,7 +67,7 @@ namespace EventCorp.AuthorizationServer.Controllers
       viewmodel.TempFileInfo.Delete();
       DeleteOldTempFiles();
 
-      return CreatedAtRoute("GetFileById", new { id = resultmodel.Id }, resultmodel);
+      return CreatedAtRoute("GetFileById", new { fileId = resultmodel.Id }, resultmodel);
     }
 
     /// <summary>

@@ -3,14 +3,14 @@
 function authFactory($http, $q, $log, localStorageService, authbaseUrl, localStorageAuthIndex) {
     var factory = {};
 
-    function authModel(isAuth, userName, userId) {
+    function AuthModel(isAuth, userName, userId) {
         this.isAuth = isAuth || false;
         this.userName = userName || "";
         this.userId = userId || "";
     }
 
     var updateAuthData = function (newAuthdata) {
-        var defaultAuth = new authModel();
+        var defaultAuth = new AuthModel();
         newAuthdata = newAuthdata || defaultAuth;
         factory.authentication.isAuth = newAuthdata.isAuth || defaultAuth.isAuth;
         factory.authentication.userName = newAuthdata.userName || defaultAuth.userName;
@@ -29,7 +29,7 @@ function authFactory($http, $q, $log, localStorageService, authbaseUrl, localSto
     var _login = function (loginData) {
         var data = "grant_type=password&client_id=0dd23c1d3ea848a2943fa8a250e0b2ad&username=" + loginData.userName + "&password=" + loginData.password;
         var deferred = $q.defer();
-        $http.post('http://ec-auth.azurewebsites.net/oauth2/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+        $http.post(authbaseUrl.replace('/api', '') + 'oauth2/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
           .then(function (response) {
               try {
                   localStorageService.set(localStorageAuthIndex, {
@@ -44,7 +44,7 @@ function authFactory($http, $q, $log, localStorageService, authbaseUrl, localSto
                   deferred.reject(e);
               }
 
-              updateAuthData(new authModel(true, loginData.userName, response.data.UserId));
+              updateAuthData(new AuthModel(true, loginData.userName, response.data.UserId));
               deferred.resolve(response);
           })
           .catch(function (response) {
@@ -90,10 +90,8 @@ function authFactory($http, $q, $log, localStorageService, authbaseUrl, localSto
         return deferred.promise;
     }
     var _logOut = function () {
-
         localStorageService.remove(localStorageAuthIndex);
         updateAuthData();
-
     }
     var _fillAuthData = function () {
 
@@ -103,10 +101,10 @@ function authFactory($http, $q, $log, localStorageService, authbaseUrl, localSto
             var now = new Date();
             if (expireDate <= now) {
                 _refreshLogin().then(function () {
-                    updateAuthData(new authModel(true, authData.userName, authData.userId));
+                    updateAuthData(new AuthModel(true, authData.userName, authData.userId));
                 });
             } else {
-                updateAuthData(new authModel(true, authData.userName, authData.userId));
+                updateAuthData(new AuthModel(true, authData.userName, authData.userId));
             }
         }
     }
@@ -125,6 +123,6 @@ function authFactory($http, $q, $log, localStorageService, authbaseUrl, localSto
     factory.logOut = _logOut;
     factory.fillAuthData = _fillAuthData;
     factory.checkOnlineStatus = _checkOnlineStatus;
-    factory.authentication = new authModel();
+    factory.authentication = new AuthModel();
     return factory;
 }

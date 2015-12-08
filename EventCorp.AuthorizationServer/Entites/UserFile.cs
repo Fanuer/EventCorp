@@ -54,7 +54,6 @@ namespace EventCorp.AuthorizationServer.Entites
     /// <summary>
     /// File Owner
     /// </summary>
-    [ForeignKey("User")]
     public string UserId
     {
       get { return this._userId.ToString(); }
@@ -68,7 +67,7 @@ namespace EventCorp.AuthorizationServer.Entites
       }
     }
 
-    public User User { get; set; }
+    public virtual User User { get; set; }
 
     /// <summary>
     /// Shall this file be used by other Users
