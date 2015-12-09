@@ -78,6 +78,7 @@
     <Compile Include="DBAccess\Interfaces\SingleId\IRepositoryFindSingle.cs" />
     <Compile Include="Enums\EventType.cs" />
     <Compile Include="Enums\GenderType.cs" />
+    <Compile Include="Enums\SubscriptionType.cs" />
     <Compile Include="Filter\AddParametersFilter.cs" />
     <Compile Include="Models\AudienceModel.cs" />
     <Compile Include="Models\BaseUserModel.cs" />
