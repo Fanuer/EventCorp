@@ -190,3 +190,5 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 .vs/config/applicationhost.config
+.vs/config/applicationhost.config
+EventCorp.AuthorizationServer/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache

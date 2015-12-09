@@ -15,8 +15,8 @@
         $scope.message = "Error on changing password: " + response;
       });
   }
-
   function _updateUser() {
+    $scope.userData.dateOfBirth = new Date($scope.dateWrapper);
     userFactory
       .updateCurrentUser($scope.userData)
       .then(function () {
@@ -28,6 +28,29 @@
         $scope.message = "Successfully changed user data";
       }).catch(function (response) {
         $scope.message = "Error on changing userdata: " + response;
+      });
+  }
+  function _init() {
+    /*userFactory
+      .getGender()
+      .then(function(response) {
+        $scope.enums.gender = response.data;
+      });*/
+
+    userFactory
+      .getEventTypes()
+      .then(function (response) {
+        $scope.enums.eventTypes = response.data;
+        return userFactory.getUserData();
+      }).then(function (response) {
+        if (typeof (response.data.dateOfBirth) !== "undefined") {
+          $scope.dateWrapper = new Date(response.data.dateOfBirth);
+        }
+        $scope.userData = response.data;
+
+        if (response.data.avatarId) {
+          $scope.imageUrl = fileFactory.getFileContentUrl(response.data.avatarId);
+        }
       });
   }
 
@@ -43,35 +66,12 @@
       $scope.showLoader = true;
     }
   });
-  $scope.$watch('dateWrapper', function (date) {
-    $scope.userData.dateOfBirth = dateFilter(dateWrapper, 'yyyy-MM-dd');
-  });
 
-  $scope.$watch('userData.dateOfBirth', function (dateOfBirth) {
-    $scope.dateWrapper = new Date(dateOfBirth);
-  });
-
-  function _init() {
-    userFactory
-        .getUserData()
-        .then(function (response) {
-          if (typeof (response.data.dateOfBirth) !== "undefined") {
-            response.data.dateOfBirth = new Date(response.data.dateOfBirth).toISOString().substring(0, 10);
-          }
-          $scope.userData = response.data;
-          if (response.data.avatarId) {
-            $scope.imageUrl = fileFactory.getFileContentUrl(response.data.avatarId);
-          }
-        }).catch(function () {
-
-        });
-  }
 
   $scope.dateWrapper = new Date();
-
-
   $scope.imageUrl = '/images/no_avatar.png';
   $scope.userData = {};
+  $scope.enums = {};
   $scope.showLoader = false;
   $scope.changePassword = _changePassword;
   $scope.updateUser = _updateUser;

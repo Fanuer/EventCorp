@@ -1,7 +1,5 @@
 ﻿<div id="userContainer">
-    <div data-ng-hide="message == ''" data-ng-class="($scope.messageClass = '') ? 'alert alert-danger' : 'alert alert-' + messageClass">
-        {{message}}
-    </div>
+    <div data-ng-include="'app/views/message.html'"></div>
     <h1>Pers&ouml;nliche Daten</h1>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
@@ -12,47 +10,63 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="userCredentialUpdate">
-            <form>
+            <form name="updateUserForm">
                 <div class="row">
                     <div class="form-group col-sm-6 col-xs-12">
                         <label for="inputUsername">Benutzername</label>
-                        <input type="text" id="inputUsername" class="form-control" placeholder="Benutzername" required="" autofocus="" data-ng-model="userData.username"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-6  col-xs-12">
-                        <label for="inputForename">Vorname</label>
-                        <input type="text" id="inputForename" class="form-control" placeholder="Vorname" required="" data-ng-model="userData.forename"/>
-                    </div>
-                    <div class="form-group col-sm-6  col-xs-12">
-                        <label for="inputSurname">Nachname</label>
-                        <input type="text" id="inputSurname" class="form-control" placeholder="Nachname" required="" data-ng-model="userData.surname"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-sm-6 col-xs-12">
-                        <label for="inputBirthday">Geburtstag</label>
-                        <input type="date" id="inputBirthday" class="form-control" placeholder="Geburtstag" required="" data-ng-model="userData.dateOfBirth"/>
-                    </div>
-                    <div class="form-group col-sm-6 col-xs-12">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="Email" required="" data-ng-model="userData.email"/>
+                        <span ng-show="updateUserForm.inputUsername.$error.required" class="error">The Username is required</span>
+                        <input type="text" id="inputUsername" name="inputUsername" class="form-control" placeholder="Benutzername" required="" autofocus="" data-ng-model="userData.username" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-6 col-xs-12">
                         <label for="inputGender">Geschlecht</label>
-                        <input type="input" id="inputGender" disabled="disabled" class="form-control" placeholder="Geschlecht" required="" data-ng-model="userData.gender"/>
+                        <input type="text" id="inputGender" disabled="disabled" class="form-control" placeholder="Geschlecht" data-ng-model="userData.genderType" />
                     </div>
-                    <div class="form-group col-sm-6 col-xs-12">
-                        <label for="inputUserSports">Meine Sportarten</label>
-                        <input class="form-control" rows="5" id="inputUserSports" placeholder="Favorisierte Eventart" data-ng-model="userData.favoriteEventType"/>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6  col-xs-12">
+                        <label for="inputForename">Vorname</label>
+                        <span ng-show="updateUserForm.inputForename.$error.required" class="error">The Forename is required</span>
+                        <input type="text" id="inputForename" name="inputForename" class="form-control" placeholder="Vorname" required="" data-ng-model="userData.forename" />
+                    </div>
+                    <div class="form-group col-sm-6  col-xs-12">
+                        <label for="inputSurname">Nachname</label>
+                        <span ng-show="updateUserForm.inputSurname.$error.required" class="error">The Surname is required</span>
+                        <input type="text" id="inputSurname" name="inputSurname" class="form-control" placeholder="Nachname" required="" data-ng-model="userData.surname" />
                     </div>
                 </div>
                 <div class="row">
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="inputBirthday">Geburtstag</label>
+                        <span ng-show="updateUserForm.inputBirthday.$error.required" class="error">The Date of Birth is required</span>
+                        <input type="date" id="inputBirthday" name="inputBirthday" class="form-control" placeholder="Geburtstag" required="" data-ng-model="dateWrapper" />
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="inputEmail">Email</label>
+                        <span ng-show="updateUserForm.inputEmail.$error.required" class="error">The Email is required</span>
+                        <span ng-show="updateUserForm.inputEmail.$error.email" class="error">Please input a valid Email Address</span>
+                        <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email" required="" data-ng-model="userData.email" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="inputCity">Wohnort</label>
+                        <input type="text" id="inputCity" class="form-control" placeholder="Wohnort" required data-ng-model="userData.city" />
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <label for="inputEventTypes">Bevorzugte Event Art</label>
+                        <select class="form-control" id="inputEventTypes" data-bootstrap-select data-ng-model="userData.favoriteEventType">
+                            <option ng-repeat="event in enums.eventTypes" ng-value="event.value" ng-selected="userData.favoriteEventType == event.displayName">{{event.displayName}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div id="userPicture" class="form-group col-sm-6 col-xs-12">
                         <label for="uploadAvatar">Avatar hochladen</label>
-                        <img id="loader" src="/images/ajax-loader.gif" alt="upload file" data-ng-show="$scope.showLoader"/>
+                        <img id="loader" src="/images/ajax-loader.gif" alt="upload file" data-ng-show="$scope.showLoader" />
                         <div>
                             <input type="file" name="pic" id="uploadAvatar" accept="image/*" file-model="avatar">
                             <img id="avatar" width="200" alt="Image preview..." data-ng-src="{{imageUrl}}" data-show-Avatar-Upload data-fileUploadId="uploadAvatar" class="img-circle">
@@ -61,30 +75,40 @@
                 </div>
                 <div class="row">
                     <div id="userCredentialSubmit" class="form-group col-xs-12">
-                        <button class="btn btn-default btn-primary pull-right" type="button" id="btn-updateUser" data-ng-click="updateUser()">Speichern</button>
-                    </div>    
+                        <button class="btn btn-default btn-primary pull-right" type="button" id="btn-updateUserForm" data-ng-click="updateUser()" data-ng-disabled="updateUserForm.$dirty && updateUserForm.$invalid">Speichern</button>
+                    </div>
                 </div>
             </form>
         </div>
         <div role="tabpanel" class="tab-pane" id="changePassword">
-            <form>
+            <form name="changePasswordForm">
                 <div class="row">
                     <div class="form-group col-sm-6 col-xs-12">
                         <label for="oldPassword">Altes Passwort</label>
-                        <input type="password" class="form-control" id="oldPassword" placeholder="Bisheriges Passwort" data-ng-model="changePasswordModel.oldPassword">
+                        <span data-ng-show="changePasswordForm.$submitted || changePasswordForm.oldPassword.$touched">
+                            <span ng-show="changePasswordForm.oldPassword.$error.required" class="error">The old Password is required</span>
+                        </span>
+                        <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="Bisheriges Passwort" required data-ng-model="changePasswordModel.oldPassword">
                     </div>
                     <div class="form-group col-sm-6 col-xs-12">
                         <label for="oldPassword">Neues Passwort</label>
-                        <input type="password" class="form-control" id="newPassword" placeholder="Neues Passwort" data-ng-model="changePasswordModel.newPassword">
+                        <span data-ng-show="changePasswordForm.$submitted || changePasswordForm.newPassword.$touched">
+                            <span ng-show="changePasswordForm.newPassword.$error.required" class="error">The new Password is required</span>
+                        </span>
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Neues Passwort" required data-ng-model="changePasswordModel.newPassword">
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-offset-6 col-sm-6 col-xs-12">
                         <label for="confirmPassword">Neues Passwort wiederholen</label>
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Passwort wiederholen" data-ng-model="changePasswordModel.confirmPassword">
+                        <span data-ng-show="changePasswordForm.$submitted || changePasswordForm.confirmPassword.$touched">
+                            <span ng-show="changePasswordForm.confirmPassword.$error.required" class="error">The confirm Password is required</span>
+                            <span ng-show="changePasswordForm.confirmPassword.$error.compareTo" class="error">The confirm Password must be equal to the new password</span>
+                        </span>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Passwort wiederholen" required data-ng-model="changePasswordModel.confirmPassword" data-compareTo="changePasswordModel.newPassword">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-default btn-primary pull-right" data-ng-click="changePassword()">Speichern</button>
+                <button type="submit" class="btn btn-default btn-primary pull-right" data-ng-click="changePassword()" data-ng-disabled="changePasswordForm.$invalid">Speichern</button>
             </form>
         </div>
     </div>

@@ -86,6 +86,7 @@
     <Compile Include="Models\CreateUploadFileViewModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\EntryModel.cs" />
+    <Compile Include="Models\EnumValueModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RefreshTokenModel.cs" />
     <Compile Include="Models\RoleModel.cs" />

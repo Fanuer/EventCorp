@@ -68,3 +68,4 @@ eventCorp.directive('fileModel', ['$parse', function ($parse) {
 }]);
 eventCorp.directive('showtab', showtab);
 eventCorp.directive('showAvatarUpload', showAvatarUpload);
+eventCorp.directive('compareTo', compareTo);

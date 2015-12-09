@@ -1,5 +1,93 @@
 ﻿<div id="registerContainer">
-	<form class="form-signin>
-        <register-component></register-component>
-	</form>
+    <div data-ng-include="'app/views/message.html'"></div>
+    <h1 class="form-signin-heading">Registrierung</h1>
+    <form class="form-signin" name="registerForm">
+        <div class="row">
+            <div class="form-group col-sm-6 col-xs-12">
+                <label for="inputUsername">Benutzername</label>
+                <span data-ng-show="registerForm.$submitted || registerForm.inputUsername.$touched">
+                    <span data-ng-show="registerForm.inputUsername.$error.required" class="error">The Username is required</span>
+                </span>
+                <input type="text" id="inputUsername" name="inputUsername" class="form-control" placeholder="Benutzername" required="" autofocus="" data-ng-model="registerData.username" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6  col-xs-12">
+                <label for="inputPassword">Passwort</label>
+                <span data-ng-show="registerForm.$submitted || registerForm.inputPassword.$touched">
+                    <span data-ng-show="registerForm.inputPassword.$error.required" class="error">The Password is required</span>
+                </span>
+                <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Passwort" required="" data-ng-model="registerData.password" />
+            </div>
+            <div class="form-group col-sm-6  col-xs-12">
+                <label for="inputPasswordConfirm">Passwort wiederholen</label>
+                <span data-ng-show="registerForm.$submitted || registerForm.inputPasswordConfirm.$touched">
+                    <span data-ng-show="registerForm.inputPasswordConfirm.$error.required" class="error">The confirm Password is required</span>
+                    <span data-ng-show="registerForm.inputPasswordConfirm.$error.compareTo" class="error">The confirm Password must be equal to the new password</span>
+                </span>
+                <input type="password" id="inputPasswordConfirm" name="inputPasswordConfirm" class="form-control" placeholder="Passwort wiederholen" required="" data-ng-model="registerData.confirmPassword" data-compare-to="registerData.password" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-3 col-xs-12">
+                <label for="inputGender">Geschlecht</label>
+                <select class="form-control" id="inputGender" name="inputGender" data-bootstrap-select data-ng-model="registerData.genderType">
+                    <option ng-repeat="gender in enums.genders" ng-value="gender.displayName" ng-selected="gender.displayName == registerData.genderType">{{gender.displayName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6  col-xs-12">
+                <label for="inputForename">Vorname</label>
+                <span data-ng-show="registerForm.$submitted || registerForm.inputForename.$touched">
+                    <span data-ng-show="registerForm.inputForename.$error.required" class="error">The Forename is required</span>
+                </span>
+                <input type="text" id="inputForename" name="inputForename" class="form-control" placeholder="Vorname" required="" data-ng-model="registerData.forename" />
+            </div>
+            <div class="form-group col-sm-6  col-xs-12">
+                <label for="inputSurname">Nachname</label>
+                <span data-ng-show="registerForm.$submitted || registerForm.inputSurname.$touched">
+                    <span data-ng-show="registerForm.inputSurname.$error.required" class="error">The Surname is required</span>
+                </span>
+                <input type="text" id="inputSurname" name="inputSurname" class="form-control" placeholder="Nachname" required="" data-ng-model="registerData.surname" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6 col-xs-12">
+                <label for="inputBirthday">Geburtstag</label>
+                <span data-ng-show="registerForm.$submitted || registerForm.inputBirthday.$touched">
+                    <span ng-show="registerForm.inputBirthday.$error.required" class="error">The Date of Birth is required</span>
+                </span>
+                <input type="date" id="inputBirthday" name="inputBirthday" class="form-control" placeholder="Geburtstag" required="" data-ng-model="registerData.dateOfBirth" />
+            </div>
+            <div class="form-group col-sm-6 col-xs-12">
+                <label for="inputEmail">Email</label>
+                <span data-ng-show="registerForm.$submitted || registerForm.inputEmail.$touched">
+                    <span ng-show="registerForm.inputEmail.$error.required" class="error">The Email is required</span>
+                    <span ng-show="registerForm.inputEmail.$error.email" class="error">Please input a valid Email Address</span>
+                </span>
+                <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email" required="" data-ng-model="registerData.email" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6 col-xs-12">
+                <label for="inputCity">Wohnort</label>
+                <span data-ng-show="registerForm.$submitted || registerForm.inputCity.$touched">
+                    <span ng-show="registerForm.inputCity.$error.required" class="error">The City is required</span>
+                </span>
+                <input type="text" id="inputCity" name="inputCity" class="form-control" placeholder="Wohnort" required data-ng-model="registerData.city" />
+            </div>
+            <div class="form-group col-sm-6 col-xs-12">
+                <label for="inputfavoriteEventType">Bevorzugte Event Art</label>
+                <select class="form-control" id="inputfavoriteEventType" data-bootstrap-select data-ng-model="registerData.favoriteEventType">
+                    <option ng-repeat="event in enums.eventTypes" ng-value="event.displayName" ng-selected="event.displayName == registerData.favoriteEventType">{{event.displayName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <button type="button" class="btn btn-default btn-primary pull-right " data-ng-click="register()" data-ng-disabled="registerForm.$invalid">Speichern</button>
+            </div>
+        </div>
+    </form>
 </div><!-- Register -->

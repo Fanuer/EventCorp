@@ -16,254 +16,236 @@ using Swashbuckle.Swagger.Annotations;
 
 namespace EventCorp.AuthorizationServer.Controllers
 {
+  /// <summary>
+  /// Handles User-based Actions
+  /// </summary>
+  [Authorize]
+  [RoutePrefix("api/Accounts")]
+  [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occured")]
+  public class AccountController : BaseApiController
+  {
     /// <summary>
-    /// Handles User-based Actions
+    /// Method to prove the Server's availability
     /// </summary>
-    [Authorize]
-    [RoutePrefix("api/Accounts")]
-    [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occured")]
-    public class AccountController : BaseApiController
+    [ResponseType(typeof(void))]
+    [Route("Ping")]
+    [HttpGet]
+    [AllowAnonymous]
+    public IHttpActionResult Ping()
     {
-        /// <summary>
-        /// Method to prove the Server's availability
-        /// </summary>
-        [ResponseType(typeof(void))]
-        [Route("Ping")]
-        [HttpGet]
-        [AllowAnonymous]
-        public IHttpActionResult Ping()
+      var result = new { timestamp = DateTime.Now };
+      return this.Ok(result);
+    }
+
+    #region Users
+    /// <summary>
+    /// Gets all application Users
+    /// </summary>
+    [Route("User")]
+    [HttpGet]
+    [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<UserModel>))]
+    [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
+    [Authorize(Roles = "Admin")]
+    public IQueryable<UserModel> GetUsers()
+    {
+      return this.AppUserManager.Users.ToList().Select(u => this.AppModelFactory.CreateViewModel(u)).AsQueryable();
+    }
+
+    /// <summary>
+    /// Get a user by its guid
+    /// </summary>
+    /// <param name="id">User's guid</param>
+    [Route("User/{id:guid}", Name = "GetUserById")]
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
+    [SwaggerResponse(HttpStatusCode.OK, Type = typeof(UserModel))]
+    [SwaggerResponse(HttpStatusCode.NotFound)]
+    public async Task<IHttpActionResult> GetUser(string id)
+    {
+      var user = await this.AppUserManager.FindByIdAsync(id);
+
+      if (user != null)
+      {
+        return Ok(this.AppModelFactory.CreateViewModel(user));
+      }
+
+      return NotFound();
+
+    }
+
+    /// <summary>
+    /// Get User by Username
+    /// </summary>
+    /// <param name="username">username to search for</param>
+    [Route("User/{username}")]
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
+    [SwaggerResponse(HttpStatusCode.OK, Type = typeof(UserModel))]
+    [SwaggerResponse(HttpStatusCode.NotFound)]
+    public async Task<IHttpActionResult> GetUserByName(string username)
+    {
+      var user = await this.AppUserManager.FindByNameAsync(username);
+      if (user != null)
+      {
+        return Ok(this.AppModelFactory.CreateViewModel(user));
+      }
+      return NotFound();
+    }
+    /// <summary>
+    /// Returns the current users Information
+    /// </summary>
+    [Route("CurrentUser")]
+    [HttpGet]
+    [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
+    [SwaggerResponse(HttpStatusCode.OK, Type = typeof(UserModel))]
+    [SwaggerResponse(HttpStatusCode.NotFound)]
+    public async Task<IHttpActionResult> GetCurrentUser()
+    {
+      var currentUserId = User.Identity.GetUserId();
+      var user = await this.AppUserManager.FindByIdAsync(currentUserId);
+
+      if (user != null)
+      {
+        return Ok(this.AppModelFactory.CreateViewModel(user));
+      }
+      return NotFound();
+    }
+
+    /// <summary>
+    /// Updates user data
+    /// </summary>
+    /// <param name="model">user data</param>
+    /// <response code="400">Bad request</response>
+    /// <response code="500">Internal Server Error</response>
+    [Route("CurrentUser")]
+    [HttpPut]
+    [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
+    [SwaggerResponse(HttpStatusCode.NoContent)]
+    [SwaggerResponse(HttpStatusCode.BadRequest)]
+    public async Task<IHttpActionResult> UpdateCurrentUser(UserModel model)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
+      var currentUserId = User.Identity.GetUserId();
+      var user = await this.AppUserManager.FindByIdAsync(currentUserId);
+      user = this.AppModelFactory.CreateModel(model, user);
+      var result = await this.AppUserManager.UpdateAsync(user);
+      return !result.Succeeded ? GetErrorResult(result) : StatusCode(HttpStatusCode.NoContent);
+    }
+
+    /// <summary>
+    /// User can register to the Application
+    /// </summary>
+    /// <param name="createUserModel">new User</param>
+    [SwaggerResponse(HttpStatusCode.NoContent)]
+    [SwaggerResponse(HttpStatusCode.BadRequest)]
+    [AllowAnonymous]
+    [Route("Register")]
+    [HttpPost]
+    [ResponseType(typeof(void))]
+    public async Task<IHttpActionResult> Register(CreateUserModel createUserModel)
+    {
+      // validate model
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+      var user = AppModelFactory.CreateModel(createUserModel);
+      var addUserResult = await this.AppUserManager.CreateAsync(user, createUserModel.Password);
+
+      if (!addUserResult.Succeeded)
+      {
+        return GetErrorResult(addUserResult);
+      }
+
+      var locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
+      return Created(locationHeader, AppModelFactory.CreateViewModel(user));
+    }
+
+    /// <summary>
+    /// User can change its password
+    /// </summary>
+    /// <param name="model">Data to change a password</param>
+    [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
+    [SwaggerResponse(HttpStatusCode.OK)]
+    [SwaggerResponse(HttpStatusCode.BadRequest)]
+    [Route("ChangePassword")]
+    [HttpPut]
+    public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel model)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
+
+      IdentityResult result = await this.AppUserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+
+      if (!result.Succeeded)
+      {
+        return GetErrorResult(result);
+      }
+
+      return Ok();
+    }
+
+    /// <summary>
+    /// Admin can delete User
+    /// </summary>
+    /// <param name="id">Id of the user to delete</param>
+    [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
+    [SwaggerResponse(HttpStatusCode.OK)]
+    [SwaggerResponse(HttpStatusCode.NotFound)]
+    [SwaggerResponse(HttpStatusCode.BadRequest)]
+    [Route("User/{id:guid}")]
+    [HttpDelete]
+    [Authorize(Roles = "Admin")]
+    public async Task<IHttpActionResult> DeleteUser(string id)
+    {
+      //Only SuperAdmin or Admin can delete users (Later when implement roles)
+      var appUser = await this.AppUserManager.FindByIdAsync(id);
+      if (appUser != null)
+      {
+        var result = await this.AppUserManager.DeleteAsync(appUser);
+        if (!result.Succeeded)
         {
-            var result = new { timestamp = DateTime.Now };
-            return this.Ok(result);
+          return GetErrorResult(result);
         }
+        return Ok();
+      }
+      return NotFound();
+    }
 
-        #region Users
-        /// <summary>
-        /// Gets all application Users
-        /// </summary>
-        [Route("User")]
-        [HttpGet]
-        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<UserModel>))]
-        [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
-        [Authorize(Roles = "Admin")]
-        public IQueryable<UserModel> GetUsers()
-        {
-            return this.AppUserManager.Users.ToList().Select(u => this.AppModelFactory.CreateViewModel(u)).AsQueryable();
-        }
+    /// <summary>
+    /// THIS METHOD IS FOR SWAGGER USE ONLY. 
+    /// Hack to login an user and to receive an access token. 
+    /// </summary>
+    /// <param name="username"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
+    [SwaggerResponse(HttpStatusCode.NoContent)]
+    [SwaggerResponse(HttpStatusCode.BadRequest)]
+    [Route("Login")]
+    [AllowAnonymous]
+    [HttpPost]
+    public async Task<IHttpActionResult> Login(LoginModel login)
+    {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest(ModelState);
+      }
 
-        /// <summary>
-        /// Get a user by its guid
-        /// </summary>
-        /// <param name="id">User's guid</param>
-        [Route("User/{id:guid}", Name = "GetUserById")]
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
-        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(UserModel))]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
-        public async Task<IHttpActionResult> GetUser(string id)
-        {
-            var user = await this.AppUserManager.FindByIdAsync(id);
-
-            if (user != null)
-            {
-                return Ok(this.AppModelFactory.CreateViewModel(user));
-            }
-
-            return NotFound();
-
-        }
-
-        /// <summary>
-        /// Get User by Username
-        /// </summary>
-        /// <param name="username">username to search for</param>
-        [Route("User/{username}")]
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
-        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(UserModel))]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
-        public async Task<IHttpActionResult> GetUserByName(string username)
-        {
-            var user = await this.AppUserManager.FindByNameAsync(username);
-            if (user != null)
-            {
-                return Ok(this.AppModelFactory.CreateViewModel(user));
-            }
-            return NotFound();
-        }
-        /// <summary>
-        /// Returns the current users Information
-        /// </summary>
-        [Route("CurrentUser")]
-        [HttpGet]
-        [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
-        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(UserModel))]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
-        public async Task<IHttpActionResult> GetCurrentUser()
-        {
-            var currentUserId = User.Identity.GetUserId();
-            var user = await this.AppUserManager.FindByIdAsync(currentUserId);
-
-            if (user != null)
-            {
-                return Ok(this.AppModelFactory.CreateViewModel(user));
-            }
-            return NotFound();
-        }
-
-        /// <summary>
-        /// Updates user data
-        /// </summary>
-        /// <param name="model">user data</param>
-        /// <response code="400">Bad request</response>
-        /// <response code="500">Internal Server Error</response>
-        [Route("CurrentUser")]
-        [HttpPut]
-        [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
-        [SwaggerResponse(HttpStatusCode.NoContent)]
-        [SwaggerResponse(HttpStatusCode.BadRequest)]
-        public async Task<IHttpActionResult> UpdateCurrentUser(UserModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var currentUserId = User.Identity.GetUserId();
-            var user = await this.AppUserManager.FindByIdAsync(currentUserId);
-            user = this.AppModelFactory.CreateModel(model, user);
-            var result = await this.AppUserManager.UpdateAsync(user);
-            return !result.Succeeded ? GetErrorResult(result) : StatusCode(HttpStatusCode.NoContent);
-        }
-
-        /// <summary>
-        /// User can register to the Application
-        /// </summary>
-        /// <param name="createUserModel">new User</param>
-        [SwaggerResponse(HttpStatusCode.NoContent)]
-        [SwaggerResponse(HttpStatusCode.BadRequest)]
-        [AllowAnonymous]
-        [Route("Register")]
-        [HttpPost]
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Register(CreateUserModel createUserModel)
-        {
-            // validate model
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            User user = null;
-            try
-            {
-                user = new User()
-                {
-                    UserName = createUserModel.Username,
-                    Email = createUserModel.Email,
-                    DateOfBirth = createUserModel.DateOfBirth,
-                    Forename = createUserModel.Forename,
-                    Surname = createUserModel.Surname
-                };
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-
-
-            var addUserResult = await this.AppUserManager.CreateAsync(user, createUserModel.Password);
-
-            if (!addUserResult.Succeeded)
-            {
-                return GetErrorResult(addUserResult);
-            }
-
-            Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
-
-            return Created(locationHeader, AppModelFactory.CreateViewModel(user));
-        }
-
-        /// <summary>
-        /// User can change its password
-        /// </summary>
-        /// <param name="model">Data to change a password</param>
-        [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
-        [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.BadRequest)]
-        [Route("ChangePassword")]
-        [HttpPut]
-        public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            IdentityResult result = await this.AppUserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
-        }
-
-        /// <summary>
-        /// Admin can delete User
-        /// </summary>
-        /// <param name="id">Id of the user to delete</param>
-        [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
-        [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
-        [SwaggerResponse(HttpStatusCode.BadRequest)]
-        [Route("User/{id:guid}")]
-        [HttpDelete]
-        [Authorize(Roles = "Admin")]
-        public async Task<IHttpActionResult> DeleteUser(string id)
-        {
-            //Only SuperAdmin or Admin can delete users (Later when implement roles)
-            var appUser = await this.AppUserManager.FindByIdAsync(id);
-            if (appUser != null)
-            {
-                var result = await this.AppUserManager.DeleteAsync(appUser);
-                if (!result.Succeeded)
-                {
-                    return GetErrorResult(result);
-                }
-                return Ok();
-            }
-            return NotFound();
-        }
-
-        /// <summary>
-        /// THIS METHOD IS FOR SWAGGER USE ONLY. 
-        /// Hack to login an user and to receive an access token. 
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        [SwaggerResponse(HttpStatusCode.NoContent)]
-        [SwaggerResponse(HttpStatusCode.BadRequest)]
-        [Route("Login")]
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IHttpActionResult> Login(LoginModel login)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            // Invoke the "token" OWIN service to perform the login: /api/token
-            // Ugly hack: I use a server-side HTTP POST because I cannot directly invoke the service (it is deeply hidden in the OAuthAuthorizationServerHandler class)
-            var request = HttpContext.Current.Request;
-            var tokenServiceUrl = request.Url.GetLeftPart(UriPartial.Authority) + "/oauth2/token";
-            using (var client = new HttpClient())
-            {
-                var requestParams = new Dictionary<string, string>()
+      // Invoke the "token" OWIN service to perform the login: /api/token
+      // Ugly hack: I use a server-side HTTP POST because I cannot directly invoke the service (it is deeply hidden in the OAuthAuthorizationServerHandler class)
+      var request = HttpContext.Current.Request;
+      var tokenServiceUrl = request.Url.GetLeftPart(UriPartial.Authority) + "/oauth2/token";
+      using (var client = new HttpClient())
+      {
+        var requestParams = new Dictionary<string, string>()
                 {
                     {"grant_type", "password"},
                     {"username", login.Username},
@@ -271,65 +253,65 @@ namespace EventCorp.AuthorizationServer.Controllers
                     {"client_id", "0dd23c1d3ea848a2943fa8a250e0b2ad"}
                 };
 
-                var requestParamsFormUrlEncoded = new FormUrlEncodedContent(requestParams);
-                var tokenServiceResponse = await client.PostAsync(tokenServiceUrl, requestParamsFormUrlEncoded);
-                var responseString = await tokenServiceResponse.Content.ReadAsStringAsync();
-                var responseCode = tokenServiceResponse.StatusCode;
-                var responseMsg = new HttpResponseMessage(responseCode)
-                {
-                    Content = new StringContent(responseString, Encoding.UTF8, "application/json")
-                };
-                return ResponseMessage(responseMsg);
-            }
-        }
-        #endregion
-
-        #region Roles
-        /// <summary>
-        /// Assigned the user to the given roles
-        /// </summary>
-        /// <param name="id">User Id</param>
-        /// <param name="rolesToAssign">Roles to assign to the user</param>
-        [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
-        [SwaggerResponse(HttpStatusCode.OK)]
-        [SwaggerResponse(HttpStatusCode.NotFound)]
-        [SwaggerResponse(HttpStatusCode.BadRequest)]
-        [Authorize(Roles = "Admin")]
-        [Route("User/{id:guid}/Roles")]
-        [HttpPut]
-        public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] rolesToAssign)
+        var requestParamsFormUrlEncoded = new FormUrlEncodedContent(requestParams);
+        var tokenServiceResponse = await client.PostAsync(tokenServiceUrl, requestParamsFormUrlEncoded);
+        var responseString = await tokenServiceResponse.Content.ReadAsStringAsync();
+        var responseCode = tokenServiceResponse.StatusCode;
+        var responseMsg = new HttpResponseMessage(responseCode)
         {
-            var appUser = await this.AppUserManager.FindByIdAsync(id);
-            if (appUser == null)
-            {
-                return NotFound();
-            }
-
-            var currentRoles = await this.AppUserManager.GetRolesAsync(appUser.Id);
-            var rolesNotExists = rolesToAssign.Except(this.AppRoleManager.Roles.Select(x => x.Name)).ToArray();
-
-            if (rolesNotExists.Any())
-            {
-                ModelState.AddModelError("", string.Format("Roles '{0}' does not exixts in the system", string.Join(",", rolesNotExists)));
-                return BadRequest(ModelState);
-            }
-
-            IdentityResult removeResult = await this.AppUserManager.RemoveFromRolesAsync(appUser.Id, currentRoles.ToArray());
-            if (!removeResult.Succeeded)
-            {
-                ModelState.AddModelError("", "Failed to remove user roles");
-                return BadRequest(ModelState);
-            }
-
-            IdentityResult addResult = await this.AppUserManager.AddToRolesAsync(appUser.Id, rolesToAssign);
-            if (!addResult.Succeeded)
-            {
-                ModelState.AddModelError("", "Failed to add user roles");
-                return BadRequest(ModelState);
-            }
-
-            return Ok();
-        }
-        #endregion
+          Content = new StringContent(responseString, Encoding.UTF8, "application/json")
+        };
+        return ResponseMessage(responseMsg);
+      }
     }
+    #endregion
+
+    #region Roles
+    /// <summary>
+    /// Assigned the user to the given roles
+    /// </summary>
+    /// <param name="id">User Id</param>
+    /// <param name="rolesToAssign">Roles to assign to the user</param>
+    [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
+    [SwaggerResponse(HttpStatusCode.OK)]
+    [SwaggerResponse(HttpStatusCode.NotFound)]
+    [SwaggerResponse(HttpStatusCode.BadRequest)]
+    [Authorize(Roles = "Admin")]
+    [Route("User/{id:guid}/Roles")]
+    [HttpPut]
+    public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] rolesToAssign)
+    {
+      var appUser = await this.AppUserManager.FindByIdAsync(id);
+      if (appUser == null)
+      {
+        return NotFound();
+      }
+
+      var currentRoles = await this.AppUserManager.GetRolesAsync(appUser.Id);
+      var rolesNotExists = rolesToAssign.Except(this.AppRoleManager.Roles.Select(x => x.Name)).ToArray();
+
+      if (rolesNotExists.Any())
+      {
+        ModelState.AddModelError("", string.Format("Roles '{0}' does not exixts in the system", string.Join(",", rolesNotExists)));
+        return BadRequest(ModelState);
+      }
+
+      IdentityResult removeResult = await this.AppUserManager.RemoveFromRolesAsync(appUser.Id, currentRoles.ToArray());
+      if (!removeResult.Succeeded)
+      {
+        ModelState.AddModelError("", "Failed to remove user roles");
+        return BadRequest(ModelState);
+      }
+
+      IdentityResult addResult = await this.AppUserManager.AddToRolesAsync(appUser.Id, rolesToAssign);
+      if (!addResult.Succeeded)
+      {
+        ModelState.AddModelError("", "Failed to add user roles");
+        return BadRequest(ModelState);
+      }
+
+      return Ok();
+    }
+    #endregion
+  }
 }

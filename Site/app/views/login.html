@@ -1,19 +1,22 @@
 ﻿<div id="login" class="form-signin col-sm-offset-2 col-sm-8">
-    <div data-ng-hide="message == ''" data-ng-class="($scope.messageClass = '') ? 'alert alert-danger' : 'alert alert-' + messageClass">
-        {{message}}
-    </div>
-    <h2 class="form-signin-heading">Bitte anmelden</h2>
-
-    <form class="form-login" role="form">
+    <div data-ng-include="'app/views/message.html'"></div>
+    <h1 class="form-signin-heading">Bitte anmelden</h1>
+    <form class="form-login" role="form" name="loginForm">
         <!--<login-component></login-component>-->
         <div class="form-group">
             <label for="username">Anmeldenamen</label>
-            <input type="text" id="username" class="form-control" placeholder="Username" data-ng-model="loginData.userName" required autofocus>
+            <span data-ng-show="loginForm.$submitted || loginForm.username.$touched">
+                <span data-ng-show="loginForm.username.$error.required" class="error">The Username is required</span>
+            </span>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" data-ng-model="loginData.userName" required autofocus>
         </div>
         <div class="form-group">
             <label for="password">Passwort</label>
-            <input type="password" id="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
+            <span data-ng-show="loginForm.$submitted || loginForm.password.$touched">
+                <span data-ng-show="loginForm.password.$error.required" class="error">The Password is required</span>
+            </span>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" data-ng-model="loginData.password" required>
         </div>
-        <button class="btn btn-default pull-right" type="submit" data-ng-click="login()" id="btn-login">Login</button>
+        <button class="btn btn-default pull-right" type="submit" data-ng-click="login()" id="btn-login" data-ng-disabled="loginForm.$invalid">Login</button>
     </form>
 </div><!-- Login -->

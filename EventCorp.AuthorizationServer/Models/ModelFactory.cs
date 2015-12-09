@@ -142,5 +142,19 @@ namespace EventCorp.AuthorizationServer.Models
     }
 
     #endregion
+
+    public User CreateModel(CreateUserModel model, User datamodel = null)
+    {
+      var result = datamodel ?? new User();
+      result.DateOfBirth = model.DateOfBirth;
+      result.UserName = model.Username;
+      result.Email = model.Email;
+      result.Forename = model.Forename;
+      result.Surname = model.Surname;
+      result.City = model.City;
+      result.FavoriteEventType = model.FavoriteEventType;
+      result.GenderType = model.GenderType;
+      return result;
+    }
   }
 }

@@ -1,10 +1,10 @@
 html, body {
-    padding: 25px 0 0 0;
-    margin: 0;
-    /* padding-bottom: 40px; */
-    background-color: #FFFFFF;
-    /* Margin bottom by footer height */
-    /* margin-bottom: 60px; */
+  padding: 25px 0 0 0;
+  margin: 0;
+  /* padding-bottom: 40px; */
+  background-color: #FFFFFF;
+  /* Margin bottom by footer height */
+  /* margin-bottom: 60px; */
 }
 
 body {
@@ -12,92 +12,92 @@ body {
 }
 
 html, body, #wrapper {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 #wrapper {
-    height: auto;
-    min-height: 100%;
-    padding-bottom: 100px;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 5rem;
-    padding-left: 5rem;
-    padding-right: 5rem;
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 100px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 5rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
   background-color: white;
 }
 
 #main-nav, footer {
-    background-color: #2C3254;
+  background-color: #2C3254;
 }
 
-    #main-nav a, footer p.text-muted {
-        color: #FFF;
-    }
+  #main-nav a, footer p.text-muted {
+    color: #FFF;
+  }
 
 /*Footer */
 footer {
-    position: relative;
-    bottom: 0;
-    margin-top: -3rem;
-    /* Set the fixed height of the footer here */
-    height: 4rem;
-    padding-top: 0.5rem;
+  position: relative;
+  bottom: 0;
+  margin-top: -3rem;
+  /* Set the fixed height of the footer here */
+  height: 4rem;
+  padding-top: 0.5rem;
 }
 
 
 #profilOverview, #eventOverview, #myWeek {
-    min-height: 10rem;
-    max-height: 20rem;
-    border-style: solid;
-    border-width: 1px;
-    color: #2C3254;
+  min-height: 10rem;
+  max-height: 20rem;
+  border-style: solid;
+  border-width: 1px;
+  color: #2C3254;
 }
 
 #profilOverview, #eventOverview {
-    background-color: #72DCF7;
+  background-color: #72DCF7;
 }
 
 #myWeek {
-    margin-top: 3rem;
+  margin-top: 3rem;
 }
 
 
 #userCredentialSubmit {
-    margin-top: 3rem;
+  margin-top: 3rem;
 }
 
 /* Events */
 #eventsContainer {
-    margin-top: 3rem;
+  margin-top: 3rem;
 }
 
 #eventsSearchDropdown {
-    -moz-min-width: 50rem;
-    -ms-min-width: 50rem;
-    -o-min-width: 50rem;
-    -webkit-min-width: 50rem;
-    min-width: 50rem;
+  -moz-min-width: 50rem;
+  -ms-min-width: 50rem;
+  -o-min-width: 50rem;
+  -webkit-min-width: 50rem;
+  min-width: 50rem;
 }
 
 #innerSearchForm .form-group {
-    margin: 0 1rem 0 1rem;
+  margin: 0 1rem 0 1rem;
 }
 
 #eventsSearchDropdown button {
-    float: right;
-    margin: 5px 5px 0 0;
+  float: right;
+  margin: 5px 5px 0 0;
 }
 
 #img-logo {
-    float: left;
-    margin-right: 5px;
-    height: 35px;
-    width: 35px;
-    position: relative;
-    top: -7px;
+  float: left;
+  margin-right: 5px;
+  height: 35px;
+  width: 35px;
+  position: relative;
+  top: -7px;
 }
 
 .tab-pane {
@@ -111,4 +111,14 @@ footer {
 
 #avatar {
   max-width: 7rem;
+  cursor: pointer;
+}
+
+span.error {
+  font-size: 1.1rem;
+  color: red;
+}
+
+h1 {
+  margin-bottom: 2rem;
 }
