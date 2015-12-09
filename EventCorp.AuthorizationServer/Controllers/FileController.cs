@@ -26,7 +26,7 @@ namespace EventCorp.AuthorizationServer.Controllers
   [RoutePrefix("api/file")]
   [Authorize]
   public class FileController : BaseApiController
-  {
+    {
     
     /// <summary>
     /// Upload a new File

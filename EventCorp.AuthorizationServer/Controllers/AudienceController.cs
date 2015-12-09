@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using EventCorp.AuthorizationServer.Entites;
+using EventCorp.AuthorizationServer.Interfaces.Repositories;
 using EventCorp.AuthorizationServer.Models;
 using EventCorps.Helper;
 using EventCorps.Helper.Models;
@@ -16,7 +17,7 @@ namespace EventCorp.AuthorizationServer.Controllers
   [RoutePrefix("api/audience")]
   [Authorize(Roles = "Admin")]
   public class AudienceController : BaseApiController
-  {
+    {
     /// <summary>
     /// Registers the calling client to the AuthServer
     /// </summary>

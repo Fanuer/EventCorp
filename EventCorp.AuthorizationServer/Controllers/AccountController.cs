@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using EventCorp.AuthorizationServer.Entites;
+using EventCorp.AuthorizationServer.Interfaces.Repositories;
 using EventCorp.AuthorizationServer.Models;
 using EventCorps.Helper.Models;
 using Microsoft.AspNet.Identity;
@@ -23,7 +24,7 @@ namespace EventCorp.AuthorizationServer.Controllers
   [RoutePrefix("api/Accounts")]
   [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occured")]
   public class AccountController : BaseApiController
-  {
+    {
     /// <summary>
     /// Method to prove the Server's availability
     /// </summary>

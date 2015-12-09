@@ -5,9 +5,9 @@ using System.Web;
 
 namespace EventCorp.EventServer.Interfaces
 {
-  public interface IEventServerRepository
+  internal interface IEventServerRepository: IDisposable
   {
-    public IEventRepository Events { get; set; }
-    public ISubscriberRepository Subscribers { get; set; }
+    IEventRepository Events { get; set; }
+    ISubscriberRepository Subscribers { get; set; }
   }
 }
