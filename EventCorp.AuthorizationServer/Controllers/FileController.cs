@@ -224,7 +224,24 @@ namespace EventCorp.AuthorizationServer.Controllers
       await AppRepository.Files.RemoveAsync(file);
       return Ok();
     }
-    
+
+    /// <summary>
+    /// Get the file id of the user's avatar. Returns null, if the user haven't uploaded a avatar yet
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("avatarId")]
+    [SwaggerResponse(HttpStatusCode.OK)]
+    public async Task<IHttpActionResult> GetAvatarId()
+    {
+      Guid? result = null;
+      var userId = User.Identity.GetUserId();
+      var user = await AppUserManager.FindByIdAsync(userId);
+      result = user.AvatarId;
+
+      return Ok(result);
+    }
+
     /// <summary>
     /// Extracts Request FormatData as a strongly typed model 
     /// </summary>

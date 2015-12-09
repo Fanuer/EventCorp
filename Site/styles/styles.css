@@ -109,9 +109,20 @@ footer {
   display: none;
 }
 
-#avatar {
+#changeAvatar {
   max-width: 7rem;
   cursor: pointer;
+}
+
+#avatar {
+    cursor: pointer;
+    width: 3rem;
+    height: 3.5rem;
+    width: 3.5rem;
+    position: absolute;
+    top: 7px;
+    left: -3rem;
+    border: 0px solid white;
 }
 
 span.error {

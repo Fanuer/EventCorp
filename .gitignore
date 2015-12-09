@@ -192,3 +192,5 @@ ModelManifest.xml
 .vs/config/applicationhost.config
 .vs/config/applicationhost.config
 EventCorp.AuthorizationServer/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+EventCorp.AuthorizationServer/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+.vs/config/applicationhost.config
