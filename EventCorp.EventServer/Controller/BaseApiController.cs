@@ -16,6 +16,7 @@ namespace EventCorp.EventServer.Controller
         #region Field
         private ModelFactory _modelFactory;
         private IEventServerRepository _rep = null;
+        private EventContext _ctx = null;
         #endregion
 
         #region Ctor
@@ -40,6 +41,14 @@ namespace EventCorp.EventServer.Controller
         internal IEventServerRepository AppRepository
         {
             get { return this._rep ?? Request.GetOwinContext().Get<IEventServerRepository>(); }
+        }
+
+        internal EventContext AppContext
+        {
+            get
+            {
+                return _ctx ?? Request.GetOwinContext().Get<EventContext>();
+            }
         }
 
         /// <summary>

@@ -97,8 +97,10 @@
     <Compile Include="Enums\SubscriptionType.cs" />
     <Compile Include="Filter\AddParametersFilter.cs" />
     <Compile Include="Models\AudienceModel.cs" />
+    <Compile Include="Models\BaseEventModel.cs" />
     <Compile Include="Models\BaseUserModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\CreateEventModel.cs" />
     <Compile Include="Models\CreateRoleModel.cs" />
     <Compile Include="Models\CreateUploadFileViewModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RefreshTokenModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\UpdateEventModel.cs" />
     <Compile Include="Models\UploadedFileFormModel.cs" />
     <Compile Include="Models\UploadFileViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />
