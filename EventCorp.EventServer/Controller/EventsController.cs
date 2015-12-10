@@ -38,20 +38,26 @@ namespace EventCorp.EventServer.Controller
         [HttpGet]
         [Route("")]
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<EventModel>))]
-        public async Task<IQueryable<EventModel>> GetEvents(string searchTerm ="", bool onlyOpenEvents = true, bool onlySubscriped = false, int pageSize = 25, int page = 1)
+        public async Task<IQueryable<EventModel>> GetEvents(string searchTerm = "", bool onlyOpenEvents = true, bool onlySubscriped = false, int pageSize = 25, int page = 0)
         {
             var searchTermNotSet = String.IsNullOrWhiteSpace(searchTerm);
+            if (!searchTermNotSet)
+            {
+                searchTerm = searchTerm.ToLower();
+            }
+
             var result = await AppContext.Events
-                                .Where(x => !onlyOpenEvents || (x.StartTime >= DateTime.UtcNow))
-                                .Where(x => searchTermNotSet || EventContainsSearchTerm(searchTerm, x))
-                                .Where(x => !onlySubscriped || x.Subscribers.Any(sub=>sub.UserId.ToString().Equals(CurrentUserId)))
-                                .Skip(pageSize > 0 && page > 0 ? page * pageSize : 0)
-                                .Take(pageSize > 0 ? pageSize : 25)
-                                .Include(x=>x.Subscribers)
-                                .OrderByDescending(x=> x.StartTime)
-                                .ThenBy(x=>x.Name)
-                                .ToListAsync();
-            return result.Select(x=>AppModelFactory.CreateViewModel(x, x.)).AsQueryable();
+                            .Where(x => !onlyOpenEvents || (x.StartTime >= DateTime.UtcNow))
+                            .Where(x => searchTermNotSet || (x.Name.ToLower().Equals(searchTerm) && x.Place.ToLower().Equals(searchTerm)))
+                            .Where(x => !onlySubscriped || x.Subscribers.Any(sub => sub.UserId.ToString().Equals(CurrentUserId)))
+                            .OrderByDescending(x => x.StartTime)
+                            .ThenBy(x => x.Name)
+                            .Skip(pageSize > 0 && page > 0 ? page * pageSize : 0)
+                            .Take(pageSize > 0 ? pageSize : 25)
+                            .Include(x => x.Subscribers)
+                            .ToListAsync();
+
+            return result.Select(x => AppModelFactory.CreateViewModel(x, CurrentUserId)).AsQueryable();
         }
 
         /// <summary>
@@ -66,11 +72,11 @@ namespace EventCorp.EventServer.Controller
         public async Task<IHttpActionResult> GetEvent(int id)
         {
             var eventResult = await AppRepository.Events.FindAsync(id);
-            if (eventResult== null)
+            if (eventResult == null)
             {
                 return NotFound();
             }
-            return Ok(AppModelFactory.CreateViewModel(eventResult));
+            return Ok(AppModelFactory.CreateViewModel(eventResult, CurrentUserId));
         }
 
         /// <summary>
@@ -92,7 +98,7 @@ namespace EventCorp.EventServer.Controller
 
                 var datamodel = this.AppModelFactory.CreateModel(model);
                 await this.AppRepository.Events.AddAsync(datamodel);
-                var viewmodel = this.AppModelFactory.CreateViewModel(datamodel);
+                var viewmodel = this.AppModelFactory.CreateViewModel(datamodel, CurrentUserId);
                 return CreatedAtRoute("GetExerciseById", new { id = viewmodel.Id }, viewmodel);
             }
             catch (Exception e)
@@ -183,11 +189,11 @@ namespace EventCorp.EventServer.Controller
         public async Task<IHttpActionResult> Subscribe([FromUri]int id)
         {
             var eventResult = await AppRepository.Events.FindAsync(id);
-            if (eventResult== null)
+            if (eventResult == null)
             {
                 return NotFound();
             }
-            if (eventResult.Subscribers.Any(x=>x.UserId.ToString().Equals(CurrentUserId)))
+            if (eventResult.Subscribers.Any(x => x.UserId.ToString().Equals(CurrentUserId)))
             {
                 ModelState.AddModelError("", "You are already subscribed");
             }

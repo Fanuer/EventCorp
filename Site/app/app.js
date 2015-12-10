@@ -40,9 +40,12 @@ eventCorp.run(['authFactory', function (authFactory) {
 
 //factories
 eventCorp.factory("authFactory", authFactory);
+eventCorp.factory("eventAdminFactory", eventAdminFactory);
+eventCorp.factory("eventFactory", eventFactory);
 eventCorp.factory("userFactory", userFactory);
 eventCorp.factory("fileFactory", fileFactory);
 eventCorp.factory("authInterceptorFactory", authInterceptorFactory);
+eventCorp.factory("enumFactory", enumFactory);
 
 //controller
 eventCorp.controller("dashboardController", dashboardController);

@@ -1,11 +1,42 @@
 ﻿<div id="eventsContainer">
-    <div class="row">
-        <event-search items='[{"id":"1", "value":"Alle Events"},{"id":"2", "value":"Wettkämpfe"},{"id":"2", "value":"Turniere"}]' suchwort="Testname"></event-search>
-    </div>
-    <div class="row">
-        <div id="allEvents">
-            <h3>Alle Events</h3><hr>
-            <p>12.10.2015 Event 1</p>
+    <div data-ng-include="'app/views/message.html'"></div>
+    <div id="eventlist">
+        <div class="event-item" id="event_{{$index}}" data-ng-repeat="event in events">
+            <div class="row">
+                <div class="col-sm-9">
+                    <h2 class="event-headline">{{event.Name}} <small class="event-city">{{event.Place}}</small></h2>
+                </div>
+                <div class="col-sm-1">
+                    <i class="glyphicon {{getCssForType(event.Type)}}"></i>
+                </div>
+                <div class="col-sm-2 event-date {{event.Expired ? 'expired' : ''}}">
+                    <i class="glyphicon glyphicon-time"> {{event.StartUTC | date:'dd.M.yyyy'}}</i>
+                </div>
+                
+            </div>
+            <div class="row">
+                <p class="event-desc">{{event.Description}}</p>
+            </div>
+            <div class="row" data-ng-hide="event.IsBookedOut">
+                <div class="col-sm-12 progress">
+                    <div class="progress-bar progress-bar-success" style="width: {{(event.MaxUsers - event.NumberFree) *100 / event.MaxUsers}}%" aria-valuenow="{{event.NumberFree *100 / event.MaxUsers}}" aria-valuemin="0" aria-valuemax="100">
+                        <span class="sr-only">Free</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-default btn-success pull-right" data-ng-click="subscribe" data-ng-hide="{{event.UserHasSubscribed}}"><i class="glyphicon glyphicon-ok"></i> Subsribe</button>
+                <button type="button" class="btn btn-default btn-danger pull-right" data-ng-click="unsubscribe" data-ng-show="{{event.UserHasSubscribed}}"><i class="glyphicon glyphicon-remove"></i> Unsubsribe</button>
+            </div>
         </div>
-    </div>
-</div><!-- Events -->
+
+        <div class="row">
+            <event-search items='[{"id":"1", "value":"Alle Events"},{"id":"2", "value":"Wettkämpfe"},{"id":"2", "value":"Turniere"}]' suchwort="Testname"></event-search>
+        </div>
+        <div class="row">
+            <div id="allEvents">
+                <h3>Alle Events</h3><hr>
+                <p>12.10.2015 Event 1</p>
+            </div>
+        </div>
+    </div><!-- Events -->

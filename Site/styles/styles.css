@@ -133,3 +133,12 @@ span.error {
 h1 {
   margin-bottom: 2rem;
 }
+
+.event-item {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+}
+
+.event-date.expired {
+    color: red;
+}
