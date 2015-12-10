@@ -52,7 +52,7 @@ namespace EventCorp.EventServer.Repositories
         }
         #endregion
 
-        public Event CreateModel(CreateEventModel model, Event datamodel = null)
+        internal Event CreateModel(CreateEventModel model, Event datamodel = null)
         {
             if (model == null) { throw new ArgumentNullException("model"); }
 

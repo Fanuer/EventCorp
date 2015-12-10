@@ -51,7 +51,7 @@ namespace EventCorp.EventServer.Controller
                                 .OrderByDescending(x=> x.StartTime)
                                 .ThenBy(x=>x.Name)
                                 .ToListAsync();
-            return result.Select(AppModelFactory.CreateViewModel).AsQueryable();
+            return result.Select(x=>AppModelFactory.CreateViewModel(x, x.)).AsQueryable();
         }
 
         /// <summary>

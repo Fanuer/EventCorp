@@ -97,7 +97,7 @@
     <Compile Include="Enums\SubscriptionType.cs" />
     <Compile Include="Filter\AddParametersFilter.cs" />
     <Compile Include="Models\AudienceModel.cs" />
-    <Compile Include="Models\BaseEventModel.cs" />
+    <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\BaseUserModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CreateEventModel.cs" />
