@@ -1,5 +1,5 @@
 ﻿function fileFactory($http, $q, authbaseUrl) {
-  var noAvatarSrc = '/images/no_avatar.png';
+  var noAvatarSrc = './images/no_avatar.png';
 
   function _uploadFile(file, global) {
     // create an new file
