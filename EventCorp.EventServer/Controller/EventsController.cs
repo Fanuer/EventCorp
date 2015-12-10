@@ -180,7 +180,7 @@ namespace EventCorp.EventServer.Controller
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [Route("{id:int}/subscribe")]
         [HttpPost]
-        public async Task<IHttpActionResult> Subscribe(int id)
+        public async Task<IHttpActionResult> Subscribe([FromUri]int id)
         {
             var eventResult = await AppRepository.Events.FindAsync(id);
             if (eventResult== null)
@@ -226,7 +226,7 @@ namespace EventCorp.EventServer.Controller
         [SwaggerResponse(HttpStatusCode.NotFound)]
         [Route("{id:int}/unsubscribe")]
         [HttpDelete]
-        public async Task<IHttpActionResult> Unsubscribe(int id)
+        public async Task<IHttpActionResult> Unsubscribe([FromUri]int id)
         {
             var eventResult = await AppRepository.Events.FindAsync(id);
             if (eventResult == null)

@@ -27,7 +27,7 @@ namespace EventCorp.EventServer.Repositories
 
         #region Models
 
-        internal EventModel CreateViewModel(Event datamodel)
+        internal EventModel CreateViewModel(Event datamodel, string currentUserId = null)
         {
             if (datamodel == null) { throw new ArgumentNullException("datamodel"); }
             var userCount = datamodel.Subscribers.Count;
@@ -46,7 +46,8 @@ namespace EventCorp.EventServer.Repositories
                 NumberFree = isBookedOut ? 0 : datamodel.MaxNumberOfParticipants - userCount,
                 NumberWaitingList = !isBookedOut ? 0 : userCount - datamodel.MaxNumberOfParticipants,
                 Expired = datamodel.StartTime <= DateTime.UtcNow,
-                Url = _UrlHelper.Link("GetEventById", new { id = datamodel.Id }),
+                UserHasSubscribed = !String.IsNullOrEmpty(currentUserId) && datamodel.Subscribers.Any(x => x.UserId.ToString().Equals(currentUserId)),
+                Url = _UrlHelper.Link("GetEventById", new { id = datamodel.Id })
             };
         }
         #endregion
