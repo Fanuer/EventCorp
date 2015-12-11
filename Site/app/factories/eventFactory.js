@@ -1,14 +1,10 @@
 ﻿function eventFactory($http, eventbaseUrl) {
 
-    function _getEvents(pageSize, page, onlySubscriped, onlyOpenEvents, searchTerm) {
+    function _getEvents(options) {
+        //possible options: pageSize, page, onlySubscriped, onlyOpenEvents, searchTerm
         return $http.get(eventbaseUrl, { 
-            params: {
-                pageSize, 
-                page, 
-                onlySubscriped, 
-                onlyOpenEvents, 
-                searchTerm
-            } });
+            params: options
+        });
     }
 
     function _subscribe(eventId) {

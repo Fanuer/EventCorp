@@ -1,7 +1,7 @@
 ﻿<div id="eventsContainer">
     <div data-ng-include="'app/views/message.html'"></div>
     <div id="eventlist">
-        <div class="event-item" id="event_{{$index}}" data-ng-repeat="event in events">
+        <div class="event-item {{event.Expired ? 'expired' : ''}}" id="event_{{$index}}" data-ng-repeat="event in events">
             <div class="row">
                 <div class="col-sm-9">
                     <h2 class="event-headline">{{event.Name}} <small class="event-city">{{event.Place}}</small></h2>
@@ -10,7 +10,7 @@
                     <i class="glyphicon {{getCssForType(event.Type)}}"></i>
                 </div>
                 <div class="col-sm-2 event-date {{event.Expired ? 'expired' : ''}}">
-                    <i class="glyphicon glyphicon-time"> {{event.StartUTC | date:'dd.M.yyyy'}}</i>
+                    <i class="glyphicon glyphicon-time"> {{event.StartUTC | date:'dd.MM.yyyy hh:mm'}}</i>
                 </div>
                 
             </div>
