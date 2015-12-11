@@ -31,7 +31,7 @@
         <div class="row">
             <div class="form-group col-sm-3 col-xs-12">
                 <label for="inputGender">Geschlecht</label>
-                <select class="form-control" id="inputGender" name="inputGender" data-bootstrap-select data-ng-model="registerData.genderType">
+                <select class="form-control" id="inputGender" name="inputGender" data-ng-model="registerData.genderType">
                     <option ng-repeat="gender in enums.genders" ng-value="gender.displayName" ng-selected="gender.displayName == registerData.genderType">{{gender.displayName}}</option>
                 </select>
             </div>
@@ -79,7 +79,7 @@
             </div>
             <div class="form-group col-sm-6 col-xs-12">
                 <label for="inputfavoriteEventType">Bevorzugte Event Art</label>
-                <select class="form-control" id="inputfavoriteEventType" data-bootstrap-select data-ng-model="registerData.favoriteEventType">
+                <select class="form-control" id="inputfavoriteEventType" data-ng-model="registerData.favoriteEventType">
                     <option ng-repeat="event in enums.eventTypes" ng-value="event.displayName" ng-selected="event.displayName == registerData.favoriteEventType">{{event.displayName}}</option>
                 </select>
             </div>

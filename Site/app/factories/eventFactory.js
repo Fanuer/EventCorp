@@ -12,7 +12,7 @@
     }
 
     function _unsubscribe(eventId) {
-        return $http.put(eventbaseUrl + eventId + "/unsubscribe");
+        return $http.delete(eventbaseUrl + eventId + "/unsubscribe");
     }
 
     var factory = {

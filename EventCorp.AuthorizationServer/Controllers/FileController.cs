@@ -231,11 +231,16 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// <returns></returns>
     [HttpGet]
     [Route("avatarId")]
+    [AllowAnonymous]
     [SwaggerResponse(HttpStatusCode.OK)]
     public async Task<IHttpActionResult> GetAvatarId()
     {
       Guid? result = null;
       var userId = User.Identity.GetUserId();
+      if (String.IsNullOrEmpty(userId))
+      {
+        return NotFound();
+      }
       var user = await AppUserManager.FindByIdAsync(userId);
       result = user.AvatarId;
 

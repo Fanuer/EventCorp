@@ -18,7 +18,12 @@ eventCorp.config([
             templateUrl: "app/views/dashboard.html"
         }).when("/events", {
             controller: "eventController",
-            templateUrl: "app/views/events.html"
+            templateUrl: "app/views/events.html",
+            resolve: {
+            'init': function(enumFactory) {
+              return enumFactory.initPromise;
+            }
+          }
         }).when("/register", {
             controller: "registerController",
             templateUrl: "app/views/register.html"
@@ -74,3 +79,4 @@ eventCorp.directive('fileModel', ['$parse', function ($parse) {
 eventCorp.directive('showtab', showtab);
 eventCorp.directive('showAvatarUpload', showAvatarUpload);
 eventCorp.directive('compareTo', compareTo);
+eventCorp.directive('bootstrapSelect', bootstrapSelect);

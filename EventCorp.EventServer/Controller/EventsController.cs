@@ -48,7 +48,7 @@ namespace EventCorp.EventServer.Controller
 
             var result = await AppContext.Events
                             .Where(x => !onlyOpenEvents || (x.StartTime >= DateTime.UtcNow))
-                            .Where(x => searchTermNotSet || (x.Name.ToLower().Equals(searchTerm) && x.Place.ToLower().Equals(searchTerm)))
+                            .Where(x => searchTermNotSet || x.Name.ToLower().Contains(searchTerm) || x.Place.ToLower().Contains(searchTerm))
                             .Where(x => !onlySubscriped || x.Subscribers.Any(sub => sub.UserId.ToString().Equals(CurrentUserId)))
                             .OrderByDescending(x => x.StartTime)
                             .ThenBy(x => x.Name)
