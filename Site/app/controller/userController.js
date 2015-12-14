@@ -67,7 +67,6 @@
     }
   });
 
-
   $scope.dateWrapper = new Date();
   $scope.imageUrl = './images/no_avatar.png';
   $scope.userData = {};

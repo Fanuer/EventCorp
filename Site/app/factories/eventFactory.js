@@ -1,7 +1,7 @@
 ﻿function eventFactory($http, eventbaseUrl) {
 
     function _getEvents(options) {
-        //possible options: pageSize, page, onlySubscriped, onlyOpenEvents, searchTerm
+      //possible options: pageSize, page, onlySubscriped, onlyOpenEvents, searchTerm, tilDate
         return $http.get(eventbaseUrl, { 
             params: options
         });

@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBAccess\GenericRepository.cs" />
+    <Compile Include="DBAccess\Interfaces\ICountAsync.cs" />
     <Compile Include="DBAccess\Interfaces\IEntity.cs" />
     <Compile Include="DBAccess\Interfaces\IRepositoryFindAll.cs" />
     <Compile Include="DBAccess\Interfaces\IRepositoryUpdate.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\EntryModel.cs" />
     <Compile Include="Models\EnumValueModel.cs" />
+    <Compile Include="Models\ListModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RefreshTokenModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
