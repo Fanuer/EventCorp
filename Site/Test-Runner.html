@@ -4,16 +4,17 @@
     <meta charset="utf-8"/>
     <title>Jasmine Spec Runner</title>
 
-    <link href="./scripts/jasmine-2.4.1/images/jasmine_favicon.png" rel="shortcut icon" type="image/png"/>
-    <link href="./scripts/jasmine-2.4.1/lib/jasmine-core/jasmine.css" rel="stylesheet" />
-
-    <script src="./scripts/jasmine-2.4.1/lib/jasmine-core/jasmine.js"></script>
-    <script src="./scripts/jasmine-2.4.1/lib/jasmine-core/jasmine-html.js"></script>
-    <script src="./scripts/jasmine-2.4.1/lib/jasmine-core/boot.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/jasmine/2.0.0/jasmine.css" />
+    <script src="//cdn.jsdelivr.net/jasmine/2.0.0/jasmine.js"></script>
+    <script src="//cdn.jsdelivr.net/jasmine/2.0.0/jasmine-html.js"></script>
+    <script src="//cdn.jsdelivr.net/jasmine/2.0.0/boot.js"></script>
 
     <!-- libs -->
+    <script src="scripts/jquery-1.11.3.min.js"></script>
     <script src="./scripts/angular-1.4.7/angular.min.js"></script>
-    <script src="./scripts/jquery-1.11.3.min.js"></script>
+    <script src="scripts/angular-1.4.7/angular-route.min.js"></script>
+    <script src="scripts/angular-1.4.7/angular-local-storage.js"></script>
+    <script src="scripts/bootstrap-select/bootstrap-select.js"></script>
     <script src="./scripts/angular-1.4.7/angular-mocks.js"></script>
 
     <!-- app -->
@@ -28,16 +29,23 @@
     <script src="app/factories/authFactory.js"></script>
     <script src="app/factories/authInterceptor.js"></script>
     <script src="app/factories/fileFactory.js"></script>
+    <script src="app/factories/eventFactory.js"></script>
+    <script src="app/factories/eventAdminFactory.js"></script>
+    <script src="app/factories/enumFactory.js"></script>
 
     <script src="app/directives/fileModelDirective.js"></script>
     <script src="app/directives/showTabDirective.js"></script>
     <script src="app/directives/showAvatarUploadDirective.js"></script>
     <script src="app/directives/compareToDirective.js"></script>
+    <script src="app/directives/bootstrapSelectDirective.js"></script>
+    <script src="app/app.js"></script>
 
     <!-- tests -->
     <!--<script src="./app/test/loginLogoutTest.js"></script>-->
     <!--<script src="./app/test/registerTest.js"></script>-->
-    <script src="app/test/JavaScript.js"></script>
+    <!--script src="app/test/JavaScript.js"></script-->
+    <script src="app/test/authFactoryTest.js"></script>
+    <script src="app/test/enumFactoryTest.js"></script>
 
 </head>
 <body>

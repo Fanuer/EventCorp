@@ -73,7 +73,7 @@ function authFactory($http, $q, $log, localStorageService, authbaseUrl, localSto
 
     if (authData) {
       var data = "grant_type=refresh_token&refresh_token=" + authData.refreshToken;
-      $http.post(authbaseUrl + 'accounts/login', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function () {
+      $http.post(authbaseUrl.replace('/api', '') + 'oauth2/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function (response) {
         localStorageService.set(localStorageAuthIndex, {
           token: response.data.access_token,
           userName: authData.userName,
