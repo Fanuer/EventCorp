@@ -57,7 +57,7 @@
                     </div>
                     <div class="form-group col-sm-6 col-xs-12">
                         <label for="inputEventTypes">Bevorzugte Event Art</label>
-                        <select class="form-control" id="inputEventTypes" data-bootstrap-select data-ng-model="userData.favoriteEventType">
+                        <select class="form-control" id="inputEventTypes" data-ng-model="userData.favoriteEventType">
                             <option ng-repeat="event in enums.eventTypes" ng-value="event.value" ng-selected="userData.favoriteEventType == event.displayName">{{event.displayName}}</option>
                         </select>
                     </div>

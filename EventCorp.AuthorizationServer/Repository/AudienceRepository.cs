@@ -20,29 +20,6 @@ namespace EventCorp.AuthorizationServer.Repository
         #endregion
 
         #region Methods
-        public override async Task<Audience> FindAsync(string id)
-        {
-            Audience result = null;
-            var context = this.DBContext as AuthContext;
-            if (context != null)
-            {
-                result = await context.Audiences.FindAsync(id);
-            }
-            return result;
-        }
-
-        public override async Task<IQueryable<Audience>> GetAllAsync()
-        {
-            var result = new List<Audience>();
-            var context = this.DBContext as AuthContext;
-
-            if (context != null)
-            {
-                result = await context.Audiences.ToListAsync();
-            }
-            return result.AsQueryable();
-
-        }
         #endregion
     }
 }

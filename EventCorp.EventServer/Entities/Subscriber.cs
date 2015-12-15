@@ -6,20 +6,24 @@ using EventCorps.Helper.Enums;
 
 namespace EventCorp.EventServer.Entities
 {
-  public class Subscriber:IEntity<int>
-  {
-    [Key]
-    public int Id { get; set; }
-    [Index("IX_UserToEvent", 1, IsUnique = true)]
-    public Guid UserId { get; set; }
-    [Required]
-    public DateTime SubscriptionTime { get; set; }
-    [Required]
-    public SubscriptionType Status { get; set; }
-    [Index("IX_UserToEvent", 2, IsUnique = true)]
-    public int EventId { get; set; }
-    public virtual Event Event { get; set; }
-    
+    public class Subscriber : IEntity<int>
+    {
+        public Subscriber()
+        {
 
-  }
+        }
+
+        [Key]
+        public int Id { get; set; }
+        [Index("IX_UserToEvent", 1, IsUnique = true)]
+        public Guid UserId { get; set; }
+        [Required]
+        public DateTime SubscriptionTime { get; set; }
+        [Required]
+        public SubscriptionType Status { get; set; }
+        [Index("IX_UserToEvent", 2, IsUnique = true)]
+        public int EventId { get; set; }
+        public virtual Event Event { get; set; }
+
+    }
 }

@@ -2,10 +2,9 @@
 
 namespace EventCorps.Helper.Models
 {
-    public class AudienceModel
+    public class UpdateEventModel:CreateEventModel
     {
-        [MaxLength(100)]
         [Required(ErrorMessageResourceName = "Error_Required", ErrorMessageResourceType = typeof(Resources))]
-        public string Name { get; set; }
+        public int Id { get; set; }
     }
 }

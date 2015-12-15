@@ -15,28 +15,5 @@ namespace EventCorp.EventServer.Repositories
         public SubscriberRepository(DbContext ctx) : base(ctx)
         {
         }
-
-        public override async Task<IQueryable<Subscriber>> GetAllAsync()
-        {
-            var result = new List<Subscriber>();
-            var context = this.DBContext as EventContext;
-
-            if (context != null)
-            {
-                result = await context.Subscribers.ToListAsync();
-            }
-            return result.AsQueryable();
-        }
-
-        public override async Task<Subscriber> FindAsync(int id)
-        {
-            Subscriber result = null;
-            var context = this.DBContext as EventContext;
-            if (context != null)
-            {
-                result = await context.Subscribers.FindAsync(id);
-            }
-            return result;
-        }
     }
 }

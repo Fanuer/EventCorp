@@ -1,4 +1,4 @@
-﻿function userController($scope, $http, $timeout, fileFactory, userFactory, dateFilter) {
+﻿function userController($scope, $http, $timeout, fileFactory, userFactory) {
 
   function _changePassword() {
     userFactory
@@ -67,9 +67,8 @@
     }
   });
 
-
   $scope.dateWrapper = new Date();
-  $scope.imageUrl = '/images/no_avatar.png';
+  $scope.imageUrl = './images/no_avatar.png';
   $scope.userData = {};
   $scope.enums = {};
   $scope.showLoader = false;

@@ -16,27 +16,5 @@ namespace EventCorp.AuthorizationServer.Repository
         {
         }
 
-        public override async Task<IQueryable<UserFile>> GetAllAsync()
-        {
-            var result = new List<UserFile>();
-            var context = this.DBContext as AuthContext;
-
-            if (context != null)
-            {
-                result = await context.Files.ToListAsync();
-            }
-            return result.AsQueryable();
-        }
-
-        public override async Task<UserFile> FindAsync(Guid id)
-        {
-            UserFile result = null;
-            var context = this.DBContext as AuthContext;
-            if (context != null)
-            {
-                result = await context.Files.FindAsync(id);
-            }
-            return result;
-        }
     }
 }
