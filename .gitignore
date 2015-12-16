@@ -194,3 +194,9 @@ ModelManifest.xml
 EventCorp.AuthorizationServer/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 EventCorp.AuthorizationServer/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 .vs/config/applicationhost.config
+EventCorp.SPA/App_Data/PublishProfiles/EventCorp - Web Deploy.pubxml
+EventCorp.SPA/Content/jasmine/jasmine.css
+EventCorp.SPA/Content/jasmine/jasmine_favicon.png
+Site/Content/jasmine/jasmine.css
+Site/Content/jasmine/jasmine_favicon.png
+Site/website.publishproj
