@@ -3,8 +3,8 @@
 //const
 eventCorp.constant("localStorageAuthIndex", "eventCorp.SPA.auth");
 //eventCorp.constant("authbaseUrl", "http://localhost:54867/api/");
-eventCorp.constant("eventbaseUrl", "http://localhost:55811/api/events/");
-//eventCorp.constant("eventbaseUrl", "http://ec-event.azurewebsites.net/api/events/");
+//eventCorp.constant("eventbaseUrl", "http://localhost:55811/api/events/");
+eventCorp.constant("eventbaseUrl", "http://ecevent.azurewebsites.net/api/events/");
 eventCorp.constant("authbaseUrl", "http://ec-auth.azurewebsites.net/api/");
 
 //config

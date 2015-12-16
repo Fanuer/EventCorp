@@ -72,7 +72,6 @@
     <Content Include="components\profile-foto\readme.md" />
     <Content Include="components\profile\readme.md" />
     <Content Include="components\register\readme.md" />
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="scripts\angular-1.4.7\angular-animate.min.js.map" />
     <Content Include="scripts\angular-1.4.7\angular-aria.min.js.map" />
     <Content Include="scripts\angular-1.4.7\angular-cookies.min.js.map" />
@@ -360,6 +359,7 @@
     <Content Include="scripts\webcomponentsjs-0.7.12\bower.json" />
     <Content Include="scripts\webcomponentsjs-0.7.12\package.json" />
     <Content Include="scripts\webcomponentsjs-0.7.12\README.md" />
+    <None Include="Properties\PublishProfiles\EventCorp - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -387,9 +387,10 @@
     <Content Include="app\factories\eventFactory.js" />
     <Content Include="app\factories\fileFactory.js" />
     <Content Include="app\factories\userFactory.js" />
-    <Content Include="app\test\authFactoryTest.js" />
+    <Content Include="app\test\unit-tests\authFactoryTest.js" />
     <Content Include="app\test\end-to-end\conf.js" />
-    <Content Include="app\test\enumFactoryTest.js" />
+    <Content Include="app\test\end-to-end\spec.js" />
+    <Content Include="app\test\unit-tests\enumFactoryTest.js" />
     <Content Include="app\views\dashboard.html" />
     <Content Include="app\views\events.html" />
     <Content Include="app\views\footer.html" />
@@ -2929,13 +2930,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="app\test\end-to-end\output\" />
     <Folder Include="scripts\jasmine\" />
   </ItemGroup>
   <PropertyGroup>

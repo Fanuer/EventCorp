@@ -1,7 +1,7 @@
 ﻿function navController($scope, $location, authFactory, fileFactory) {
     var _logOut = function () {
         authFactory.logOut();
-        $location.path('/');
+        $location.path('/login');
     }
     function _init() {
         fileFactory.updateAvatarUrl().then(function() {

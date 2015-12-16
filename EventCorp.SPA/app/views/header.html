@@ -23,8 +23,8 @@
                         Hallo {{authentication.userName}}
                     </a>
                 </li>
-                <li data-ng-show="authentication.isAuth"><a href="#/events">Events</a></li>
-                <li data-ng-show="authentication.isAuth"><a href="" data-ng-click="logOut()">Log out</a></li>
+                <li data-ng-show="authentication.isAuth"><a id="events" href="#/events">Events</a></li>
+                <li data-ng-show="authentication.isAuth"><a href="" id="logout" data-ng-click="logOut()">Log out</a></li>
             </ul>
         </div><!-- /.container-fluid -->
     </nav><!-- Navigation -->

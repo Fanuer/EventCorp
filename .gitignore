@@ -200,3 +200,6 @@ EventCorp.SPA/Content/jasmine/jasmine_favicon.png
 Site/Content/jasmine/jasmine.css
 Site/Content/jasmine/jasmine_favicon.png
 Site/website.publishproj
+EventCorp.EventServer/Properties/PublishProfiles/ecevent - Web Deploy.pubxml
+EventCorp.SPA/app/test/end-to-end/output/xmloutput.xml
+EventCorp.SPA/Properties/PublishProfiles/EventCorp - Web Deploy.pubxml

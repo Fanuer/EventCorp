@@ -16,7 +16,6 @@
     passsword: 'Test1234'
   }
 
-
   beforeEach(module('eventCorp', function ($provide) {
     $provide.constant('authbaseUrl', AUTHBASEFACTORY);
   }));
@@ -31,7 +30,9 @@
   }));
 
   it("should perform login", function () {
-    verifyLocalLogout();
+    if (lSS) {
+      lSS.remove(localStorageAuthIndex);
+    }
     authFactory.login(loginModel).then(function (response) {
       var localData = lSS.get(localStorageAuthIndex);
       expect(localData).toBeDefined();
@@ -45,26 +46,20 @@
     expect(authFactory.authentication).toBeDefined();
     expect(authFactory.authentication.isAuth).toBeFalsy();
   });
-
   it("Server should be there", function () {
     var hasErrors = false;
     $httpBackend.expectGET(AUTHBASEFACTORY + "accounts/ping").respond({});
     authFactory.checkOnlineStatus()
       .then(function() {})
       .catch(function() { hasErrors = true; })
-      .then(function() {
+      .finally(function() {
         expect(hasErrors).toBeFalsy();
       });
     $httpBackend.flush();
   });
+
   afterEach(function () {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
   });
-
-  function verifyLocalLogout() {
-    if (lSS) {
-      lSS.remove(localStorageAuthIndex);
-    }
-  }
 });

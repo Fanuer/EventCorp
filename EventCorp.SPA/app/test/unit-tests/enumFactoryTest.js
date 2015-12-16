@@ -75,12 +75,22 @@ describe("Factory: EnumFactory", function() {
     });
     $httpBackend.flush();
   });
-  it("should return a proper css-class", function () {
+  it("should return a proper css-class by name", function () {
     enumFactory.initPromise.then(function() {
       var css = enumFactory.getCssForType("eventTypes", 0);
       expect(css).toBe("glyphicon-music");
 
       css = enumFactory.getCssForType("genderTypes", 0);
+      expect(css).toBe("glyphicon-king");
+    });
+    $httpBackend.flush();
+  });
+  it("should return a proper css-class by id", function () {
+    enumFactory.initPromise.then(function () {
+      var css = enumFactory.getCssForType("eventTypes", "Cultural");
+      expect(css).toBe("glyphicon-music");
+
+      css = enumFactory.getCssForType("genderTypes", "Male");
       expect(css).toBe("glyphicon-king");
     });
     $httpBackend.flush();
