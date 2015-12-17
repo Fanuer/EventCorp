@@ -21,7 +21,7 @@ namespace EventCorp.AuthorizationServer.Controllers
   /// Handles User-based Actions
   /// </summary>
   [Authorize]
-  [RoutePrefix("api/Accounts")]
+  [RoutePrefix("api/accounts")]
   [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occured")]
   public class AccountController : BaseApiController
     {
@@ -29,7 +29,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// Method to prove the Server's availability
     /// </summary>
     [ResponseType(typeof(void))]
-    [Route("Ping")]
+    [Route("ping")]
     [HttpGet]
     [AllowAnonymous]
     public IHttpActionResult Ping()
@@ -42,7 +42,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// <summary>
     /// Gets all application Users
     /// </summary>
-    [Route("User")]
+    [Route("users")]
     [HttpGet]
     [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<UserModel>))]
     [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
@@ -56,7 +56,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// Get a user by its guid
     /// </summary>
     /// <param name="id">User's guid</param>
-    [Route("User/{id:guid}", Name = "GetUserById")]
+    [Route("users/{id:guid}", Name = "GetUserById")]
     [HttpGet]
     [Authorize(Roles = "Admin")]
     [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
@@ -79,7 +79,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// Get User by Username
     /// </summary>
     /// <param name="username">username to search for</param>
-    [Route("User/{username}")]
+    [Route("users/{username}")]
     [HttpGet]
     [Authorize(Roles = "Admin")]
     [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
@@ -97,7 +97,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// <summary>
     /// Returns the current users Information
     /// </summary>
-    [Route("CurrentUser")]
+    [Route("currentUser")]
     [HttpGet]
     [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
     [SwaggerResponse(HttpStatusCode.OK, Type = typeof(UserModel))]
@@ -120,7 +120,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// <param name="model">user data</param>
     /// <response code="400">Bad request</response>
     /// <response code="500">Internal Server Error</response>
-    [Route("CurrentUser")]
+    [Route("currentUser")]
     [HttpPut]
     [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
     [SwaggerResponse(HttpStatusCode.NoContent)]
@@ -146,7 +146,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     [SwaggerResponse(HttpStatusCode.NoContent)]
     [SwaggerResponse(HttpStatusCode.BadRequest)]
     [AllowAnonymous]
-    [Route("Register")]
+    [Route("users")]
     [HttpPost]
     [ResponseType(typeof(void))]
     public async Task<IHttpActionResult> Register(CreateUserModel createUserModel)
@@ -175,7 +175,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
     [SwaggerResponse(HttpStatusCode.OK)]
     [SwaggerResponse(HttpStatusCode.BadRequest)]
-    [Route("ChangePassword")]
+    [Route("users/password")]
     [HttpPut]
     public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel model)
     {
@@ -202,7 +202,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     [SwaggerResponse(HttpStatusCode.OK)]
     [SwaggerResponse(HttpStatusCode.NotFound)]
     [SwaggerResponse(HttpStatusCode.BadRequest)]
-    [Route("User/{id:guid}")]
+    [Route("users/{id:guid}")]
     [HttpDelete]
     [Authorize(Roles = "Admin")]
     public async Task<IHttpActionResult> DeleteUser(string id)
@@ -230,7 +230,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// <returns></returns>
     [SwaggerResponse(HttpStatusCode.NoContent)]
     [SwaggerResponse(HttpStatusCode.BadRequest)]
-    [Route("Login")]
+    [Route("login")]
     [AllowAnonymous]
     [HttpPost]
     public async Task<IHttpActionResult> Login(LoginModel login)
@@ -278,7 +278,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     [SwaggerResponse(HttpStatusCode.NotFound)]
     [SwaggerResponse(HttpStatusCode.BadRequest)]
     [Authorize(Roles = "Admin")]
-    [Route("User/{id:guid}/Roles")]
+    [Route("users/{id:guid}/roles")]
     [HttpPut]
     public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] rolesToAssign)
     {

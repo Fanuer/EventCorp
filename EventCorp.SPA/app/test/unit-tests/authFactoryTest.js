@@ -26,7 +26,7 @@
     localStorageAuthIndex = _localStorageAuthIndex_;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
     $httpBackend.when('POST', AUTHBASEFACTORY.replace('/api', '') + 'oauth2/token').respond(authMock);
-    $httpBackend.when('Get', AUTHBASEFACTORY + 'api/accounts/ping').respond({});
+    $httpBackend.when('Get', AUTHBASEFACTORY + 'accounts/ping').respond({});
   }));
 
   it("should perform login", function () {

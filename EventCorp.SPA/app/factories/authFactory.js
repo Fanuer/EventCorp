@@ -24,7 +24,7 @@ function authFactory($http, $q, $log, localStorageService, authbaseUrl, localSto
   var _register = function (registrationModel) {
     var result = $q.defer();
     _logOut();
-    $http.post(authbaseUrl + 'accounts/register', registrationModel)
+      $http.post(authbaseUrl + 'accounts/users', registrationModel)
       .then(function (response) {
         result.resolve(response);
       })

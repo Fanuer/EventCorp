@@ -3,18 +3,18 @@
     var result = null;
 
     if (typeof (key) == "string" || typeof (key) == "number") {
-      result = $http.get(authbaseUrl + 'Accounts/User/' + key);
+      result = $http.get(authbaseUrl + 'accounts/users/' + key);
     }
     else {
-      result = $http.get(authbaseUrl + 'Accounts/CurrentUser');
+      result = $http.get(authbaseUrl + 'accounts/currentUser');
     }
     return result;
   }
   function _updateOwnData(userData) {
-    return $http.put(authbaseUrl + 'Accounts/CurrentUser', userData);
+      return $http.put(authbaseUrl + 'accounts/currentUser', userData);
   }
   function _changePassword(changePasswordModel) {
-    return $http.put(authbaseUrl + "accounts/changepassword", changePasswordModel);
+    return $http.put(authbaseUrl + "accounts/users/password", changePasswordModel);
   }
   function _getGenders() {
     return $http.get(authbaseUrl + 'enums/gender');
