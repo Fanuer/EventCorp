@@ -24,6 +24,7 @@
                     </a>
                 </li>
                 <li data-ng-show="authentication.isAuth"><a id="events" href="#/events">Events</a></li>
+                <li data-ng-show="authentication.isAuth && authentication.isAdmin"><a id="admin" href="#/admin">Admin</a></li>
                 <li data-ng-show="authentication.isAuth"><a href="" id="logout" data-ng-click="logOut()">Log out</a></li>
             </ul>
         </div><!-- /.container-fluid -->

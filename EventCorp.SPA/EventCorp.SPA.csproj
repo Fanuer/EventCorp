@@ -66,6 +66,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\controller\adminController.js" />
+    <Content Include="app\views\admin.html" />
     <Content Include="packages.config" />
     <Content Include="components\event-search\readme.md" />
     <Content Include="components\login\readme.md" />

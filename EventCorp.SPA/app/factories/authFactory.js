@@ -7,6 +7,7 @@ function authFactory($http, $q, $log, localStorageService, authbaseUrl, localSto
     this.isAuth = isAuth || false;
     this.userName = userName || "";
     this.userId = userId || "";
+    this.isAdmin = true;
   }
 
   var updateAuthData = function (newAuthdata) {

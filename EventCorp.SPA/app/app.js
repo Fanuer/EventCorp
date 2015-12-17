@@ -30,6 +30,9 @@ eventCorp.config([
         }).when("/user", {
             controller: "userController",
             templateUrl: "app/views/user.html"
+        }).when("/admin", {
+            controller: "adminController",
+            templateUrl: "app/views/admin.html"
         }).when("/login", {
             controller: "loginController",
             templateUrl: "app/views/login.html"
@@ -59,6 +62,7 @@ eventCorp.controller("loginController", loginController);
 eventCorp.controller("registerController", registerController);
 eventCorp.controller("userController", userController);
 eventCorp.controller("navController", navController);
+eventCorp.controller("adminController", adminController);
 
 //directives
 eventCorp.directive('fileModel', ['$parse', function ($parse) {

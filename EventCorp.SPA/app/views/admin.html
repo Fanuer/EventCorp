@@ -1,0 +1,61 @@
+﻿<div data-ng-include="'app/views/message.html'"></div>
+<h1>Admin Bereich</h1>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#statistics" aria-controls="statistics" role="tab" data-toggle="tab" data-showtab>Statistik</a></li>
+    <li role="presentation"><a href="#addEvent" aria-controls="addEvent" role="tab" data-toggle="tab" data-showtab>Event hinzuf&uuml;gen</a></li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="statistics">
+        AWESOME STATISTICS
+    </div>
+    <div role="tabpanel" class="tab-pane" id="addEvent">
+        <form name="createEventForm">
+            <div class="row">
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="inputName">Name</label>
+                    <span ng-show="createEventForm.inputName.$error.required" class="error">The Name is required</span>
+                    <input type="text" id="inputName" name="inputName" class="form-control" placeholder="Eventname" required="" autofocus="" data-ng-model="eventData.name" />
+                </div>
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="inputPlace">Ort</label>
+                    <span ng-show="createEventForm.inputPlace.$error.required" class="error">The Place is required</span>
+                    <input type="text" id="inputPlace" name="inputPlace" class="form-control" placeholder="Ort" required="" data-ng-model="eventData.place" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="inputEventTypes">Art des Events</label>
+                    <select class="form-control" id="inputEventTypes" data-ng-model="eventData.type">
+                        <option data-ng-repeat="event in eventTypes" data-ng-value="event.displayName" data-ng-selected="eventData.type == event.displayName">{{event.displayName}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6  col-xs-12">
+                    <label for="inputMaxUsers">Maximale Teilnehmer</label>
+                    <span ng-show="createEventForm.inputMaxUsers.$error.required" class="error">The max user number is required</span>
+                    <input type="number" id="inputMaxUsers" name="inputMaxUsers" class="form-control" placeholder="Anzahl Teilnehmer" required="" data-ng-model="eventData.maxUsers" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="inputStartDate">Datum</label>
+                    <span ng-show="createEventForm.inputStartDate.$error.required" class="error">The Date is required</span>
+                    <input type="date" id="inputStartDate" name="inputStartDate" class="form-control" placeholder="Start Datum" required="" data-ng-model="eventData.startUtc" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12 col-xs-12">
+                    <label for="inputDescription">Beschreibung</label>
+                    <textarea type="text" id="inputDescription" class="form-control" placeholder="Beschreibung" required data-ng-model="eventData.description" rows="4"></textarea>
+                </div>
+               
+            </div>
+            <div class="row">
+                <div id="createEventSubmit" class="form-group col-xs-12">
+                    <button class="btn btn-default btn-primary pull-right" type="button" id="btn-createEventForm" data-ng-click="createEvent()" data-ng-disabled="createEventForm.$dirty && createEventForm.$invalid">Speichern</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
