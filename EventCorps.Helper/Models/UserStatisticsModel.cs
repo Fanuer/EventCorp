@@ -11,5 +11,6 @@ namespace EventCorps.Helper.Models
         public long RegisteredUsers { get; set; }
         public long RegisteredAdmins { get; set; }
         public int LockedOutUsers { get; set; }
+        public string Url { get; set; }
     }
 }
