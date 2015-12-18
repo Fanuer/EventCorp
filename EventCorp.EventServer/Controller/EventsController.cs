@@ -8,7 +8,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Routing;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using EventCorp.EventServer.Entities;
 using EventCorps.Helper.Enums;
 using EventCorps.Helper.Models;
@@ -262,6 +264,30 @@ namespace EventCorp.EventServer.Controller
       }
       await AppRepository.Events.UpdateAsync(eventResult);
       return Ok();
+    }
+
+    /// <summary>
+    /// Gets event-based statistics
+    /// </summary>
+    /// <returns></returns>
+    [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
+    [SwaggerResponse(HttpStatusCode.OK, Type = typeof(EventStatisticsModel))]
+    [Authorize(Roles = "Admin")]
+    [HttpGet]
+    [Route("statistics", Name = "GetEventStatistics")]
+    public async Task<IHttpActionResult> GetEventStatistics()
+    {
+      var result = new EventStatisticsModel
+      {
+        Url = (new UrlHelper(this.Request)).Link("GetEventStatistics", null),
+        EventAll = await AppContext.Events.LongCountAsync(),
+        EventsOpen = await AppContext.Events.LongCountAsync(x => x.StartTime < DateTime.UtcNow),
+        PlaceMostEvents = (await AppContext.Events.GroupBy(x => x.Place).OrderByDescending(x=>x.Count()).FirstAsync()).Key,
+        MostSuccessful = AppModelFactory.CreateViewModel(await AppContext.Events.OrderBy(x => x.Subscribers.Count).FirstAsync()),
+        AverageFillLevel = await AppContext.Events.AverageAsync(x=> x.Subscribers.Count / x.MaxNumberOfParticipants)
+      };
+      result.EventsClosed = result.EventAll - result.EventsOpen;
+      return Ok(result);
     }
 
     private bool EventContainsSearchTerm(string searchTerm, Event ev)

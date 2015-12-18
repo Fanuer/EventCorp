@@ -22,7 +22,7 @@ namespace EventCorps.Helper.HttpAccess
         }
         #endregion
 
-        #region MyRegion
+        #region Methods
 
         public async Task<UserStatisticsModel> GetUserStatisticsAsync(string bearer)
         {

@@ -1,35 +1,39 @@
 ﻿using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using EventCorps.Helper.Models;
 
 namespace EventCorps.Helper.HttpAccess
 {
-    public class EventManagement
+  public class EventManagement : ManagementBase
+  {
+    #region Field
+
+    private HttpClient _client;
+
+    #endregion
+
+    #region Ctor
+    public EventManagement(HttpClient client)
+      :base(client)
     {
-        #region Field
-
-        private HttpClient _client;
-
-        #endregion
-
-        #region Ctor
-        public EventManagement(HttpClient client)
-        {
-            _client = client;
-        }
-        #endregion
-
-        #region Method
-
-        public async Task<EventStatisticsModel> GetStatistics(string bearer)
-        {
-            
-        }
-
-        public async Task<ListModel<EventModel>> GetRecommendations(string bearer)
-        {
-            
-        }
-        #endregion
+      _client = client;
     }
+    #endregion
+
+    #region Method
+
+    public async Task<EventStatisticsModel> GetStatistics(string bearer)
+    {
+      Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", bearer);
+      return await GetAsync<EventStatisticsModel>("/api/events/statistics");
+    }
+
+    public async Task<ListModel<EventModel>> GetRecommendations(string bearer)
+    {
+      Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", bearer);
+      return await GetAsync<ListModel<EventModel>>("/api/events/recommendations");
+    }
+    #endregion
+  }
 }
