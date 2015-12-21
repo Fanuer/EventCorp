@@ -1,11 +1,22 @@
 ﻿var eventCorp = angular.module("eventCorp", ['ngRoute', "LocalStorageModule"]);
 
+var debug = true;
+
 //const
 eventCorp.constant("localStorageAuthIndex", "eventCorp.SPA.auth");
-//eventCorp.constant("authbaseUrl", "http://localhost:54867/api/");
-//eventCorp.constant("eventbaseUrl", "http://localhost:55811/api/events/");
-eventCorp.constant("eventbaseUrl", "http://ecevent.azurewebsites.net/api/events/");
-eventCorp.constant("authbaseUrl", "http://ec-auth.azurewebsites.net/api/");
+if (debug) {
+  eventCorp.constant("authbaseUrl", "http://localhost:54867/api/");
+  eventCorp.constant("eventbaseUrl", "http://localhost:55811/api/events/");
+  eventCorp.constant("statisticsUrl", "http://localhost:52929/api/statistics");
+  //eventCorp.constant("emailUrl", "http://localhost:55811/api/events/");
+  eventCorp.constant("recommendationUrl", "http://localhost:52143/api/recommendations/");
+} else {
+  eventCorp.constant("eventbaseUrl", "http://ecevent.azurewebsites.net/api/events/");
+  eventCorp.constant("authbaseUrl", "http://ec-auth.azurewebsites.net/api/");
+  //eventCorp.constant("statisticsbaseUrl", "http://localhost:54867/api/");
+  //eventCorp.constant("emailbaseUrl", "http://localhost:55811/api/events/");
+  //eventCorp.constant("recommendationbaseUrl", "http://localhost:55811/api/events/");
+}
 
 //config
 eventCorp.config(function ($httpProvider) {
@@ -54,6 +65,9 @@ eventCorp.factory("userFactory", userFactory);
 eventCorp.factory("fileFactory", fileFactory);
 eventCorp.factory("authInterceptorFactory", authInterceptorFactory);
 eventCorp.factory("enumFactory", enumFactory);
+eventCorp.factory("emailFactory", emailFactory);
+eventCorp.factory("recommendationFactory", recommendationFactory);
+eventCorp.factory("statisticsFactory", statisticsFactory);
 
 //controller
 eventCorp.controller("dashboardController", dashboardController);

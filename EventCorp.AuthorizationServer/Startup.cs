@@ -13,6 +13,7 @@ using EventCorp.AuthorizationServer.Providers;
 using EventCorp.AuthorizationServer.Repository;
 using EventCorps.Helper;
 using EventCorps.Helper.Filter;
+using EventCorps.Helper.HttpAccess;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
@@ -90,13 +91,6 @@ namespace EventCorp.AuthorizationServer
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
 
-        private Dictionary<string, string> _audiences = new Dictionary<string, string>()
-        {
-            {"0dd23c1d3ea848a2943fa8a250e0b2ad",  "Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU="}, //Test
-            {"4d874d92589f4357ba19a2b91e0be5ff",  "PUP3EI8G137YIW1TnoCVrwhu0KnpYYQHNWJcM9UU+mI="}, //Rec
-            {"b9f6fba178aa4081a010f3b7a2c91ded",  "5U06jgp+GLxa32YnPjZSvfxL8QQjPmKtyELnygljJN4="}, //Auth
-        };
-
         /// <summary>
         /// Configures how the web api should handle authorization.
         /// The Api will now only trust issues by our Authorization Server and if Authorization Server = Resource Server
@@ -111,8 +105,8 @@ namespace EventCorp.AuthorizationServer
                 new JwtBearerAuthenticationOptions
                 {
                     AuthenticationMode = AuthenticationMode.Active,
-                    AllowedAudiences = _audiences.Keys.ToArray(),
-                    IssuerSecurityTokenProviders = _audiences.Values.Select(x => new SymmetricKeyIssuerSecurityTokenProvider(issuer, TextEncodings.Base64Url.Decode(x))).ToArray()
+                  AllowedAudiences = Const.Audiences.Keys.ToArray(),
+                  IssuerSecurityTokenProviders = Const.Audiences.Values.Select(x => new SymmetricKeyIssuerSecurityTokenProvider(issuer, TextEncodings.Base64Url.Decode(x))).ToArray()
                 });
         }
 

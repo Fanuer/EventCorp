@@ -1,5 +1,6 @@
-﻿function dashboardController($scope, $location, authFactory, eventFactory, enumFactory) {
+﻿function dashboardController($scope, $location, authFactory, eventFactory, enumFactory, recommendationFactory) {
   $scope.myEventWeek = {};
+  $scope.recommendations = {};
 
   function _init() {
     if (!authFactory.authentication.isAuth) {
@@ -14,6 +15,10 @@
       onlyOpenEvents: true
     }).then(function (response) {
       $scope.myEvents = response.data.Entries;
+    });
+
+    recommendationFactory.getRecommendations().then(function(response) {
+      $scope.recommendations = response.data.Entries;
     });
   }
 

@@ -97,6 +97,7 @@
     <Compile Include="Enums\GenderType.cs" />
     <Compile Include="Enums\SubscriptionType.cs" />
     <Compile Include="Filter\AddParametersFilter.cs" />
+    <Compile Include="HttpAccess\Const.cs" />
     <Compile Include="HttpAccess\EventManagement.cs" />
     <Compile Include="HttpAccess\ManagementBase.cs" />
     <Compile Include="HttpAccess\ServerException.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RefreshTokenModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\StatisticsModel.cs" />
     <Compile Include="Models\UpdateEventModel.cs" />
     <Compile Include="Models\UploadedFileFormModel.cs" />
     <Compile Include="Models\UploadFileViewModel.cs" />

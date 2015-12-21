@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using EventCorp.Clients;
 using EventCorp.EventServer.Interfaces;
 using EventCorp.EventServer.Repositories;
 using Microsoft.AspNet.Identity;
@@ -16,6 +17,7 @@ namespace EventCorp.EventServer.Controller
         #region Field
         private ModelFactory _modelFactory;
         private IEventServerRepository _rep = null;
+        private SimpleManagementSession _session = null;
         private EventContext _ctx = null;
         #endregion
 
@@ -43,7 +45,15 @@ namespace EventCorp.EventServer.Controller
             get { return this._rep ?? Request.GetOwinContext().Get<IEventServerRepository>(); }
         }
 
-        internal EventContext AppContext
+    /// <summary>
+    /// Repository
+    /// </summary>
+    internal SimpleManagementSession AppManagementSession
+    {
+      get { return this._session ?? Request.GetOwinContext().Get<SimpleManagementSession>(); }
+    }
+
+    internal EventContext AppContext
         {
             get
             {
@@ -60,6 +70,11 @@ namespace EventCorp.EventServer.Controller
         }
         #endregion
 
-
+      protected string BearerToken {
+        get
+        {
+          return this.Request.Headers.Authorization.Parameter;
+        }
+      }
     }
 }

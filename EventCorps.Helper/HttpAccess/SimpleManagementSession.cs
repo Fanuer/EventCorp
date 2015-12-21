@@ -19,8 +19,26 @@ namespace EventCorp.Clients
     public SimpleManagementSession(string userbaseUri, string eventbaseUri)
     {
       _handler = new HttpClientHandler();
-      InitialiseClient(_userClient, userbaseUri);
-      InitialiseClient(_eventClient, eventbaseUri);
+      //InitialiseClient(_userClient, userbaseUri);
+      _userClient = new HttpClient(_handler)
+      {
+        BaseAddress = new Uri(userbaseUri)
+      };
+      _userClient.DefaultRequestHeaders.Accept.Clear();
+      _userClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/octet-stream"));
+      _userClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+      this.Users = new UserManagement(_userClient);
+
+      //InitialiseClient(_eventClient, eventbaseUri);
+      _eventClient = new HttpClient(_handler)
+      {
+        BaseAddress = new Uri(eventbaseUri)
+      };
+      _eventClient.DefaultRequestHeaders.Accept.Clear();
+      _eventClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/octet-stream"));
+      _eventClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+      this.Events = new EventManagement(_eventClient);
     }
 
     private void InitialiseClient(HttpClient client, string userbaseUri)

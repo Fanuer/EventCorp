@@ -33,7 +33,7 @@ namespace EventCorps.Helper.HttpAccess
         public async Task<UserModel> GetCurrentUserAsync(string bearer)
         {
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", bearer);
-            return await GetAsync<UserModel>("/api/accounts/currentUsers");
+            return await GetAsync<UserModel>("/api/accounts/currentUser");
         }
 
         #endregion

@@ -40,7 +40,7 @@ namespace EventCorp.EventServer.Controller
     /// <returns></returns>
     [HttpGet]
     [Route("")]
-    [SwaggerResponse(HttpStatusCode.OK, Type = typeof(IEnumerable<ListModel<EventModel>>))]
+    [SwaggerResponse(HttpStatusCode.OK, Type = typeof (IEnumerable<ListModel<EventModel>>))]
     public async Task<ListModel<EventModel>> GetEvents(string searchTerm = "", bool onlyOpenEvents = true, bool onlySubscriped = false, DateTime? tilDate = null, int pageSize = 25, int page = 0)
     {
       var count = await AppRepository.Events.GetCountAsync(this.CurrentUserId, searchTerm, onlyOpenEvents, onlySubscriped, tilDate);
@@ -64,7 +64,7 @@ namespace EventCorp.EventServer.Controller
     /// <returns></returns>
     [HttpGet]
     [Route("{id:int}", Name = "GetEventById")]
-    [SwaggerResponse(HttpStatusCode.OK, Type = typeof(EventModel))]
+    [SwaggerResponse(HttpStatusCode.OK, Type = typeof (EventModel))]
     [SwaggerResponse(HttpStatusCode.NotFound)]
     public async Task<IHttpActionResult> GetEvent(int id)
     {
@@ -96,7 +96,7 @@ namespace EventCorp.EventServer.Controller
         var datamodel = this.AppModelFactory.CreateModel(model);
         await this.AppRepository.Events.AddAsync(datamodel);
         var viewmodel = this.AppModelFactory.CreateViewModel(datamodel, CurrentUserId);
-        return CreatedAtRoute("GetExerciseById", new { id = viewmodel.Id }, viewmodel);
+        return CreatedAtRoute("GetExerciseById", new {id = viewmodel.Id}, viewmodel);
       }
       catch (Exception e)
       {
@@ -183,7 +183,7 @@ namespace EventCorp.EventServer.Controller
     [SwaggerResponse(HttpStatusCode.NotFound)]
     [Route("{id:int}/subscribe")]
     [HttpPost]
-    public async Task<IHttpActionResult> Subscribe([FromUri]int id)
+    public async Task<IHttpActionResult> Subscribe([FromUri] int id)
     {
       var eventResult = await AppRepository.Events.FindAsync(id);
       if (eventResult == null)
@@ -203,8 +203,8 @@ namespace EventCorp.EventServer.Controller
         return BadRequest(ModelState);
       }
       var result = eventResult.MaxNumberOfParticipants > eventResult.Subscribers.Count + 1
-          ? SubscriptionType.Subscribed
-          : SubscriptionType.WaitingList;
+        ? SubscriptionType.Subscribed
+        : SubscriptionType.WaitingList;
       eventResult.Subscribers.Add(new Subscriber
       {
         Event = eventResult,
@@ -229,7 +229,7 @@ namespace EventCorp.EventServer.Controller
     [SwaggerResponse(HttpStatusCode.NotFound)]
     [Route("{id:int}/unsubscribe")]
     [HttpDelete]
-    public async Task<IHttpActionResult> Unsubscribe([FromUri]int id)
+    public async Task<IHttpActionResult> Unsubscribe([FromUri] int id)
     {
       var eventResult = await AppRepository.Events.FindAsync(id);
       if (eventResult == null)
@@ -254,9 +254,9 @@ namespace EventCorp.EventServer.Controller
       //eventResult.Subscribers.Remove(subscriber);
 
       var firstWaitListSub = eventResult
-                              .Subscribers
-                              .OrderBy(x => x.SubscriptionTime)
-                              .FirstOrDefault(x => x.Status == SubscriptionType.WaitingList);
+        .Subscribers
+        .OrderBy(x => x.SubscriptionTime)
+        .FirstOrDefault(x => x.Status == SubscriptionType.WaitingList);
 
       if (firstWaitListSub != null)
       {
@@ -271,7 +271,7 @@ namespace EventCorp.EventServer.Controller
     /// </summary>
     /// <returns></returns>
     [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
-    [SwaggerResponse(HttpStatusCode.OK, Type = typeof(EventStatisticsModel))]
+    [SwaggerResponse(HttpStatusCode.OK, Type = typeof (EventStatisticsModel))]
     [Authorize(Roles = "Admin")]
     [HttpGet]
     [Route("statistics", Name = "GetEventStatistics")]
@@ -282,20 +282,50 @@ namespace EventCorp.EventServer.Controller
         Url = (new UrlHelper(this.Request)).Link("GetEventStatistics", null),
         EventAll = await AppContext.Events.LongCountAsync(),
         EventsOpen = await AppContext.Events.LongCountAsync(x => x.StartTime < DateTime.UtcNow),
-        PlaceMostEvents = (await AppContext.Events.GroupBy(x => x.Place).OrderByDescending(x=>x.Count()).FirstAsync()).Key,
+        PlaceMostEvents = (await AppContext.Events.GroupBy(x => x.Place).OrderByDescending(x => x.Count()).FirstAsync()).Key,
         MostSuccessful = AppModelFactory.CreateViewModel(await AppContext.Events.OrderBy(x => x.Subscribers.Count).FirstAsync()),
-        AverageFillLevel = await AppContext.Events.AverageAsync(x=> x.Subscribers.Count / x.MaxNumberOfParticipants)
+        AverageFillLevel = await AppContext.Events.AverageAsync(x => x.Subscribers.Count/x.MaxNumberOfParticipants)
       };
       result.EventsClosed = result.EventAll - result.EventsOpen;
       return Ok(result);
     }
 
-    private bool EventContainsSearchTerm(string searchTerm, Event ev)
+    /// <summary>
+    /// Returns event recommendations of the logged in user
+    /// </summary>
+    /// <param name="count">Number of recommendations</param>
+    /// <returns></returns>
+    [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
+    [SwaggerResponse(HttpStatusCode.OK, Type = typeof(ListModel<EventModel>))]
+    [HttpGet]
+    [Route("recommendations")]
+    public async Task<IHttpActionResult> GetRecommendations(int count = 25)
     {
-      var comparer = CultureInfo.CurrentCulture.CompareInfo;
+      var userdata = await this.AppManagementSession.Users.GetCurrentUserAsync(this.BearerToken);
+      var userPlace = userdata.City.ToLower();
+      var userSubscribtions = AppContext.Subscribers.Where(x => x.UserId.ToString().Equals(CurrentUserId));
+      var mostBooked = await userSubscribtions.CountAsync();
+      var addMostBookedType = false;
+      var mostBookedEventType = EventType.Other;
+      if (mostBooked > 1)
+      {
+        mostBookedEventType = (await userSubscribtions
+                                        .Select(x => x.Event)
+                                        .GroupBy(x => x.Type)
+                                        .OrderByDescending(x => x.Count())
+                                        .FirstAsync()).Key;
+        addMostBookedType = true;
+      }
+      var dateinOneMonth = DateTime.UtcNow.AddMonths(1);
 
-      return comparer.IndexOf(ev.Name, searchTerm, CompareOptions.IgnoreCase) >= 0
-          || comparer.IndexOf(ev.Place, searchTerm, CompareOptions.IgnoreCase) >= 0;
-    }
+      var recommendation = await AppContext.Events
+                                            .Where(x => x.Place.ToLower().Equals(userPlace))
+                                            .Where(x => DateTime.UtcNow < x.StartTime && x.StartTime < dateinOneMonth)
+                                            .Where(x => x.Type == userdata.FavoriteEventType && (!addMostBookedType || x.Type == mostBookedEventType))
+                                            .Take(count)
+                                            .ToListAsync();
+
+      return Ok(new ListModel<EventModel>(recommendation.Select(x => AppModelFactory.CreateViewModel(x))));
+    } 
   }
 }

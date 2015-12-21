@@ -23,13 +23,13 @@ namespace EventCorps.Helper.HttpAccess
 
     #region Method
 
-    public async Task<EventStatisticsModel> GetStatistics(string bearer)
+    public async Task<EventStatisticsModel> GetStatisticsAsync(string bearer)
     {
       Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", bearer);
       return await GetAsync<EventStatisticsModel>("/api/events/statistics");
     }
 
-    public async Task<ListModel<EventModel>> GetRecommendations(string bearer)
+    public async Task<ListModel<EventModel>> GetRecommendationsAsync(string bearer)
     {
       Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", bearer);
       return await GetAsync<ListModel<EventModel>>("/api/events/recommendations");

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Http;
 using EventCorp.Clients;
 using EventCorps.Helper;
@@ -15,17 +12,18 @@ using Microsoft.Owin.Security.DataHandler.Encoder;
 using Microsoft.Owin.Security.Jwt;
 using Owin;
 
-namespace EventCorp.Recommendation
+namespace EventCorp.StatisticsServer
 {
   public class Startup
   {
+
     public void Configuration(IAppBuilder app)
     {
       var config = new HttpConfiguration();
       config.MapHttpAttributeRoutes();
       ConfigureOAuthTokenConsumption(app);
       app.UseCors(CorsOptions.AllowAll);
-      Utilities.InitialiseSwagger(config, "EventCorp Recommendation API", Assembly.GetExecutingAssembly().GetName().Name);
+      Utilities.InitialiseSwagger(config, "EventCorp Statistics API", Assembly.GetExecutingAssembly().GetName().Name);
       app.UseWebApi(config);
     }
 
@@ -38,7 +36,7 @@ namespace EventCorp.Recommendation
     {
       app.CreatePerOwinContext(SimpleManagementSession.Create);
 
-      var issuer = ConfigurationManager.AppSettings["as:Issuer"];
+      var issuer = Const.Issuer;
 
       // Api controllers with an [Authorize] attribute will be validated with JWT
       app.UseJwtBearerAuthentication(

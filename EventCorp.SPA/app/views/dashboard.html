@@ -1,49 +1,75 @@
 ﻿<div id="dashboardContainer">
-    <div class="row" id="recommendationsContainer">
-        <div class="col-sm-12">
-            <h1>Empfehlungen</h1>
-        </div>
-    </div>
-    
-    <div class="row" id="myWeek">
-        <div class="col-xs-12">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h1>Meine Sportwoche</h1>
-                </div>
+    <div id="recommendationsContainer">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Empfehlungen</h1>
+                <hr>
             </div>
-            <div class="row">
-                <div class="col-sm-12" data-ng-show="myEvents.length != 0">
-                    <table class="table table-striped">
-                        <thead>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" data-ng-show="recommendations.length != 0">
+                <table class="table table-striped">
+                    <thead>
                         <tr>
                             <th>Name</th>
                             <th>Typ</th>
                             <th>Start</th>
                             <th>Ort</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                        <tr data-ng-repeat="event in myEvents">
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="event in recommendations">
                             <td>{{event.Name}}</td>
                             <td><i class="glyphicon {{getCssForType(event.Type)}}"></i></td>
                             <td>{{event.StartUTC  | date:'dd.MM.yyyy hh:mm'}}</td>
                             <td>{{event.Place}}</td>
                         </tr>
-                        </tbody>
-                    </table>
-                    <div class="event-item" id="event_{{$index}}" data-ng-repeat="event in myEvents">
-
-                    </div>
-                    <a href="#/events">Alle Events</a>
-                </div>
-                <div class="col-sm-12 no-events" data-ng-show="myEvents.length == 0">
-                    <hr>
-                    <div class="alert alert-info">
-                        Sie haben sich diese Woche f&uuml;r kein Event angemeldet. <a href="#/events">Suchen</a> sie nach passenden Events.
-                    </div>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-12 no-events" data-ng-show="recommendations.length == 0">
+                <div class="alert alert-info">
+                    Es wurden keine Empfehlungen f&uuml;r Sie gefunden. <a href="#/events">Suchen</a> Sie nach passenden Events.
                 </div>
             </div>
         </div>
+</div>
+
+<div id="myWeek">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Meine Sportwoche</h1>
+            <hr>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12" data-ng-show="myEvents.length != 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Typ</th>
+                        <th>Start</th>
+                        <th>Ort</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="event in myEvents">
+                        <td>{{event.Name}}</td>
+                        <td><i class="glyphicon {{getCssForType(event.Type)}}"></i></td>
+                        <td>{{event.StartUTC  | date:'dd.MM.yyyy hh:mm'}}</td>
+                        <td>{{event.Place}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="#/events">Alle Events</a>
+        </div>
+        <div class="col-sm-12 no-events" data-ng-show="myEvents.length == 0">
+            <hr>
+            <div class="alert alert-info">
+                Sie haben sich diese Woche f&uuml;r kein Event angemeldet. <a href="#/events">Suchen</a> sie nach passenden Events.
+            </div>
+        </div>
+    </div>
+</div>
 </div><!-- Dashboard -->
