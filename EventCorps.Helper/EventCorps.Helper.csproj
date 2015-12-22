@@ -96,6 +96,7 @@
     <Compile Include="Enums\EventType.cs" />
     <Compile Include="Enums\GenderType.cs" />
     <Compile Include="Enums\SubscriptionType.cs" />
+    <Compile Include="Enums\EmailTypes.cs" />
     <Compile Include="Filter\AddParametersFilter.cs" />
     <Compile Include="HttpAccess\Const.cs" />
     <Compile Include="HttpAccess\EventManagement.cs" />
