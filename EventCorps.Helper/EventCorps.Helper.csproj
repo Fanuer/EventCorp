@@ -95,6 +95,7 @@
     <Compile Include="DBAccess\Interfaces\SingleId\IRepositoryFindSingle.cs" />
     <Compile Include="Enums\EventType.cs" />
     <Compile Include="Enums\GenderType.cs" />
+    <Compile Include="Enums\SendToTypes.cs" />
     <Compile Include="Enums\SubscriptionType.cs" />
     <Compile Include="Enums\EmailTypes.cs" />
     <Compile Include="Filter\AddParametersFilter.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="HttpAccess\SimpleManagementSession.cs" />
     <Compile Include="HttpAccess\UserManagement.cs" />
     <Compile Include="Models\AudienceModel.cs" />
+    <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\BaseUserModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />

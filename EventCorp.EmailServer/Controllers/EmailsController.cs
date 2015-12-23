@@ -43,7 +43,7 @@ namespace EventCorp.EmailServer.Controllers
             try
             {
                 var sendTo = await GetMailReceivers(model.SendTo);
-                EmailContent messagedata = GetEmailContent(model);
+                var messagedata = GetEmailContent(model);
 
             }
             catch (Exception e)
@@ -59,8 +59,11 @@ namespace EventCorp.EmailServer.Controllers
             switch (model.EmailType)
             {
                 case EmailTypes.RegisteredSuccessfully:
+                    emailContent.Header = "Registrierung bei EventCorp";
+                    emailContent.Body = "Vielen Dank, dass sich sich für uns entschieden haben"; 
                     break;
                 case EmailTypes.Subscribed:
+
                     break;
                 case EmailTypes.Unsubscribed:
                     break;
