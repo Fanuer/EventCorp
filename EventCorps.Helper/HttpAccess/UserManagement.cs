@@ -36,6 +36,12 @@ namespace EventCorps.Helper.HttpAccess
             return await GetAsync<UserModel>("/api/accounts/currentUser");
         }
 
+        public async Task<IEnumerable<string>> GetAdminEmailAddressesAsync(string bearer)
+        {
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", bearer);
+            return await GetAsync<IEnumerable<string>>("/api/accounts/admins/emails");
+        }
+
         #endregion
     }
 }
