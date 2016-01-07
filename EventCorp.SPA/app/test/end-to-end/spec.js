@@ -73,7 +73,7 @@
       browser.waitForAngular();
 
       var eventEntries = element.all(by.css('.event-item'));
-      expect(eventEntries.count()).toEqual(3);
+      expect(eventEntries.count()).toEqual(2);
     });
 
     afterEach(function () {
