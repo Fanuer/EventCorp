@@ -66,7 +66,7 @@ namespace EventCorp.AuthorizationServer
 
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
-#warning For Dev enviroment only (on production should be AllowInsecureHttp = false)
+#warning For Dev environment only (on production should be AllowInsecureHttp = false)
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/oauth2/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),

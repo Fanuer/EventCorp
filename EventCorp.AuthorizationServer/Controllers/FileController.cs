@@ -124,7 +124,7 @@ namespace EventCorp.AuthorizationServer.Controllers
 
     
     /// <summary>
-    /// Changes if the file is a temporary or a persistant file
+    /// Changes if the file is a temporary or a persistent file
     /// </summary>
     /// <param name="fileId">id of a file</param>
     /// <param name="state">true: file is persistent, false: temaporary file</param>
