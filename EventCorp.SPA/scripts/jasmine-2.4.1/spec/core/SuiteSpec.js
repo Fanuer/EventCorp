@@ -97,7 +97,7 @@ describe("Suite", function() {
     expect(suite.getResult().status).toBe('pending');
   });
 
-  it("priviledges a disabled status over pending status", function() {
+  it("privileges a disabled status over pending status", function() {
     var suite = new jasmineUnderTest.Suite({});
     suite.disable();
     suite.pend();

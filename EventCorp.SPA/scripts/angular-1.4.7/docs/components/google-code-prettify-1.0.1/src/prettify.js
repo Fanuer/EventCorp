@@ -914,7 +914,7 @@ var REGEXP_PRECEDER_PATTERN = '(?:^^\\.?|[+-]|[!=]=?=?|\\#|%=?|&&?=?|\\(|\\*=?|[
       // preprocessor directives.
 
       // This definition of punctuation does not include # in the list of
-      // follow-on exclusions, so # will not be broken before if preceeded
+      // follow-on exclusions, so # will not be broken before if preceded
       // by a punctuation character.  We could try to exclude # after
       // [|&;<>] but that doesn't seem to cause many major problems.
       // If that does turn out to be a problem, we should change the below

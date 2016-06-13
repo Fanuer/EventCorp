@@ -30,7 +30,7 @@ searchDataRequest.onload = function() {
 searchDataRequest.open('GET', 'search-data.json');
 searchDataRequest.send();
 
-// The worker receives a message everytime the web app wants to query the index
+// The worker receives a message every time the web app wants to query the index
 onmessage = function(oEvent) {
   var q = oEvent.data.q;
   var hits = index.search(q);

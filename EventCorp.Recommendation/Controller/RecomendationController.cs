@@ -12,7 +12,7 @@ namespace EventCorp.Recommendation.Controller
 {
   [Authorize]
   [RoutePrefix("api/recommendations")]
-  [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occured")]
+  [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occurred")]
   [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
   public class RecomendationController : ApiController
   {

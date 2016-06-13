@@ -13,7 +13,7 @@ using Swashbuckle.Swagger.Annotations;
 namespace EventCorp.AuthorizationServer.Controllers
 {
   [RoutePrefix("api/enums")]
-  [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occured")]
+  [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occurred")]
   public class EnumController : BaseApiController
     {
     /// <summary>

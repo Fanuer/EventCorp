@@ -14,7 +14,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// <summary>
     /// Grants access to refreshtoken data
     /// </summary>
-    [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occured")]
+    [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occurred")]
     [RoutePrefix("api/RefreshTokens")]
     public class RefreshTokensController : BaseApiController
     {

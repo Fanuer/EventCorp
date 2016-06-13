@@ -17,7 +17,7 @@ namespace EventCorp.AuthorizationServer.Controllers
     /// Controler to manage User roles
     /// </summary>
     [SwaggerResponse(HttpStatusCode.Unauthorized, "You are not allowed to receive this resource")]
-    [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occured")]
+    [SwaggerResponse(HttpStatusCode.InternalServerError, "An internal Server error has occurred")]
     [Authorize(Roles = "Admin")]
     [RoutePrefix("api/Roles")]
     public class RolesController : BaseApiController

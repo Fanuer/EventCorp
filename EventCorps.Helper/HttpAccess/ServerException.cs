@@ -65,7 +65,7 @@ namespace EventCorps.Helper.HttpAccess
                 }
                 else
                 {
-                    this.Data.Add("Error", "An unknown error has occured");
+                    this.Data.Add("Error", "An unknown error has occurred");
                 }
             }
             catch (JsonReaderException e)
